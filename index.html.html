@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jose Luis Ruiz Rivera — Pitch for Konko AI</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0a0f1a;color:#f0f0f0;min-height:100vh;overflow:hidden}
+
+/* ===== PARTICLE CANVAS ===== */
+#particles{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.3}
+
+/* ===== SLIDE SYSTEM ===== */
+.slide{display:none;width:100vw;height:100vh;padding:50px 70px 80px;overflow-y:auto;position:relative;z-index:1}
+.slide.active{display:flex;flex-direction:column;animation:fadeSlide .5s ease}
+@keyframes fadeSlide{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* ===== NAVIGATION ===== */
+.nav-bar{position:fixed;bottom:0;left:0;right:0;height:54px;background:rgba(10,15,26,.96);border-top:1px solid #1b2a40;display:flex;align-items:center;justify-content:space-between;padding:0 28px;z-index:100;backdrop-filter:blur(12px)}
+.nav-bar .progress{display:flex;gap:5px;align-items:center}
+.nav-bar .dot{width:9px;height:9px;border-radius:50%;background:#1b2a40;cursor:pointer;transition:all .3s}
+.nav-bar .dot.active{background:#00d4aa;transform:scale(1.4);box-shadow:0 0 8px rgba(0,212,170,.4)}
+.nav-bar .dot.visited{background:#0a6b55}
+.nav-btn{background:none;border:1px solid #1b2a40;color:#00d4aa;padding:7px 18px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:600;transition:all .25s;display:flex;align-items:center;gap:5px}
+.nav-btn:hover{background:rgba(0,212,170,.08);border-color:#00d4aa;transform:translateY(-1px)}
+.nav-btn:disabled{opacity:.25;cursor:default;transform:none}
+.slide-counter{color:#4a6a80;font-size:11px;letter-spacing:1.5px;font-weight:600}
+
+/* ===== TYPOGRAPHY ===== */
+h1{font-size:36px;color:#f0f0f0;margin-bottom:6px;line-height:1.15;letter-spacing:-.5px}
+h1 span{background:linear-gradient(135deg,#00d4aa,#00a8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+h2{font-size:22px;color:#f0f0f0;margin-bottom:4px}
+h2 span{color:#00d4aa}
+h3{font-size:16px;color:#f0f0f0;margin-bottom:10px}
+.subtitle{color:#00d4aa;font-size:10px;letter-spacing:3.5px;text-transform:uppercase;margin-bottom:8px;font-weight:700}
+.big-subtitle{color:#6a8fa8;font-size:13.5px;margin-bottom:24px;max-width:720px;line-height:1.7}
+
+/* ===== CARDS & LAYOUT ===== */
+.card{background:linear-gradient(145deg,rgba(15,22,38,.9),rgba(20,30,50,.7));border:1px solid #1b2a40;border-radius:14px;padding:22px;margin-bottom:14px;transition:border-color .3s,transform .3s}
+.card:hover{border-color:rgba(0,212,170,.25);transform:translateY(-1px)}
+.card p,.card li{color:#8faabb;font-size:12.5px;line-height:1.7}
+.card ul{list-style:none;padding:0}.card ul li{padding:3px 0;padding-left:18px;position:relative}
+.card ul li::before{content:"▸";position:absolute;left:0;color:#00d4aa}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.flex-center{display:flex;align-items:center;justify-content:center;flex:1}
+
+/* ===== METRICS ===== */
+.metric{text-align:center;padding:16px 10px;background:rgba(15,22,38,.8);border-radius:12px;border:1px solid #1b2a40;transition:border-color .3s}
+.metric:hover{border-color:rgba(0,212,170,.3)}
+.metric .val{font-size:22px;font-weight:800;background:linear-gradient(135deg,#00d4aa,#00a8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.metric .label{font-size:9.5px;color:#6a8fa8;margin-top:4px;text-transform:uppercase;letter-spacing:1px}
+
+/* ===== HIGHLIGHT BOXES ===== */
+.highlight{background:linear-gradient(145deg,rgba(0,212,170,.06),rgba(0,168,255,.02));border:1px solid rgba(0,212,170,.18);border-radius:12px;padding:16px;margin:8px 0}
+.highlight h4{color:#00d4aa;margin-bottom:5px;font-size:12.5px}
+.highlight p{color:#b0c4d0;font-size:11.5px;line-height:1.7}
+.success{background:linear-gradient(145deg,rgba(0,212,170,.07),rgba(0,212,170,.02));border:1px solid rgba(0,212,170,.2);border-radius:12px;padding:16px;margin:8px 0}
+.success h4{color:#00d4aa;margin-bottom:5px;font-size:12.5px}
+.success p,.success li{color:#b0c4d0;font-size:11.5px;line-height:1.7}
+.warn{background:linear-gradient(145deg,rgba(255,100,100,.06),rgba(255,100,100,.02));border:1px solid rgba(255,100,100,.18);border-radius:12px;padding:16px;margin:8px 0}
+.warn h4{color:#ff6464;margin-bottom:5px;font-size:12.5px}
+.warn p{color:#b0c4d0;font-size:11.5px;line-height:1.7}
+.amber{background:linear-gradient(145deg,rgba(255,180,50,.06),rgba(255,180,50,.02));border:1px solid rgba(255,180,50,.18);border-radius:12px;padding:16px;margin:8px 0}
+.amber h4{color:#ffb432;margin-bottom:5px;font-size:12.5px}
+.amber p{color:#b0c4d0;font-size:11.5px;line-height:1.7}
+.blue-box{background:linear-gradient(145deg,rgba(0,168,255,.06),rgba(0,168,255,.02));border:1px solid rgba(0,168,255,.18);border-radius:12px;padding:16px;margin:8px 0}
+.blue-box h4{color:#00a8ff;margin-bottom:5px;font-size:12.5px}
+.blue-box p{color:#b0c4d0;font-size:11.5px;line-height:1.7}
+
+/* ===== BADGES ===== */
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:9.5px;font-weight:700;letter-spacing:.5px}
+.b-green{background:rgba(0,212,170,.12);color:#00d4aa;border:1px solid rgba(0,212,170,.2)}
+.b-blue{background:rgba(0,168,255,.12);color:#00a8ff;border:1px solid rgba(0,168,255,.2)}
+.b-red{background:rgba(255,100,100,.12);color:#ff6464;border:1px solid rgba(255,100,100,.2)}
+.b-amber{background:rgba(255,180,50,.12);color:#ffb432;border:1px solid rgba(255,180,50,.2)}
+.b-purple{background:rgba(160,100,255,.12);color:#a064ff;border:1px solid rgba(160,100,255,.2)}
+
+/* ===== TABLES ===== */
+table{width:100%;border-collapse:collapse;margin:10px 0}
+th{text-align:left;padding:9px 11px;background:rgba(15,22,38,.8);color:#00d4aa;font-size:10px;text-transform:uppercase;letter-spacing:1.2px;border-bottom:2px solid #1b2a40}
+td{padding:9px 11px;border-bottom:1px solid rgba(27,42,64,.6);font-size:11.5px;color:#b0c4d0}
+tr:hover td{background:rgba(0,212,170,.02)}
+
+/* ===== FLOW VISUAL ===== */
+.flow-container{background:rgba(8,12,22,.8);border:1px solid #1b2a40;border-radius:16px;padding:22px;margin:10px 0}
+.flow-row{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap}
+.flow-box{background:linear-gradient(145deg,rgba(20,30,50,.9),rgba(27,42,64,.6));border:1px solid #1b2a40;border-radius:12px;padding:12px 16px;text-align:center;min-width:120px;max-width:150px;transition:border-color .3s,transform .3s}
+.flow-box:hover{border-color:rgba(0,212,170,.3);transform:scale(1.03)}
+.flow-box .icon{font-size:22px;margin-bottom:3px}
+.flow-box .label{font-size:10.5px;color:#f0f0f0;font-weight:600}
+.flow-box .desc{font-size:8.5px;color:#6a8fa8;margin-top:2px}
+.flow-arrow{color:#00d4aa;font-size:18px;padding:0 5px;opacity:.6}
+.flow-arrow-down{text-align:center;color:#00d4aa;font-size:22px;margin:5px 0;opacity:.6}
+
+.konko-core{background:linear-gradient(145deg,rgba(0,212,170,.08),rgba(0,168,255,.04));border:2px solid rgba(0,212,170,.4);border-radius:16px;padding:18px;text-align:center;margin:8px auto;max-width:620px;box-shadow:0 0 30px rgba(0,212,170,.06)}
+.konko-core h3{background:linear-gradient(135deg,#00d4aa,#00a8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:18px;margin-bottom:4px}
+.konko-core p{color:#b0c4d0;font-size:10.5px}
+.konko-core .badge-row{display:flex;justify-content:center;gap:5px;margin-top:7px;flex-wrap:wrap}
+.konko-core .badge{background:rgba(0,212,170,.08);border:1px solid rgba(0,212,170,.25);padding:3px 9px;border-radius:20px;font-size:8.5px;color:#00d4aa;font-weight:700}
+
+.output-box{background:linear-gradient(145deg,rgba(0,212,170,.06),rgba(0,212,170,.02));border:1px solid rgba(0,212,170,.2);border-radius:10px;padding:12px;text-align:center;flex:1;transition:transform .3s}
+.output-box:hover{transform:translateY(-2px)}
+.output-box .icon{font-size:18px;margin-bottom:2px}
+.output-box .label{font-size:10.5px;color:#00d4aa;font-weight:700}
+
+/* ===== VS CONTAINER ===== */
+.vs-container{display:grid;grid-template-columns:1fr 46px 1fr;gap:0;align-items:stretch;margin:10px 0}
+.vs-left{background:linear-gradient(145deg,rgba(255,100,100,.05),rgba(255,100,100,.01));border:1px solid rgba(255,100,100,.15);border-radius:14px 0 0 14px;padding:18px}
+.vs-right{background:linear-gradient(145deg,rgba(0,212,170,.05),rgba(0,212,170,.01));border:1px solid rgba(0,212,170,.15);border-radius:0 14px 14px 0;padding:18px}
+.vs-center{display:flex;align-items:center;justify-content:center;background:rgba(15,22,38,.8);font-size:14px;font-weight:800;color:#4a6a80}
+.vs-left h4{color:#ff6464;font-size:12.5px;margin-bottom:7px}
+.vs-right h4{color:#00d4aa;font-size:12.5px;margin-bottom:7px}
+.vs-left li,.vs-right li{color:#b0c4d0;font-size:10.5px;padding:3px 0;list-style:none;padding-left:16px;position:relative}
+.vs-left li::before{content:"\2717";position:absolute;left:0;color:#ff6464}
+.vs-right li::before{content:"\2713";position:absolute;left:0;color:#00d4aa}
+
+/* ===== AUTOMATION FLOW ===== */
+.auto-flow{display:flex;align-items:center;justify-content:center;gap:3px;flex-wrap:wrap;padding:10px 0}
+.auto-step{background:linear-gradient(145deg,rgba(20,30,50,.9),rgba(27,42,64,.6));border:1px solid #1b2a40;border-radius:10px;padding:10px 14px;text-align:center;min-width:100px;transition:all .3s}
+.auto-step:hover{border-color:#00d4aa;transform:translateY(-2px)}
+.auto-step .step-icon{font-size:20px;margin-bottom:2px}
+.auto-step .step-label{font-size:9px;color:#f0f0f0;font-weight:600}
+.auto-step .step-tool{font-size:8px;color:#6a8fa8;margin-top:1px}
+.auto-arrow{color:#00d4aa;font-size:16px;opacity:.5}
+
+/* ===== PHASE CARDS ===== */
+.phase{border-radius:14px;padding:20px;margin-bottom:12px}
+.phase h3{margin-bottom:8px}
+.phase ul{list-style:none;padding:0}
+.phase ul li{padding:4px 0;padding-left:18px;position:relative;font-size:11.5px;color:#b0c4d0;line-height:1.6}
+.phase ul li::before{content:"\2192";position:absolute;left:0;font-weight:700}
+.phase-1{background:linear-gradient(145deg,rgba(0,212,170,.06),rgba(0,212,170,.01));border:1px solid rgba(0,212,170,.18)}
+.phase-1 h3{color:#00d4aa}.phase-1 ul li::before{color:#00d4aa}
+.phase-2{background:linear-gradient(145deg,rgba(0,168,255,.06),rgba(0,168,255,.01));border:1px solid rgba(0,168,255,.18)}
+.phase-2 h3{color:#00a8ff}.phase-2 ul li::before{color:#00a8ff}
+.phase-3{background:linear-gradient(145deg,rgba(160,100,255,.06),rgba(160,100,255,.01));border:1px solid rgba(160,100,255,.18)}
+.phase-3 h3{color:#a064ff}.phase-3 ul li::before{color:#a064ff}
+
+/* ===== TITLE SLIDE ===== */
+.title-slide{justify-content:center;align-items:center;text-align:center}
+.title-slide h1{font-size:44px;margin-bottom:10px}
+.title-slide .big-name{font-size:16px;color:#00d4aa;letter-spacing:5px;text-transform:uppercase;margin-bottom:28px;font-weight:700}
+.title-slide .tagline{font-size:14.5px;color:#8faabb;max-width:640px;line-height:1.75}
+
+/* ===== AGENT DEMO ===== */
+.chat-demo{background:rgba(8,12,22,.8);border:1px solid #1b2a40;border-radius:16px;padding:16px;max-width:460px;margin:0 auto}
+.chat-header{display:flex;align-items:center;gap:8px;padding-bottom:10px;border-bottom:1px solid #1b2a40;margin-bottom:10px}
+.chat-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#00d4aa,#00a8ff);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#0a0f1a}
+.chat-name{font-size:12px;font-weight:700;color:#f0f0f0}
+.chat-status{font-size:9px;color:#00d4aa}
+.chat-msg{margin:6px 0;max-width:85%;padding:8px 12px;border-radius:12px;font-size:11px;line-height:1.5}
+.msg-bot{background:linear-gradient(145deg,rgba(0,212,170,.08),rgba(0,168,255,.04));border:1px solid rgba(0,212,170,.15);color:#b0c4d0;border-bottom-left-radius:4px}
+.msg-user{background:rgba(27,42,64,.6);border:1px solid #1b2a40;color:#8faabb;margin-left:auto;border-bottom-right-radius:4px}
+.typing{display:flex;gap:4px;padding:8px 12px;max-width:60px}
+.typing span{width:6px;height:6px;border-radius:50%;background:#00d4aa;opacity:.4;animation:typingDot 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.2s}
+.typing span:nth-child(3){animation-delay:.4s}
+@keyframes typingDot{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:1;transform:scale(1.2)}}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:#0a0f1a}::-webkit-scrollbar-thumb{background:#1b2a40;border-radius:2px}
+
+/* ===== KEYBOARD HINT ===== */
+.key-hint{position:fixed;top:12px;right:18px;color:#2a3f55;font-size:9px;z-index:50;letter-spacing:1.5px;font-weight:600}
+
+/* ===== GLOW EFFECT ===== */
+.glow{position:absolute;width:300px;height:300px;border-radius:50%;filter:blur(100px);opacity:.08;pointer-events:none;z-index:0}
+.glow-green{background:#00d4aa}
+.glow-blue{background:#00a8ff}
+
+@media(max-width:1000px){
+.slide{padding:25px 25px 75px}
+h1{font-size:26px}
+.title-slide h1{font-size:32px}
+.grid-2,.grid-3,.grid-4{grid-template-columns:1fr 1fr}
+.flow-row,.auto-flow{flex-direction:column;gap:6px}
+.vs-container{grid-template-columns:1fr}
+.vs-left{border-radius:14px 14px 0 0}.vs-right{border-radius:0 0 14px 14px}.vs-center{padding:8px}
+}
+@media(max-width:600px){
+.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div class="key-hint">← → ARROW KEYS TO NAVIGATE</div>
+
+<!-- ==================== SLIDE 0: TITLE ==================== -->
+<div class="slide active title-slide" id="s0">
+<div class="glow glow-green" style="top:-100px;left:20%"></div>
+<div class="glow glow-blue" style="bottom:-100px;right:20%"></div>
+<p class="subtitle" style="margin-bottom:18px">Interview Presentation · April 2026</p>
+<h1>I Know <span>Konko AI</span>.<br>And I Have a <span>Plan</span>.</h1>
+<div class="big-name" style="margin-top:18px">Jose Luis Ruiz Rivera</div>
+<p class="tagline">Senior Growth Marketing Specialist with 5+ years of experience in B2B SaaS, automation, AI-powered workflows, and performance marketing. This is what I researched about Konko, its market, and what I'd execute from Day 1.</p>
+<div style="margin-top:32px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+<span class="badge b-green" style="font-size:11px;padding:5px 14px">AI & Automation</span>
+<span class="badge b-blue" style="font-size:11px;padding:5px 14px">Performance Marketing</span>
+<span class="badge b-purple" style="font-size:11px;padding:5px 14px">CRM & Workflows</span>
+<span class="badge b-amber" style="font-size:11px;padding:5px 14px">Landing Pages & Journeys</span>
+</div>
+</div>
+
+<!-- ==================== SLIDE 1: WHAT KONKO DOES + MARKET ==================== -->
+<div class="slide" id="s1">
+<div class="glow glow-green" style="top:10%;right:-80px"></div>
+<p class="subtitle">Section 1 · What I Understand</p>
+<h1>I Know What <span>Konko AI</span> Does — And Its Market</h1>
+<p class="big-subtitle">Konko is the agent-native operating system for clinics in Latin America. Kora automates patient acquisition, scheduling, intake, follow-ups, and documentation — 24/7 via WhatsApp.</p>
+
+<div class="flow-container">
+<p style="text-align:center;color:#4a6a80;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:10px">Patient Journey → Kora Agent → Clinic Growth</p>
+<div class="flow-row">
+<div class="flow-box"><div class="icon">📱</div><div class="label">WhatsApp Inquiry</div><div class="desc">Patient reaches out</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="icon">🤖</div><div class="label">Kora Engages</div><div class="desc">5-sec response, 24/7</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="icon">💬</div><div class="label">Qualification</div><div class="desc">Conversational intake</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="icon">📋</div><div class="label">Scheduling</div><div class="desc">Autonomous booking</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="icon">🔄</div><div class="label">Follow-Up</div><div class="desc">Automated reminders</div></div>
+</div>
+<div class="flow-arrow-down">▼</div>
+<div class="flow-row" style="gap:10px">
+<div class="output-box"><div class="icon">📈</div><div class="label">+40% Appointments</div></div>
+<div class="output-box"><div class="icon">⏱️</div><div class="label">5-Sec Response</div></div>
+<div class="output-box"><div class="icon">🕐</div><div class="label">4-6 Hrs Saved/Day</div></div>
+<div class="output-box"><div class="icon">💰</div><div class="label">14x ROI</div></div>
+</div>
+</div>
+
+<div class="grid-2" style="margin-top:8px">
+<div class="grid-2" style="gap:8px">
+<div class="metric"><div class="val">Dozens</div><div class="label">Clinics Powered</div></div>
+<div class="metric"><div class="val">1000s</div><div class="label">Daily Conversations</div></div>
+<div class="metric"><div class="val">3</div><div class="label">Countries (MX, CR, CO)</div></div>
+<div class="metric"><div class="val">HBS</div><div class="label">Harvard Case Study</div></div>
+</div>
+<div class="highlight" style="margin:0">
+<h4>My Read on This Market</h4>
+<p>LATAM's private healthcare runs on WhatsApp + spreadsheets. Clinics that adopt agent-native workflows will dominate patient acquisition in 2026-2028. Konko isn't a chatbot — it's <strong style="color:#f0f0f0">the operational backbone of the modern clinic</strong>. The challenge now is communicating that to thousands of clinics across Mexico, Colombia, and beyond — and that's exactly what I do.</p>
+</div>
+</div>
+</div>
+
+<!-- ==================== SLIDE 3: COMPETITIVE LANDSCAPE ==================== -->
+<div class="slide" id="s2">
+<div class="glow glow-blue" style="bottom:10%;left:-80px"></div>
+<p class="subtitle">Section 2 · Competitive Landscape</p>
+<h1>The <span>Competitors</span> I Identified</h1>
+<p class="big-subtitle">I researched the entire ecosystem. These are the players competing directly or indirectly with Konko in healthcare AI for LATAM.</p>
+
+<div class="grid-2">
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px">
+<div><div style="font-size:15px;font-weight:700;color:#f0f0f0">Generic Chatbot Platforms</div>
+<div style="font-size:9.5px;color:#6a8fa8">ManyChat, Landbot, Respond.io</div></div>
+<span class="badge b-amber">Indirect</span>
+</div>
+<p style="font-size:11px;color:#8faabb;line-height:1.6">General-purpose chatbot builders. Can be configured for clinics but <strong style="color:#ffb432">lack medical context, clinical workflows, and structured data capture. No agent autonomy — just scripted flows.</strong></p>
+</div>
+
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px">
+<div><div style="font-size:15px;font-weight:700;color:#f0f0f0">Healthcare SaaS (EHR/EMR)</div>
+<div style="font-size:9.5px;color:#6a8fa8">Doctoralia, Nimbo, Huli</div></div>
+<span class="badge b-red">Partial</span>
+</div>
+<p style="font-size:11px;color:#8faabb;line-height:1.6">Clinic management software focused on records and scheduling. <strong style="color:#ff6464">They digitize bureaucracy but don't automate it. No conversational AI, no autonomous patient acquisition.</strong></p>
+</div>
+
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px">
+<div><div style="font-size:15px;font-weight:700;color:#f0f0f0">Global Health AI</div>
+<div style="font-size:9.5px;color:#6a8fa8">Hyro, Notable Health, Luma Health</div></div>
+<span class="badge b-blue">Global Only</span>
+</div>
+<p style="font-size:11px;color:#8faabb;line-height:1.6">US-focused health AI platforms. Strong tech but <strong style="color:#00a8ff">zero LATAM presence, no WhatsApp-native, no Spanish-first design, and no understanding of the LATAM clinic model.</strong></p>
+</div>
+
+<div class="card">
+<div style="display:flex;justify-content:space-between;align-items:start;margin-bottom:8px">
+<div><div style="font-size:15px;font-weight:700;color:#f0f0f0">DIY / In-House Build</div>
+<div style="font-size:9.5px;color:#6a8fa8">The most dangerous "competitor"</div></div>
+<span class="badge b-red">Biggest Risk</span>
+</div>
+<p style="font-size:11px;color:#8faabb;line-height:1.6">Clinics attempting to hire developers or use basic WhatsApp Business. <strong style="color:#ff6464">Fragile, expensive, no AI — and they never get to autonomous workflows. This is the main "competitor" to address in messaging.</strong></p>
+</div>
+</div>
+
+<div class="success" style="margin-top:10px">
+<h4>Konko's Unique Position — The Messaging I'd Build</h4>
+<p><strong style="color:#f0f0f0">"Konko is the only agent-native platform purpose-built for clinics in Latin America — where autonomous AI handles patient conversations, scheduling, intake, and follow-ups 24/7 via WhatsApp. Not a chatbot. Not an EHR. A digital workforce for your clinic."</strong></p>
+<p style="margin-top:5px">Chatbots are scripted. EHRs are passive. DIY is fragile. Konko is the operating system for the modern clinic — and the market timing in LATAM is perfect.</p>
+</div>
+</div>
+
+<!-- ==================== SLIDE 4: MY AUTOMATION & AI EXPERIENCE ==================== -->
+<div class="slide" id="s3">
+<div class="glow glow-green" style="top:5%;left:-60px"></div>
+<p class="subtitle">Section 3 · Automation & AI Experience</p>
+<h1>Automation Systems <span>I've Built</span></h1>
+<p class="big-subtitle">Real systems, in production, handling real data. Here are concrete examples of automation I've designed and deployed.</p>
+
+<div class="grid-2">
+<div class="card" style="border-color:rgba(0,212,170,.25)">
+<h3 style="color:#00d4aa">Example 1: JotForm ↔ Pipedrive Data Cross-Reference</h3>
+<p style="color:#8faabb;font-size:11px;line-height:1.7"><strong style="color:#f0f0f0">Problem:</strong> A B2B SaaS company (GoBots) was running paid ads driving leads to JotForm, but 40%+ of leads were never making it into Pipedrive CRM — meaning sales was losing deals without knowing it.</p>
+<p style="color:#8faabb;font-size:11px;line-height:1.7;margin-top:6px"><strong style="color:#f0f0f0">What I built:</strong> An automated data cross-reference system that matched 291 JotForm leads against the Pipedrive database, identified missing records, flagged UTM attribution gaps, and generated an interactive HTML dashboard with channel-by-channel breakdown.</p>
+<p style="color:#8faabb;font-size:11px;line-height:1.7;margin-top:6px"><strong style="color:#00d4aa">Result:</strong> Recovered lost leads, fixed the sync pipeline, and established UTM-to-revenue tracking that identified which ad channels actually drove qualified deals.</p>
+</div>
+
+<div class="card" style="border-color:rgba(0,168,255,.25)">
+<h3 style="color:#00a8ff">Example 2: Multi-Country Cold Email Automation</h3>
+<p style="color:#8faabb;font-size:11px;line-height:1.7"><strong style="color:#f0f0f0">Problem:</strong> Needed to reach 3,184 B2B prospects across Mexico, Brazil, Argentina, and LATAM with personalized outreach — but zero manual work.</p>
+<p style="color:#8faabb;font-size:11px;line-height:1.7;margin-top:6px"><strong style="color:#f0f0f0">What I built:</strong> End-to-end pipeline: Apify scraper → n8n webhook → AI classification (GPT-4o-mini) → Supabase database with deduplication → country-segmented CSV exports (MX: 1,139 / BR: 1,809 / AR: 424) → 4-email automated sequences with AI-personalized copy.</p>
+<p style="color:#8faabb;font-size:11px;line-height:1.7;margin-top:6px"><strong style="color:#00a8ff">Result:</strong> Fully autonomous prospect pipeline running weekly. From scraping to inbox in under 24 hours, segmented by country, industry, and lead score.</p>
+</div>
+</div>
+
+<div class="grid-2">
+<div class="card" style="border-color:rgba(160,100,255,.25)">
+<h3 style="color:#a064ff">Example 3: CRM Pipeline Automation (HubSpot + Pipedrive)</h3>
+<p style="color:#8faabb;font-size:11px;line-height:1.7"><strong style="color:#f0f0f0">What I built across multiple clients:</strong></p>
+<ul>
+<li><strong style="color:#f0f0f0">Auto-stage progression</strong> — leads move through pipeline stages based on behavior triggers, not manual updates</li>
+<li><strong style="color:#f0f0f0">Lead scoring with n8n</strong> — custom workflows that score leads based on form data, email engagement, and page visits</li>
+<li><strong style="color:#f0f0f0">Task auto-creation</strong> — when a lead reaches SQL status, the assigned rep gets a task with all context</li>
+<li><strong style="color:#f0f0f0">Slack/WhatsApp notifications</strong> — real-time alerts when high-value leads enter the pipeline</li>
+</ul>
+</div>
+
+<div class="card" style="border-color:rgba(255,180,50,.25)">
+<h3 style="color:#ffb432">Example 4: Automated Reporting Dashboards</h3>
+<p style="color:#8faabb;font-size:11px;line-height:1.7"><strong style="color:#f0f0f0">What I built:</strong></p>
+<ul>
+<li><strong style="color:#f0f0f0">Looker Studio dashboards</strong> — live CRM data (Pipedrive + HubSpot) with daily refresh, showing MQLs, SQLs, pipeline value, conversion rates by channel</li>
+<li><strong style="color:#f0f0f0">Ad performance reports</strong> — cross-platform (Meta + Google + LinkedIn) unified in a single dashboard with cost-per-stage metrics</li>
+<li><strong style="color:#f0f0f0">Interactive HTML reports</strong> — custom-built data visualizations for stakeholder presentations (like the JotForm cross-reference above)</li>
+</ul>
+</div>
+</div>
+
+<div class="highlight">
+<h4>Why This Matters for Konko</h4>
+<p>These are the same types of systems Konko helps clinics automate — <strong style="color:#f0f0f0">lead capture, data sync, qualification workflows, and reporting</strong>. I've built them from scratch for B2B SaaS. Applying this to healthcare clinic acquisition for Konko is a natural fit — I understand both the technical architecture AND the growth marketing strategy.</p>
+</div>
+</div>
+
+<!-- ==================== SLIDE 5: LANDING PAGES & JOURNEYS ==================== -->
+<div class="slide" id="s4">
+<p class="subtitle">Section 4 · Landing Pages & Customer Journeys</p>
+<h1>Landing Pages & <span>Journeys</span> I've Built</h1>
+<p class="big-subtitle">From concept to conversion — complete customer acquisition systems with dedicated landing pages, email sequences, and multi-touch journeys.</p>
+
+<div class="card" style="border-color:rgba(0,168,255,.25)">
+<h3 style="color:#00a8ff">Full Customer Journey Architecture</h3>
+<div class="flow-container" style="margin:8px 0;padding:16px">
+<div class="auto-flow">
+<div class="auto-step" style="border-color:rgba(0,168,255,.3)"><div class="step-icon">🎯</div><div class="step-label">Ad Campaign</div><div class="step-tool">Meta / Google / LinkedIn</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step" style="border-color:rgba(0,212,170,.3)"><div class="step-icon">🖥️</div><div class="step-label">Landing Page</div><div class="step-tool">Custom / Vercel</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step" style="border-color:rgba(255,180,50,.3)"><div class="step-icon">📝</div><div class="step-label">Form + UTMs</div><div class="step-tool">JotForm / HubSpot</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step" style="border-color:rgba(160,100,255,.3)"><div class="step-icon">🤖</div><div class="step-label">AI Qualification</div><div class="step-tool">n8n + Claude</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step" style="border-color:rgba(0,212,170,.3)"><div class="step-icon">📧</div><div class="step-label">Email Journey</div><div class="step-tool">5-7 Touch Sequence</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step" style="border-color:rgba(0,212,170,.4)"><div class="step-icon">🤝</div><div class="step-label">Sales Handoff</div><div class="step-tool">CRM Deal Created</div></div>
+</div>
+</div>
+</div>
+
+<div class="grid-2">
+<div class="card" style="border-color:rgba(0,212,170,.25)">
+<h3 style="color:#00d4aa">Real Example: 10-Page Website with Conversion Architecture</h3>
+<p style="color:#8faabb;font-size:11px;line-height:1.7"><strong style="color:#f0f0f0">What I built:</strong> A complete 10-page commercial website for a B2B AI services company using Google Stitch (AI design-to-code) + Tailwind CSS + WordPress integration. Each page designed as a landing page with vertical-specific messaging, pricing tables, process flows, and dual CTAs (WhatsApp + Calendly).</p>
+<ul style="margin-top:6px">
+<li><strong style="color:#f0f0f0">7 service-specific landing pages</strong> — each with unique messaging, pricing, and conversion paths tailored to the target audience</li>
+<li><strong style="color:#f0f0f0">Contact form → Supabase → n8n webhook</strong> — instant lead capture with automated notifications</li>
+<li><strong style="color:#f0f0f0">Responsive mobile-first</strong> — custom glassmorphic design system, no templates</li>
+</ul>
+</div>
+
+<div class="card" style="border-color:rgba(255,180,50,.25)">
+<h3 style="color:#ffb432">Real Example: Email Journey Systems</h3>
+<p style="color:#8faabb;font-size:11px;line-height:1.7"><strong style="color:#f0f0f0">GoBots (B2B SaaS):</strong> 3-email welcome sequence — brand intro, case studies with real metrics, product features with CTA to demo. HTML-coded emails with responsive design, tracking pixels, and preheader text.</p>
+<p style="color:#8faabb;font-size:11px;line-height:1.7;margin-top:6px"><strong style="color:#f0f0f0">Cold outreach (B2B):</strong> 4-email automated sequence with AI-generated personalized copy per segment — "What You're Losing", "How It Works", "Real Results", "Limited Offer". Sent to 3,184 segmented prospects across 4 countries.</p>
+<p style="color:#8faabb;font-size:11px;line-height:1.7;margin-top:6px"><strong style="color:#f0f0f0">Industry-specific variations:</strong> Different email versions per vertical with tailored pain points and case study references.</p>
+</div>
+</div>
+
+<div class="grid-4" style="margin-top:8px">
+<div class="metric"><div class="val">+150%</div><div class="label">MQL Increase (Freelance)</div></div>
+<div class="metric"><div class="val">+509%</div><div class="label">Client Growth (Beyond)</div></div>
+<div class="metric"><div class="val">10x</div><div class="label">Growth Acceleration</div></div>
+<div class="metric"><div class="val">$0.36</div><div class="label">USD Cost Per Conversion</div></div>
+</div>
+
+<div class="blue-box" style="margin-top:8px">
+<h4>How I'd Apply This at Konko</h4>
+<p>I'd build <strong style="color:#f0f0f0">specialty-specific landing pages</strong> ("Kora for Dermatology", "Kora for Dental Clinics", "Kora for Multi-Specialty Groups") — each with tailored messaging, real case study metrics, and a WhatsApp demo CTA. Combined with <strong style="color:#f0f0f0">vertical-specific email journeys</strong> that nurture clinic owners from awareness to demo request. I've already built exactly this type of system — the infrastructure is the same, only the vertical changes.</p>
+</div>
+</div>
+
+<!-- ==================== SLIDE 6: WEBSITE DEVELOPMENT + SEO/GEO ==================== -->
+<div class="slide" id="s5">
+<div class="glow glow-green" style="bottom:15%;right:-60px"></div>
+<p class="subtitle">Section 5 · Web Development & SEO/GEO</p>
+<h1>Full Websites with <span>SEO & GEO</span> Built-In</h1>
+<p class="big-subtitle">I don't just build landing pages — I design and ship complete, production-ready websites optimized for both search engines and generative AI platforms from day one.</p>
+
+<div class="card" style="border-color:rgba(0,212,170,.25)">
+<h3 style="color:#00d4aa">My Website Development Process</h3>
+<div class="flow-container" style="margin:8px 0;padding:16px">
+<div class="auto-flow">
+<div class="auto-step" style="border-color:rgba(0,168,255,.3)"><div class="step-icon">📐</div><div class="step-label">Architecture</div><div class="step-tool">Sitemap + wireframes</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step" style="border-color:rgba(0,212,170,.3)"><div class="step-icon">🎨</div><div class="step-label">Design System</div><div class="step-tool">Colors, fonts, components</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step" style="border-color:rgba(160,100,255,.3)"><div class="step-icon">🤖</div><div class="step-label">AI-Assisted Build</div><div class="step-tool">Stitch / Lovable / Vercel</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step" style="border-color:rgba(255,180,50,.3)"><div class="step-icon">🔍</div><div class="step-label">SEO/GEO Layer</div><div class="step-tool">Schema + structured data</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step" style="border-color:rgba(0,212,170,.3)"><div class="step-icon">🔗</div><div class="step-label">CMS Integration</div><div class="step-tool">WordPress / Headless</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step" style="border-color:rgba(0,212,170,.4)"><div class="step-icon">🚀</div><div class="step-label">Launch + Optimize</div><div class="step-tool">Analytics + A/B tests</div></div>
+</div>
+</div>
+</div>
+
+<div class="grid-2">
+<div class="card">
+<h3 style="color:#00a8ff">SEO — Search Engine Optimization</h3>
+<ul>
+<li><strong style="color:#f0f0f0">Semantic HTML structure</strong> — proper H1-H3 hierarchy, meta titles/descriptions per page, clean URLs</li>
+<li><strong style="color:#f0f0f0">Keyword-driven architecture</strong> — sitemap designed around high-intent search terms per service/vertical</li>
+<li><strong style="color:#f0f0f0">Technical SEO</strong> — Core Web Vitals, mobile-first responsive design, image optimization, internal linking</li>
+<li><strong style="color:#f0f0f0">Content strategy</strong> — blog articles targeting long-tail keywords, updated monthly with performance data</li>
+<li><strong style="color:#f0f0f0">Local SEO</strong> — Google Business Profile, geographic signals, local schema markup for regional targeting</li>
+</ul>
+</div>
+
+<div class="card">
+<h3 style="color:#a064ff">GEO — Generative Engine Optimization</h3>
+<ul>
+<li><strong style="color:#f0f0f0">Conversational content format</strong> — paragraph-style answers that LLMs (ChatGPT, Gemini, Perplexity, Claude) can cite directly</li>
+<li><strong style="color:#f0f0f0">Structured data & schema markup</strong> — FAQ, Organization, Service, LocalBusiness schemas so AI crawlers parse accurately</li>
+<li><strong style="color:#f0f0f0">Quantifiable metrics on-page</strong> — specific numbers and results that AI models surface as proof points</li>
+<li><strong style="color:#f0f0f0">Authority signals</strong> — clear brand positioning, case studies, and credentials that make LLMs recommend the brand</li>
+<li><strong style="color:#f0f0f0">Multi-format content</strong> — text, video embeds, process flows, and pricing tables for rich AI indexing</li>
+</ul>
+</div>
+</div>
+
+<div class="grid-2" style="margin-top:8px">
+<div class="highlight">
+<h4>Tech Stack for Web Development</h4>
+<p><strong style="color:#f0f0f0">Build tools:</strong> Google Stitch (AI design-to-code), Lovable, Vercel, WordPress<br>
+<strong style="color:#f0f0f0">Frontend:</strong> Tailwind CSS, custom HTML/CSS/JS, responsive mobile-first<br>
+<strong style="color:#f0f0f0">Backend:</strong> Supabase (forms + data), n8n webhooks, REST APIs<br>
+<strong style="color:#f0f0f0">Design:</strong> Glassmorphism, gradient systems, custom component libraries<br>
+<strong style="color:#f0f0f0">Analytics:</strong> GA4, GTM, Search Console, Looker Studio dashboards</p>
+</div>
+<div class="success">
+<h4>How I'd Apply This at Konko</h4>
+<p>Konko's website needs to rank for <strong style="color:#f0f0f0">"AI para clínicas"</strong>, <strong style="color:#f0f0f0">"bot WhatsApp médico"</strong>, and <strong style="color:#f0f0f0">"agendar citas con IA"</strong> — both in Google AND in generative AI answers. I'd implement a full SEO/GEO layer: structured schema so ChatGPT recommends Kora, specialty-specific pages that rank organically, and conversational content that positions Konko as the default answer when clinic owners ask AI tools for recommendations.</p>
+</div>
+</div>
+</div>
+
+<!-- ==================== SLIDE 7: AI TOOLS & TECHNICAL DEPTH ==================== -->
+<div class="slide" id="s6">
+<div class="glow glow-blue" style="top:15%;right:-60px"></div>
+<p class="subtitle">Section 6 · AI & Technical Depth</p>
+<h1>How I Use <span>AI in Production</span> Daily</h1>
+<p class="big-subtitle">I don't just use AI tools casually — I integrate LLM APIs, design prompt systems, and orchestrate multi-model workflows for real business operations every day.</p>
+
+<div class="card" style="border-color:rgba(0,212,170,.25)">
+<h3 style="color:#00d4aa">Real Example: Automated Prospect Intelligence System</h3>
+<div class="auto-flow">
+<div class="auto-step" style="border-color:rgba(0,168,255,.3)"><div class="step-icon">🕷️</div><div class="step-label">Apify Scraper</div><div class="step-tool">Weekly Google Places crawl</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step" style="border-color:rgba(0,212,170,.3)"><div class="step-icon">⚡</div><div class="step-label">n8n Webhook</div><div class="step-tool">Processes raw data</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step" style="border-color:rgba(160,100,255,.3)"><div class="step-icon">🧠</div><div class="step-label">GPT-4o-mini</div><div class="step-tool">Classifies & scores leads</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step" style="border-color:rgba(255,180,50,.3)"><div class="step-icon">🗃️</div><div class="step-label">Supabase DB</div><div class="step-tool">Stores + deduplicates</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step" style="border-color:rgba(0,212,170,.3)"><div class="step-icon">📧</div><div class="step-label">Cold Email Engine</div><div class="step-tool">Segmented by country</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step" style="border-color:rgba(0,212,170,.4)"><div class="step-icon">📊</div><div class="step-label">React Dashboard</div><div class="step-tool">Vercel + Supabase</div></div>
+</div>
+<p style="margin-top:10px;color:#8faabb;font-size:11px"><strong style="color:#f0f0f0">Result:</strong> 3,184 qualified prospects scraped, classified by AI, segmented by country (MX, BR, AR, LATAM), and fed into automated cold email sequences — all running autonomously on a weekly schedule. Zero manual data entry.</p>
+</div>
+
+<div class="grid-2">
+<div class="card">
+<h3 style="color:#00a8ff">What I Build with AI APIs</h3>
+<ul>
+<li><strong style="color:#f0f0f0">Claude & GPT API integrations</strong> — custom prompt engineering for classification, scoring, and content generation</li>
+<li><strong style="color:#f0f0f0">RAG systems with embeddings</strong> — pgvector + OpenAI embeddings for context-aware retrieval</li>
+<li><strong style="color:#f0f0f0">Multi-model orchestration</strong> — GPT-4o-mini for speed, Claude for depth, choosing the right model per task</li>
+<li><strong style="color:#f0f0f0">Continuous improvement loops</strong> — scheduled agents that analyze failures and auto-update prompts</li>
+<li><strong style="color:#f0f0f0">Full-stack AI apps</strong> — React frontends + Supabase backends + n8n orchestration + LLM APIs</li>
+</ul>
+</div>
+
+<div class="card">
+<h3 style="color:#a064ff">The AI Production Stack I Use Daily</h3>
+<div class="grid-2" style="margin:8px 0;gap:8px">
+<div style="text-align:center;padding:10px;background:rgba(0,212,170,.04);border-radius:8px;border:1px solid rgba(0,212,170,.1)"><div style="font-size:20px;margin-bottom:4px">🧠</div><div style="font-size:10.5px;color:#f0f0f0;font-weight:600">Claude & GPT APIs</div><div style="font-size:9px;color:#6a8fa8">Analysis, agents, content</div></div>
+<div style="text-align:center;padding:10px;background:rgba(0,168,255,.04);border-radius:8px;border:1px solid rgba(0,168,255,.1)"><div style="font-size:20px;margin-bottom:4px">⚡</div><div style="font-size:10.5px;color:#f0f0f0;font-weight:600">n8n Cloud Pro</div><div style="font-size:9px;color:#6a8fa8">Workflow orchestration</div></div>
+<div style="text-align:center;padding:10px;background:rgba(160,100,255,.04);border-radius:8px;border:1px solid rgba(160,100,255,.1)"><div style="font-size:20px;margin-bottom:4px">🗃️</div><div style="font-size:10.5px;color:#f0f0f0;font-weight:600">Supabase + pgvector</div><div style="font-size:9px;color:#6a8fa8">Data, vectors, RAG</div></div>
+<div style="text-align:center;padding:10px;background:rgba(255,180,50,.04);border-radius:8px;border:1px solid rgba(255,180,50,.1)"><div style="font-size:20px;margin-bottom:4px">🔗</div><div style="font-size:10.5px;color:#f0f0f0;font-weight:600">REST APIs & Webhooks</div><div style="font-size:9px;color:#6a8fa8">WhatsApp, YCloud, Apify</div></div>
+</div>
+</div>
+</div>
+
+<div class="success">
+<h4>Direct Relevance to Konko</h4>
+<p>I understand how LLM-powered systems work in production — <strong style="color:#f0f0f0">prompt engineering, RAG retrieval, context management, hallucination mitigation, and escalation logic</strong>. I've worked with the same APIs (Claude, GPT-4o) that power Kora. I can speak the language of Konko's engineering team while translating the product's capabilities into marketing messages that clinic owners actually understand.</p>
+</div>
+</div>
+
+<!-- ==================== SLIDE 7: CAMPAIGN STRATEGY FOR KONKO ==================== -->
+<div class="slide" id="s7">
+<p class="subtitle">Section 6 · Growth Strategy</p>
+<h1>My <span>Campaign Strategy</span> for Konko</h1>
+<p class="big-subtitle">Here's how I'd structure patient acquisition marketing for Konko — targeting clinic owners and medical directors across LATAM.</p>
+
+<div class="grid-2">
+<div class="card">
+<h3 style="color:#00a8ff">Meta Ads — The Primary Acquisition Channel</h3>
+<table>
+<thead><tr><th>Campaign</th><th>Audience</th><th>Objective</th></tr></thead>
+<tbody>
+<tr><td style="color:#f0f0f0">Clinic Owners MX</td><td>Medical directors, clinic admins 30-55</td><td>Demo Requests</td></tr>
+<tr><td style="color:#f0f0f0">Pain Point: No-Shows</td><td>Retargeting clinic industry interest</td><td>WhatsApp Demo</td></tr>
+<tr><td style="color:#f0f0f0">Case Study: Sanare</td><td>Dermatology & aesthetics clinics</td><td>Social Proof</td></tr>
+<tr><td style="color:#f0f0f0">Case Study: Vallejo</td><td>Multi-specialty clinics in Mexico</td><td>Conversion</td></tr>
+<tr><td style="color:#f0f0f0">Expansion: CO + CR</td><td>Clinic owners in Colombia & Costa Rica</td><td>Market Entry</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="card">
+<h3 style="color:#00d4aa">Google Ads — High-Intent Search</h3>
+<table>
+<thead><tr><th>Group</th><th>Keywords</th><th>Intent</th></tr></thead>
+<tbody>
+<tr><td style="color:#f0f0f0">AI for Clinics</td><td>"AI para clínicas", "IA agendar citas"</td><td style="color:#00d4aa">🔥 High</td></tr>
+<tr><td style="color:#f0f0f0">WhatsApp Bot</td><td>"bot WhatsApp clínica", "chatbot médico"</td><td style="color:#00d4aa">🔥 High</td></tr>
+<tr><td style="color:#f0f0f0">Scheduling</td><td>"software agendar citas médicas"</td><td style="color:#ffb432">Medium</td></tr>
+<tr><td style="color:#f0f0f0">Patient Loss</td><td>"cómo no perder pacientes", "mejorar atención"</td><td style="color:#ffb432">Medium</td></tr>
+<tr><td style="color:#f0f0f0">Competitor</td><td>"Doctoralia alternativa", "mejor que Huli"</td><td style="color:#00d4aa">🔥 High</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="grid-2" style="margin-top:10px">
+<div class="card">
+<h3 style="color:#a064ff">Content + SEO — The Organic Engine</h3>
+<ul>
+<li><strong style="color:#f0f0f0">Blog posts SEO:</strong> 4-6/month targeting high-intent clinic keywords</li>
+<li><strong style="color:#f0f0f0">LinkedIn founder content:</strong> Jean Marc & Michael thought leadership posts</li>
+<li><strong style="color:#f0f0f0">Video case studies:</strong> 1-2/month showing real clinic transformations</li>
+<li><strong style="color:#f0f0f0">WhatsApp demo videos:</strong> "Watch Kora book an appointment in 30 seconds"</li>
+<li><strong style="color:#f0f0f0">Webinars:</strong> Monthly with clinic owner guests sharing results</li>
+</ul>
+</div>
+<div class="card">
+<h3 style="color:#ffb432">Specialty-Specific Marketing</h3>
+<ul>
+<li><strong style="color:#f0f0f0">"Kora for Dermatology"</strong> — aesthetic procedures = high ticket, easy scheduling</li>
+<li><strong style="color:#f0f0f0">"Kora for Dental"</strong> — high volume, insurance coordination messaging</li>
+<li><strong style="color:#f0f0f0">"Kora for Pediatrics"</strong> — parent communication, follow-up care</li>
+<li><strong style="color:#f0f0f0">"Kora for Multi-Specialty"</strong> — routing patients to the right doctor</li>
+<li><strong style="color:#f0f0f0">Each with dedicated landing + email journey</strong></li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- ==================== SLIDE 8: MESSAGING & NARRATIVE ==================== -->
+<div class="slide" id="s8">
+<div class="glow glow-green" style="bottom:10%;right:-60px"></div>
+<p class="subtitle">Section 7 · Messaging & Narrative</p>
+<h1>How I'd <span>Communicate</span> Konko</h1>
+<p class="big-subtitle">The product is powerful. The narrative needs to translate autonomous AI into clear business value for clinic owners who aren't technical.</p>
+
+<div class="grid-2">
+<div class="warn" style="margin:0">
+<h4>Technical Framing (What Engineers Hear)</h4>
+<p style="font-size:13px">"Agent-native clinical operations platform with autonomous AI workflows for patient coordination and structured documentation."</p>
+</div>
+<div class="success" style="margin:0">
+<h4>My Proposed Narrative (What Clinic Owners Hear)</h4>
+<p style="font-size:13px">"Your clinic's new digital coordinator — she answers every patient on WhatsApp in 5 seconds, books appointments 24/7, and never takes a day off. Clinics using Kora see 40% more appointments in the first month."</p>
+</div>
+</div>
+
+<div class="card" style="margin-top:14px">
+<h3>Messaging Adapted by Audience</h3>
+<table>
+<thead><tr><th>Audience</th><th>What They Care About</th><th>Message for Them</th></tr></thead>
+<tbody>
+<tr><td style="color:#00d4aa;font-weight:600">Clinic Owner / Doctor</td><td>More patients, less admin burden, ROI</td><td style="color:#f0f0f0">"40% more appointments. Zero extra staff. Kora pays for itself in week 1."</td></tr>
+<tr><td style="color:#00d4aa;font-weight:600">Clinic Administrator</td><td>Less WhatsApp chaos, structured scheduling</td><td style="color:#f0f0f0">"Stop losing patients at midnight. Kora handles every message, books every appointment."</td></tr>
+<tr><td style="color:#00d4aa;font-weight:600">Multi-Clinic Director</td><td>Scalability, consistency, data across locations</td><td style="color:#f0f0f0">"One AI coordinator across all your locations. Same quality. Same speed. Every time."</td></tr>
+<tr><td style="color:#00d4aa;font-weight:600">Aesthetic Medicine</td><td>High-ticket conversion, patient experience</td><td style="color:#f0f0f0">"Patients feel so attended they don't realize it's AI. Your procedures, booked faster."</td></tr>
+<tr><td style="color:#00d4aa;font-weight:600">Healthcare Investor</td><td>Market size, unit economics, defensibility</td><td style="color:#f0f0f0">"LATAM's healthcare ops layer. Agent-native. Harvard case study. 14x clinic ROI."</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="grid-2" style="margin-top:10px">
+<div class="highlight">
+<h4>Video Content Strategy</h4>
+<p><strong style="color:#f0f0f0">Format: 60-90 sec, real clinic footage</strong></p>
+<p style="margin-top:5px">▸ "How Clínica Sanare went from 20min response to instant — with Kora"<br>
+▸ "Watch Kora book a real appointment in under 30 seconds"<br>
+▸ "Before/After: What a clinic looks like with vs without AI coordination"<br>
+▸ "Patient testimonials: 'I didn't even realize it wasn't human'"</p>
+</div>
+<div class="highlight">
+<h4>Leveraging the Harvard Case Study</h4>
+<p>Konko has a <strong style="color:#f0f0f0">Harvard Business School case study</strong> — that's an incredibly powerful trust signal. I'd build an entire content pillar around this: LinkedIn posts, email campaigns, landing page social proof, investor-facing materials, and PR outreach using "Harvard-backed clinic AI" as the hook.</p>
+</div>
+</div>
+</div>
+
+<!-- ==================== SLIDE 9: 90-DAY PLAN ==================== -->
+<div class="slide" id="s9">
+<p class="subtitle">Section 8 · Execution</p>
+<h1>My <span>90-Day Plan</span> at Konko</h1>
+<p class="big-subtitle">I don't need a long ramp-up. I already understand the product, the market, and the competition. Here's what I'd execute.</p>
+
+<div class="grid-3">
+<div class="phase phase-1">
+<h3>Days 1-30 · Immersion + Quick Wins</h3>
+<ul>
+<li><strong style="color:#f0f0f0">Week 1-2:</strong> Deep dive into Kora's capabilities, clinic ICP, sales cycle, and existing assets</li>
+<li><strong style="color:#f0f0f0">Audit:</strong> Current campaigns, analytics, content, conversion paths, WhatsApp flows</li>
+<li><strong style="color:#f0f0f0">Quick Win:</strong> Founder-led LinkedIn content calendar (3-4 posts/week)</li>
+<li><strong style="color:#f0f0f0">Quick Win:</strong> 1st video case study with an existing clinic client</li>
+<li><strong style="color:#f0f0f0">Quick Win:</strong> Messaging framework per audience segment</li>
+<li><strong style="color:#f0f0f0">Quick Win:</strong> UTM structure + attribution model setup</li>
+</ul>
+</div>
+
+<div class="phase phase-2">
+<h3>Days 31-60 · Scale</h3>
+<ul>
+<li><strong style="color:#f0f0f0">Campaigns:</strong> Meta + Google Ads targeting clinic owners by specialty</li>
+<li><strong style="color:#f0f0f0">Landing Pages:</strong> Specialty-specific pages (derm, dental, pediatrics)</li>
+<li><strong style="color:#f0f0f0">Content Engine:</strong> Blog, LinkedIn, email, video production system</li>
+<li><strong style="color:#f0f0f0">SEO:</strong> Articles targeting "AI para clínicas", "bot WhatsApp médico"</li>
+<li><strong style="color:#f0f0f0">Email Journeys:</strong> Automated nurture sequences by lead segment</li>
+<li><strong style="color:#f0f0f0">Harvard Pillar:</strong> Content series leveraging the HBS case study</li>
+</ul>
+</div>
+
+<div class="phase phase-3">
+<h3>Days 61-90 · Optimize</h3>
+<ul>
+<li><strong style="color:#f0f0f0">Data Review:</strong> Which channels drive the best clinic leads and at what cost</li>
+<li><strong style="color:#f0f0f0">Reallocation:</strong> Move budget toward highest-ROI channels</li>
+<li><strong style="color:#f0f0f0">Expansion:</strong> Adapt winning campaigns for Colombia & Costa Rica</li>
+<li><strong style="color:#f0f0f0">Dashboard:</strong> Clear KPIs — demos requested, clinics onboarded, CAC, LTV</li>
+<li><strong style="color:#f0f0f0">Thought Leadership:</strong> Position founders as LATAM health-AI voices</li>
+<li><strong style="color:#f0f0f0">Scale:</strong> Double down on what works. Kill what doesn't.</li>
+</ul>
+</div>
+</div>
+
+<div class="success" style="margin-top:8px">
+<h4>What I'd Deliver in 90 Days</h4>
+<p>Content engine running · Paid campaigns generating qualified clinic demos · Founders active on LinkedIn · 2-3 video case studies · Specialty landing pages live · Email nurture sequences automated · Attribution dashboard operational · Messaging framework deployed across all channels</p>
+</div>
+</div>
+
+<!-- ==================== SLIDE 10: MEASUREMENT ==================== -->
+<div class="slide" id="s10">
+<div class="glow glow-blue" style="top:5%;left:-80px"></div>
+<p class="subtitle">Section 9 · Data-Driven</p>
+<h1>How I'd <span>Measure</span> Everything</h1>
+<p class="big-subtitle">Every marketing dollar needs to justify itself with data. Here's the measurement framework I'd implement.</p>
+
+<div class="card">
+<h3>Dashboard I'd Build for Konko</h3>
+<table>
+<thead><tr><th>Category</th><th>Metrics</th><th>Tool</th></tr></thead>
+<tbody>
+<tr><td style="color:#00d4aa;font-weight:600">Demand Gen</td><td>Demo requests, qualified clinics, pipeline influenced, onboarding rate</td><td>CRM + Looker Studio</td></tr>
+<tr><td style="color:#00d4aa;font-weight:600">Paid Media</td><td>CPL, CPA, ROAS, CTR, frequency, quality score</td><td>Meta/Google + Dashboard</td></tr>
+<tr><td style="color:#00d4aa;font-weight:600">Content</td><td>Engagement rate, reach, shares, time-on-page, video views</td><td>Analytics + LinkedIn</td></tr>
+<tr><td style="color:#00d4aa;font-weight:600">Founder LinkedIn</td><td>Impressions, engagement, profile views, inbound DMs, leads</td><td>LinkedIn Analytics</td></tr>
+<tr><td style="color:#00d4aa;font-weight:600">SEO</td><td>Organic traffic, keyword rankings, backlinks, domain authority</td><td>GA4 + Search Console</td></tr>
+<tr><td style="color:#00d4aa;font-weight:600">Email</td><td>Open rate, CTR, reply rate, conversion to demo</td><td>Email platform + CRM</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="grid-2" style="margin-top:10px">
+<div class="card">
+<h3>My Optimization Framework</h3>
+<div style="display:flex;flex-direction:column;gap:7px">
+<div style="display:flex;align-items:center;gap:9px"><span style="background:linear-gradient(135deg,#00d4aa,#00a8ff);color:#0a0f1a;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">1</span><span style="color:#b0c4d0;font-size:11.5px"><strong style="color:#f0f0f0">Track everything:</strong> UTMs on every campaign, end-to-end attribution</span></div>
+<div style="display:flex;align-items:center;gap:9px"><span style="background:linear-gradient(135deg,#00d4aa,#00a8ff);color:#0a0f1a;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">2</span><span style="color:#b0c4d0;font-size:11.5px"><strong style="color:#f0f0f0">Weekly dashboard:</strong> KPIs by channel, updated automatically</span></div>
+<div style="display:flex;align-items:center;gap:9px"><span style="background:linear-gradient(135deg,#00d4aa,#00a8ff);color:#0a0f1a;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">3</span><span style="color:#b0c4d0;font-size:11.5px"><strong style="color:#f0f0f0">Bi-weekly analysis:</strong> Which channel delivers highest-quality clinic leads?</span></div>
+<div style="display:flex;align-items:center;gap:9px"><span style="background:linear-gradient(135deg,#00d4aa,#00a8ff);color:#0a0f1a;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">4</span><span style="color:#b0c4d0;font-size:11.5px"><strong style="color:#f0f0f0">Monthly reallocation:</strong> Budget goes where ROI lives</span></div>
+<div style="display:flex;align-items:center;gap:9px"><span style="background:linear-gradient(135deg,#00d4aa,#00a8ff);color:#0a0f1a;width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700">5</span><span style="color:#b0c4d0;font-size:11.5px"><strong style="color:#f0f0f0">Continuous A/B testing:</strong> Copy, creatives, audiences, landing pages</span></div>
+</div>
+</div>
+<div class="card">
+<h3>Real Results From My Track Record</h3>
+<div class="grid-2" style="margin:8px 0">
+<div class="metric"><div class="val" style="color:#ff6464">$106K</div><div class="label">Ad Spend BEFORE</div></div>
+<div class="metric"><div class="val" style="color:#00d4aa">$54K</div><div class="label">Ad Spend AFTER</div></div>
+</div>
+<p style="color:#b0c4d0;font-size:11.5px;line-height:1.6"><strong style="color:#f0f0f0">49% cost reduction</strong> while maintaining results. I identified segments with 3x higher CPA generating zero qualified leads. Redistributed budget to what actually converted.</p>
+<div style="margin-top:8px">
+<div class="grid-2">
+<div class="metric" style="padding:10px"><div class="val" style="font-size:16px">91K+</div><div class="label">Conversions Driven</div></div>
+<div class="metric" style="padding:10px"><div class="val" style="font-size:16px">+509%</div><div class="label">Client Growth</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ==================== SLIDE 11: TOOLS & STACK ==================== -->
+<div class="slide" id="s11">
+<p class="subtitle">Section 10 · My Stack</p>
+<h1>Tools I <span>Master</span></h1>
+<p class="big-subtitle">I don't just run campaigns — I automate, analyze, and scale with technology. This is my full stack.</p>
+
+<div class="grid-3">
+<div class="card" style="text-align:center;border-color:rgba(0,168,255,.25)">
+<h3 style="color:#00a8ff">Ads & Performance</h3>
+<p style="font-size:13px;color:#b0c4d0">Meta Ads · Google Ads · LinkedIn Ads · TikTok Ads · YouTube Ads</p>
+</div>
+<div class="card" style="text-align:center;border-color:rgba(0,212,170,.25)">
+<h3 style="color:#00d4aa">Analytics & Data</h3>
+<p style="font-size:13px;color:#b0c4d0">GA4 · Looker Studio · GTM · Custom Dashboards · SE Ranking</p>
+</div>
+<div class="card" style="text-align:center;border-color:rgba(160,100,255,.25)">
+<h3 style="color:#a064ff">CRM & Automation</h3>
+<p style="font-size:13px;color:#b0c4d0">HubSpot · Pipedrive · Salesforce · n8n · Mailchimp · ActiveCampaign</p>
+</div>
+<div class="card" style="text-align:center;border-color:rgba(255,180,50,.25)">
+<h3 style="color:#ffb432">AI & Agents</h3>
+<p style="font-size:13px;color:#b0c4d0">Claude · GPT-4 · Perplexity · n8n AI Agents · REST APIs · Webhooks</p>
+</div>
+<div class="card" style="text-align:center;border-color:rgba(255,100,100,.25)">
+<h3 style="color:#ff6464">Content & Creative</h3>
+<p style="font-size:13px;color:#b0c4d0">Copywriting · Video Strategy · LinkedIn Content · Founder-Led Marketing</p>
+</div>
+<div class="card" style="text-align:center;border-color:rgba(0,168,255,.25)">
+<h3 style="color:#00a8ff">Tech & Development</h3>
+<p style="font-size:13px;color:#b0c4d0">Supabase · Vercel · Lovable · HTML/CSS/JS · Shopify · REST APIs</p>
+</div>
+</div>
+
+<div class="success" style="margin-top:12px">
+<h4>My Differentiator: Marketing + Technology + AI</h4>
+<p>Most marketers just run campaigns. I also <strong style="color:#f0f0f0">build AI-powered automation systems</strong> (n8n, Claude, GPT), <strong style="color:#f0f0f0">understand APIs and agent architectures</strong>, and <strong style="color:#f0f0f0">speak the language of engineers, founders, and clinicians</strong>. For Konko, this is critical — you need someone who understands both the autonomous agent product AND how to market it to non-technical clinic owners.</p>
+</div>
+
+<div class="amber">
+<h4>What This Means for Konko</h4>
+<p>I can talk to the engineering team about agent workflows and translate that into copy that converts. I can automate reporting with n8n instead of doing it manually. I can build landing pages quickly without depending on engineering. I can design email journeys that feel personal at scale. <strong style="color:#f0f0f0">I do more with less — and that's exactly what a high-performance startup needs.</strong></p>
+</div>
+</div>
+
+<!-- ==================== SLIDE 12: WHY ME ==================== -->
+<div class="slide" id="s12">
+<div class="glow glow-green" style="top:20%;left:10%"></div>
+<p class="subtitle">Section 11 · The Fit</p>
+<h1>Why <span>I'm the Right Fit</span> for Konko</h1>
+<p class="big-subtitle">Beyond skills and experience — here's why I align with Konko's culture, mission, and growth stage.</p>
+
+<div class="grid-2">
+<div class="card" style="border-color:rgba(0,212,170,.25)">
+<h3 style="color:#00d4aa">What Konko Needs</h3>
+<ul>
+<li><strong style="color:#f0f0f0">Automation expertise</strong> — someone who lives and breathes AI workflows</li>
+<li><strong style="color:#f0f0f0">AI-native marketer</strong> — who understands agent-based products deeply</li>
+<li><strong style="color:#f0f0f0">Full-stack growth</strong> — paid, organic, content, CRM, analytics — all in one person</li>
+<li><strong style="color:#f0f0f0">LATAM experience</strong> — understands the market, the language, the culture</li>
+<li><strong style="color:#f0f0f0">Startup speed</strong> — no bureaucracy, just execution</li>
+<li><strong style="color:#f0f0f0">Craft and clarity</strong> — trustworthy work that reflects a trustworthy product</li>
+</ul>
+</div>
+
+<div class="card" style="border-color:rgba(0,168,255,.25)">
+<h3 style="color:#00a8ff">What I Bring</h3>
+<ul>
+<li><strong style="color:#f0f0f0">5+ years in B2B SaaS growth</strong> — GoBots, Beyond Illusions, Nuxiba, freelance</li>
+<li><strong style="color:#f0f0f0">Daily AI builder</strong> — Claude, GPT, n8n agents in production every day</li>
+<li><strong style="color:#f0f0f0">Full-stack execution</strong> — ads, SEO, CRM, email, content, landing pages, dashboards</li>
+<li><strong style="color:#f0f0f0">Mexico-based, LATAM-fluent</strong> — native understanding of the clinic market</li>
+<li><strong style="color:#f0f0f0">Self-managed operator</strong> — OKR-driven, deadline-oriented, zero hand-holding</li>
+<li><strong style="color:#f0f0f0">Builder mentality</strong> — I care about craft, correctness, and thoughtful tradeoffs</li>
+</ul>
+</div>
+</div>
+
+<div class="flow-container" style="margin-top:12px">
+<p style="text-align:center;color:#4a6a80;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;margin-bottom:10px">My Experience Timeline</p>
+<div class="auto-flow">
+<div class="auto-step"><div class="step-icon">🎓</div><div class="step-label">Economics Degree</div><div class="step-tool">UNITEC · 2014-2017</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step"><div class="step-icon">📊</div><div class="step-label">Salesforce Admin</div><div class="step-tool">UNITEC · 2017-2019</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step"><div class="step-icon">📈</div><div class="step-label">Marketing Analyst</div><div class="step-tool">OuYeah! · 2019-2020</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step"><div class="step-icon">🚀</div><div class="step-label">Performance Mktg</div><div class="step-tool">Freelance · 2020-2021</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step"><div class="step-icon">⚡</div><div class="step-label">Performance Mktg</div><div class="step-tool">Nuxiba · 2021-2023</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step"><div class="step-icon">🔥</div><div class="step-label">Growth Specialist</div><div class="step-tool">Beyond · 2024-2025</div></div>
+<div class="auto-arrow">→</div>
+<div class="auto-step" style="border-color:#00d4aa"><div class="step-icon">🧠</div><div class="step-label">Growth + AI</div><div class="step-tool">GoBots · 2025-Now</div></div>
+</div>
+</div>
+</div>
+
+<!-- ==================== SLIDE 13: CLOSE ==================== -->
+<div class="slide title-slide" id="s13">
+<div class="glow glow-green" style="top:20%;left:30%"></div>
+<div class="glow glow-blue" style="bottom:20%;right:30%"></div>
+<p class="subtitle">Summary</p>
+<h1 style="font-size:34px">I'm not here to tell you what I did.<br>I'm here to show you <span>what I'll build at Konko</span>.</h1>
+
+<div class="grid-4" style="margin:28px auto;max-width:800px">
+<div class="metric"><div class="val" style="font-size:15px">I Know</div><div class="label">The Product</div></div>
+<div class="metric"><div class="val" style="font-size:15px">I Researched</div><div class="label">The Market</div></div>
+<div class="metric"><div class="val" style="font-size:15px">I Have</div><div class="label">A Plan</div></div>
+<div class="metric"><div class="val" style="font-size:15px">I Execute</div><div class="label">From Day 1</div></div>
+</div>
+
+<div style="max-width:480px;margin:0 auto">
+<div class="highlight" style="text-align:left">
+<h4>Jose Luis Ruiz Rivera</h4>
+<p>▸ luisruizr525@gmail.com<br>
+▸ +52 55 1609 6375<br>
+▸ linkedin.com/in/jose-luis-ruiz-rivera-a0a6551b7/</p>
+</div>
+</div>
+
+<p style="color:#2a3f55;font-size:10px;margin-top:28px">Presentation prepared for Konko AI Interview · April 2026</p>
+</div>
+
+<!-- ===== NAVIGATION BAR ===== -->
+<div class="nav-bar">
+<button class="nav-btn" id="prevBtn" onclick="go(-1)" disabled>← Previous</button>
+<div style="display:flex;align-items:center;gap:12px">
+<div class="progress" id="dots"></div>
+<span class="slide-counter" id="counter">1 / 14</span>
+</div>
+<button class="nav-btn" id="nextBtn" onclick="go(1)">Next →</button>
+</div>
+
+<script>
+// ===== PARTICLE SYSTEM =====
+(function(){
+const c=document.getElementById('particles'),ctx=c.getContext('2d');
+let w,h,particles=[];
+function resize(){w=c.width=window.innerWidth;h=c.height=window.innerHeight}
+resize();window.addEventListener('resize',resize);
+
+function Particle(){
+this.x=Math.random()*w;this.y=Math.random()*h;
+this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;
+this.r=Math.random()*1.5+.5;
+this.color=Math.random()>.5?'rgba(0,212,170,':'rgba(0,168,255,';
+this.alpha=Math.random()*.5+.1;
+}
+for(let i=0;i<60;i++)particles.push(new Particle());
+
+function draw(){
+ctx.clearRect(0,0,w,h);
+particles.forEach(p=>{
+p.x+=p.vx;p.y+=p.vy;
+if(p.x<0)p.x=w;if(p.x>w)p.x=0;
+if(p.y<0)p.y=h;if(p.y>h)p.y=0;
+ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+ctx.fillStyle=p.color+p.alpha+')';ctx.fill();
+});
+// Draw connections
+for(let i=0;i<particles.length;i++){
+for(let j=i+1;j<particles.length;j++){
+const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y;
+const dist=Math.sqrt(dx*dx+dy*dy);
+if(dist<120){
+ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);
+ctx.lineTo(particles[j].x,particles[j].y);
+ctx.strokeStyle='rgba(0,212,170,'+(1-dist/120)*.08+')';
+ctx.lineWidth=.5;ctx.stroke();
+}
+}
+}
+requestAnimationFrame(draw);
+}
+draw();
+})();
+
+// ===== SLIDE NAVIGATION =====
+let cur=0;
+const total=document.querySelectorAll('.slide').length;
+const dots=document.getElementById('dots');
+
+for(let i=0;i<total;i++){
+const d=document.createElement('div');
+d.className='dot'+(i===0?' active':'');
+d.onclick=()=>goTo(i);
+dots.appendChild(d);
+}
+
+function goTo(n){
+if(n<0||n>=total)return;
+document.querySelectorAll('.slide').forEach((s,i)=>s.classList.toggle('active',i===n));
+document.querySelectorAll('.dot').forEach((d,i)=>{
+d.classList.toggle('active',i===n);
+if(i<=n)d.classList.add('visited');
+});
+cur=n;
+document.getElementById('counter').textContent=(cur+1)+' / '+total;
+document.getElementById('prevBtn').disabled=cur===0;
+document.getElementById('nextBtn').disabled=cur===total-1;
+document.querySelector('.slide.active').scrollTop=0;
+}
+
+function go(dir){goTo(cur+dir)}
+
+document.addEventListener('keydown',e=>{
+if(e.key==='ArrowRight'||e.key===' ')go(1);
+if(e.key==='ArrowLeft')go(-1);
+});
+
+// Touch support
+let touchStartX=0;
+document.addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX});
+document.addEventListener('touchend',e=>{
+const diff=e.changedTouches[0].clientX-touchStartX;
+if(Math.abs(diff)>50){diff>0?go(-1):go(1)}
+});
+</script>
+</body>
+</html>
