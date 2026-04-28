@@ -1,0 +1,968 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI &amp; Automation Assignment · Konko AI · JL</title>
+<meta name="description" content="Konko's first organic growth channel: programmatic SEO engine. The bet, 6 working pages, the system to scale, tracking, qualification, nurture and 30/60/90 metrics.">
+<link rel="icon" type="image/png" href="favicon-konko-512.png">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0b1929;color:#f8f7f2;min-height:100vh}
+
+/* ===== TOP BAR ===== */
+.topbar{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(11,25,41,.92);backdrop-filter:blur(12px);border-bottom:1px solid #1a3a5c;display:flex;align-items:center;justify-content:space-between;padding:0 24px;z-index:100}
+.brand{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:1.5px;color:#63d4fa;font-weight:600;text-transform:uppercase}
+.brand .logo{width:24px;height:24px;background:linear-gradient(135deg,#63d4fa,#008fd1);border-radius:5px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#0b1929;font-size:14px}
+.brand a{color:#7a9ab8;text-decoration:none;font-size:11px;margin-left:18px;border-left:1px solid #1a3a5c;padding-left:18px;transition:color .2s}
+.brand a:hover{color:#63d4fa}
+.lang-toggle{display:flex;gap:4px;background:#0e1f35;border:1px solid #1a3a5c;border-radius:24px;padding:3px}
+.lang-btn{background:transparent;border:none;color:#7a9ab8;padding:6px 14px;border-radius:20px;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:1px;transition:all .2s}
+.lang-btn:hover{color:#63d4fa}
+.lang-btn.active{background:linear-gradient(135deg,#63d4fa,#008fd1);color:#0b1929}
+
+/* ===== LAYOUT ===== */
+.layout{display:flex;padding-top:56px;min-height:100vh}
+aside{width:280px;background:#091624;border-right:1px solid #1a3a5c;padding:32px 0;position:fixed;top:56px;bottom:0;overflow-y:auto}
+aside .nav-title{font-size:10px;color:#5c7e96;text-transform:uppercase;letter-spacing:2px;padding:0 28px 12px;font-weight:600}
+aside nav a{display:flex;align-items:center;gap:12px;padding:12px 28px;color:#9ab5cc;text-decoration:none;font-size:13px;border-left:3px solid transparent;transition:all .2s;line-height:1.3}
+aside nav a:hover{background:rgba(99,212,250,.05);color:#f8f7f2}
+aside nav a.active{background:rgba(99,212,250,.1);color:#63d4fa;border-left-color:#63d4fa;font-weight:600}
+aside nav a .num{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;background:#0e1f35;border:1px solid #1a3a5c;border-radius:6px;font-size:10px;font-weight:700;color:#63d4fa;flex-shrink:0}
+aside nav a.active .num{background:#63d4fa;color:#0b1929;border-color:#63d4fa}
+
+main{flex:1;margin-left:280px;padding:48px 64px 80px;max-width:1100px}
+section.s{margin-bottom:80px;scroll-margin-top:80px}
+section.s:last-child{margin-bottom:40px}
+
+/* ===== TYPOGRAPHY ===== */
+.eyebrow{color:#63d4fa;font-size:10px;letter-spacing:3px;text-transform:uppercase;font-weight:700;margin-bottom:10px}
+h1{font-size:42px;line-height:1.15;margin-bottom:14px;font-weight:700;letter-spacing:-.5px}
+h1 .accent{background:linear-gradient(135deg,#63d4fa,#fa5fe8 60%,#ffc107);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+h2{font-size:28px;margin-bottom:8px;font-weight:700;letter-spacing:-.3px}
+h3{font-size:18px;margin:24px 0 10px;color:#f8f7f2;font-weight:600}
+h4{font-size:14px;color:#63d4fa;margin-bottom:8px;text-transform:uppercase;letter-spacing:1px;font-weight:700}
+p{color:#9ab5cc;font-size:14px;line-height:1.7;margin-bottom:12px}
+.lead{color:#ced9e3;font-size:15px;line-height:1.7;margin-bottom:24px;max-width:760px}
+ul,ol{color:#9ab5cc;font-size:14px;line-height:1.7;padding-left:22px;margin-bottom:14px}
+ul li,ol li{margin-bottom:6px}
+strong{color:#f8f7f2;font-weight:600}
+code{background:#132c4a;color:#63d4fa;padding:2px 7px;border-radius:4px;font-size:12px;font-family:'Consolas','Monaco',monospace}
+a{color:#63d4fa;text-decoration:none;border-bottom:1px solid rgba(99,212,250,.3);transition:border-color .2s}
+a:hover{border-color:#63d4fa}
+
+/* ===== CARDS / GRIDS ===== */
+.card{background:linear-gradient(135deg,#0e1f35,#132c4a);border:1px solid #1a3a5c;border-radius:14px;padding:22px;margin-bottom:14px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+
+/* ===== METRIC ===== */
+.metric{background:#0e1f35;border:1px solid #1a3a5c;border-radius:12px;padding:18px;text-align:center}
+.metric .v{font-size:26px;font-weight:800;color:#63d4fa;line-height:1;margin-bottom:6px}
+.metric .l{font-size:10px;color:#7a9ab8;text-transform:uppercase;letter-spacing:1px;line-height:1.3}
+
+/* ===== BADGES ===== */
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-right:4px}
+.b-cyan{background:rgba(99,212,250,.15);color:#63d4fa}
+.b-green{background:rgba(32,227,159,.15);color:#20e39f}
+.b-pink{background:rgba(250,95,232,.15);color:#fa5fe8}
+.b-amber{background:rgba(255,193,7,.15);color:#ffc107}
+
+/* ===== HIGHLIGHT BOXES ===== */
+.box{padding:18px;border-radius:12px;margin:14px 0}
+.box.cyan{background:linear-gradient(135deg,rgba(99,212,250,.08),rgba(0,143,209,.03));border:1px solid rgba(99,212,250,.25)}
+.box.green{background:linear-gradient(135deg,rgba(32,227,159,.08),rgba(32,227,159,.02));border:1px solid rgba(32,227,159,.25)}
+.box.amber{background:linear-gradient(135deg,rgba(255,193,7,.08),rgba(255,193,7,.02));border:1px solid rgba(255,193,7,.25)}
+.box.pink{background:linear-gradient(135deg,rgba(250,95,232,.08),rgba(250,95,232,.02));border:1px solid rgba(250,95,232,.25)}
+.box h4{margin-bottom:6px}
+.box.cyan h4{color:#63d4fa}.box.green h4{color:#20e39f}.box.amber h4{color:#ffc107}.box.pink h4{color:#fa5fe8}
+.box p,.box li{color:#ced9e3;font-size:13px;line-height:1.6}
+
+/* ===== TABLES ===== */
+table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}
+th{text-align:left;padding:11px 14px;background:#0e1f35;color:#63d4fa;font-size:10.5px;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #1a3a5c;font-weight:700}
+td{padding:11px 14px;border-bottom:1px solid #132c4a;color:#ced9e3;vertical-align:top}
+tr:hover td{background:rgba(99,212,250,.03)}
+td.num{font-variant-numeric:tabular-nums;font-weight:700;color:#63d4fa}
+td code{font-size:11px}
+
+/* ===== URL CARDS ===== */
+.url-card{background:linear-gradient(135deg,#0e1f35,#132c4a);border:1px solid #1a3a5c;border-radius:12px;padding:18px;display:flex;flex-direction:column;text-decoration:none;color:inherit;transition:all .25s;border-bottom:1px solid #1a3a5c}
+.url-card:hover{transform:translateY(-3px);border-color:#63d4fa;box-shadow:0 12px 32px rgba(99,212,250,.12)}
+.url-card .ratio{font-size:10px;color:#fa5fe8;letter-spacing:1px;text-transform:uppercase;font-weight:700;margin-bottom:6px}
+.url-card h3{font-size:16px;color:#f8f7f2;margin:0 0 6px;font-weight:700}
+.url-card p{font-size:12px;color:#7a9ab8;margin:0 0 12px;line-height:1.5}
+.url-card .url{font-size:11px;color:#63d4fa;font-family:'Consolas',monospace;margin-top:auto;padding-top:10px;border-top:1px dashed #1a3a5c;word-break:break-all}
+
+/* ===== FLOW DIAGRAM ===== */
+.flow-svg-wrap{background:#0a1525;border:1px solid #1a3a5c;border-radius:14px;padding:20px;margin:16px 0;overflow-x:auto}
+.flow-svg-wrap svg{width:100%;height:auto;min-width:600px}
+
+/* ===== TIMELINE ===== */
+.timeline{position:relative;padding-left:28px;margin:18px 0}
+.timeline::before{content:"";position:absolute;left:8px;top:8px;bottom:8px;width:2px;background:linear-gradient(to bottom,#63d4fa,#fa5fe8,#ffc107)}
+.tl-item{position:relative;padding-bottom:18px}
+.tl-item::before{content:"";position:absolute;left:-26px;top:6px;width:14px;height:14px;border-radius:50%;background:#63d4fa;border:3px solid #0b1929}
+.tl-item:nth-child(2)::before{background:#fa5fe8}
+.tl-item:nth-child(3)::before{background:#ffc107}
+.tl-item h4{margin-bottom:4px;font-size:13px}
+.tl-item p{font-size:13px;margin:0}
+
+/* ===== CTA STRIP ===== */
+.cta-strip{background:linear-gradient(135deg,rgba(99,212,250,.1),rgba(250,95,232,.05));border:1px solid rgba(99,212,250,.3);border-radius:14px;padding:22px;margin:24px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.cta-strip h3{margin:0 0 4px}
+.cta-strip p{margin:0;font-size:13px;color:#9ab5cc}
+.cta-strip .btn{background:linear-gradient(135deg,#63d4fa,#008fd1);color:#0b1929;padding:10px 22px;border-radius:8px;text-decoration:none;font-weight:700;font-size:13px;border:none}
+
+/* ===== KEY-VALUE pairs ===== */
+.kv{display:grid;grid-template-columns:auto 1fr;gap:8px 18px;margin:10px 0;font-size:13px}
+.kv dt{color:#7a9ab8;font-weight:600}
+.kv dd{color:#ced9e3}
+
+/* ===== FOOTER ===== */
+.footer{margin-left:280px;padding:24px 64px;border-top:1px solid #1a3a5c;text-align:center;color:#5c7e96;font-size:11px;letter-spacing:.5px}
+
+/* Language: single-element approach via data-en/data-es swap by JS */
+
+/* ===== Responsive ===== */
+@media(max-width:980px){
+  aside{width:240px}
+  main{margin-left:240px;padding:32px 28px 60px}
+  .footer{margin-left:240px;padding:20px 28px}
+  .grid-3{grid-template-columns:1fr 1fr}
+  .grid-4{grid-template-columns:1fr 1fr}
+}
+@media(max-width:680px){
+  aside{position:static;width:100%;height:auto;border-right:none;border-bottom:1px solid #1a3a5c;padding:14px 0}
+  main,.footer{margin-left:0;padding:24px 20px 50px}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  h1{font-size:32px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand">
+    <span class="logo">K</span>
+    <span data-en="JL · Konko Application" data-es="JL · Postulación Konko">JL · Konko Application</span>
+    <a href="index.html" data-en="← Back to menu" data-es="← Volver al menú">← Back to menu</a>
+  </div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btnEn" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" id="btnEs" onclick="setLang('es')">ES</button>
+  </div>
+</div>
+
+<div class="layout">
+
+<aside>
+  <div class="nav-title" data-en="Assignment Sections" data-es="Secciones del Assignment">Assignment Sections</div>
+  <nav>
+    <a href="#s0" class="active"><span class="num">0</span><span data-en="Overview" data-es="Resumen">Overview</span></a>
+    <a href="#s1"><span class="num">1</span><span data-en="The Bet" data-es="La Apuesta">The Bet</span></a>
+    <a href="#s2"><span class="num">2</span><span data-en="Working Pages" data-es="Páginas Vivas">Working Pages</span></a>
+    <a href="#s3"><span class="num">3</span><span data-en="The System" data-es="El Sistema">The System</span></a>
+    <a href="#s4"><span class="num">4</span><span data-en="Conversion &amp; Tracking" data-es="Conversión &amp; Tracking">Conversion &amp; Tracking</span></a>
+    <a href="#s5"><span class="num">5</span><span data-en="Qualification" data-es="Calificación">Qualification</span></a>
+    <a href="#s6"><span class="num">6</span><span data-en="Nurture" data-es="Nurture">Nurture</span></a>
+    <a href="#s7"><span class="num">7</span><span data-en="Success Metrics" data-es="Métricas de Éxito">Success Metrics</span></a>
+    <a href="#s8"><span class="num">8</span><span data-en="What I Cut" data-es="Lo que Corté">What I Cut</span></a>
+  </nav>
+</aside>
+
+<main>
+
+<!-- ═══════════════════════════════════════════ SECTION 0 — OVERVIEW ═══════════════════════════════════════════ -->
+<section class="s" id="s0">
+  <div class="eyebrow" data-en="Section 00 · Overview" data-es="Sección 00 · Resumen">Section 00 · Overview</div>
+  <h1>
+    <span data-en="Konko's first" data-es="El primer canal de">Konko's first</span><br>
+    <span class="accent" data-en="organic growth channel" data-es="growth orgánico de Konko">organic growth channel</span>
+  </h1>
+  <p class="lead" data-en="A programmatic SEO engine — built specialty by specialty, geo by geo, keyword by keyword — designed to compound while the team focuses on closing. 6 pages live today on Lovable as proof of visual fidelity. The architecture below scales the same template to 150 pages in 90 days, sitting natively on Konko's existing stack (Notion + Webflow + n8n)." data-es="Un motor de programmatic SEO — construido especialidad por especialidad, geo por geo, keyword por keyword — diseñado para componerse mientras el equipo se enfoca en cerrar. 6 páginas vivas hoy en Lovable como prueba de fidelidad visual. La arquitectura debajo escala el mismo template a 150 páginas en 90 días, sentado nativamente sobre el stack existente de Konko (Notion + Webflow + n8n).">A programmatic SEO engine — built specialty by specialty, geo by geo, keyword by keyword — designed to compound while the team focuses on closing.</p>
+
+  <div class="grid-4">
+    <div class="metric"><div class="v">6</div><div class="l" data-en="Live pages" data-es="Páginas vivas">Live pages</div></div>
+    <div class="metric"><div class="v">5</div><div class="l" data-en="Specialties × CDMX" data-es="Especialidades × CDMX">Specialties × CDMX</div></div>
+    <div class="metric"><div class="v">+900%</div><div class="l" data-en="YoY head term" data-es="YoY del head term">YoY head term</div></div>
+    <div class="metric"><div class="v">~150</div><div class="l" data-en="Pages by day 90" data-es="Páginas al día 90">Pages by day 90</div></div>
+  </div>
+
+  <h3 data-en="The 6-beat narrative for the panel" data-es="La narrativa de 6 beats para el panel">The 6-beat narrative for the panel</h3>
+  <div class="grid-2">
+    <div class="card">
+      <h4>1 · <span data-en="The market signal" data-es="La señal del mercado">The market signal</span></h4>
+      <p data-en="Konko hit $550K+ ARR with &lt;10 people because clinic owners are starving for operational relief. The next $1M doesn't come from harder selling — it comes from a channel that compounds while you sleep." data-es="Konko llegó a $550K+ ARR con &lt;10 personas porque los dueños de clínica están hambrientos de alivio operacional. El siguiente $1M no viene de vender más fuerte — viene de un canal que se compone mientras duermes.">Konko hit $550K+ ARR with &lt;10 people because clinic owners are starving for operational relief. The next $1M doesn't come from harder selling — it comes from a channel that compounds while you sleep.</p>
+    </div>
+    <div class="card">
+      <h4>2 · <span data-en="The framework" data-es="El framework">The framework</span></h4>
+      <p data-en="Specialty × Geo × Keyword, prioritized by Exhibit A's G/F ratio (customers ÷ leads). Where you already convert best AND volume exists = where to go first." data-es="Especialidad × Geo × Keyword, priorizado por el ratio G/F del Exhibit A (customers ÷ leads). Donde ya convertís mejor Y existe volumen = donde ir primero.">Specialty × Geo × Keyword, prioritized by Exhibit A's G/F ratio (customers ÷ leads). Where you already convert best AND volume exists = where to go first.</p>
+    </div>
+    <div class="card">
+      <h4>3 · <span data-en="The bets" data-es="Las apuestas">The bets</span></h4>
+      <p data-en="5 specialties × CDMX, all sharing one head term: &quot;software para clínicas de [especialidad] en CDMX&quot;. +900% YoY trend, low competition, modular pattern infinitely repeatable." data-es="5 especialidades × CDMX, todas compartiendo un head term: &quot;software para clínicas de [especialidad] en CDMX&quot;. Tendencia +900% YoY, baja competencia, patrón modular infinitamente repetible.">5 specialties × CDMX, all sharing one head term: "software para clínicas de [especialidad] en CDMX". +900% YoY trend, low competition, modular pattern infinitely repeatable.</p>
+    </div>
+    <div class="card">
+      <h4>4 · <span data-en="The pages" data-es="Las páginas">The pages</span></h4>
+      <p data-en="6 URLs live (1 master + 5 specialty). Built in Lovable as proof. Same template, swap variables — Urología → Ginecología → Dermatología → Cirugía Plástica → Fisioterapia." data-es="6 URLs vivas (1 master + 5 especialidad). Construidas en Lovable como prueba. Mismo template, cambian variables — Urología → Ginecología → Dermatología → Cirugía Plástica → Fisioterapia.">6 URLs live (1 master + 5 specialty). Built in Lovable as proof. Same template, swap variables — Urología → Ginecología → Dermatología → Cirugía Plástica → Fisioterapia.</p>
+    </div>
+    <div class="card">
+      <h4>5 · <span data-en="The system" data-es="El sistema">The system</span></h4>
+      <p data-en="Notion DB (1 row = 1 landing) → n8n workflow → Webflow CMS → konko.ai/cdmx/[slug]/. 100% Konko-native stack. Add a row, get a URL. One person can publish 10 pages in an afternoon." data-es="Notion DB (1 row = 1 landing) → n8n workflow → Webflow CMS → konko.ai/cdmx/[slug]/. Stack 100% Konko-native. Agregás una row, obtenés una URL. Una persona puede publicar 10 páginas en una tarde.">Notion DB (1 row = 1 landing) → n8n workflow → Webflow CMS → konko.ai/cdmx/[slug]/. 100% Konko-native stack. Add a row, get a URL.</p>
+    </div>
+    <div class="card">
+      <h4>6 · <span data-en="The outcomes" data-es="Los outcomes">The outcomes</span></h4>
+      <p data-en="SQL volume, not MQL. Cost per SQL with payback &lt;6 months. Documented experimentation cycles. Internal automation coverage. Aligned with the 4 outcomes the role owns per the JD." data-es="Volumen de SQL, no de MQL. Costo por SQL con payback &lt;6 meses. Ciclos de experimentación documentados. Cobertura de automatización interna. Alineado con los 4 outcomes que el rol owns según el JD.">SQL volume, not MQL. Cost per SQL with payback &lt;6 months. Documented experimentation cycles. Internal automation coverage.</p>
+    </div>
+  </div>
+
+  <div class="box cyan">
+    <h4 data-en="Why this is the right first bet" data-es="Por qué es la apuesta inicial correcta">Why this is the right first bet</h4>
+    <p data-en="Programmatic SEO is the only acquisition channel where unit cost decreases as volume grows. Page #51 costs the same to add as page #1, but earns compound returns. Compared to paid ads (cost rises with scale) or outbound (linear with headcount), this is the channel where Konko's small team multiplies its leverage 10×." data-es="Programmatic SEO es el único canal de adquisición donde el costo unitario disminuye al crecer el volumen. Agregar la página #51 cuesta lo mismo que agregar la #1, pero genera retornos compuestos. Vs. paid ads (costo crece con escala) o outbound (lineal con headcount), este es el canal donde el equipo pequeño de Konko multiplica su leverage 10×.">Programmatic SEO is the only acquisition channel where unit cost decreases as volume grows.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 1 — THE BET ═══════════════════════════════════════════ -->
+<section class="s" id="s1">
+  <div class="eyebrow" data-en="Section 01 · The Bet" data-es="Sección 01 · La Apuesta">Section 01 · The Bet</div>
+  <h1>
+    <span data-en="One head term." data-es="Un head term.">One head term.</span>
+    <span class="accent" data-en="Five specialties." data-es="Cinco especialidades.">Five specialties.</span>
+    <span data-en="Infinite scale." data-es="Escala infinita.">Infinite scale.</span>
+  </h1>
+  <p class="lead" data-en="The bet is a single modular keyword pattern — software para clínicas de [especialidad] en CDMX — that absorbed +900% YoY growth in Google's Keyword Planner with low competition. The same pattern works across 20 specialties, 5 cities and 3 countries. We start with the 5 highest G/F ratios from Exhibit A." data-es="La apuesta es un único patrón modular de keyword — software para clínicas de [especialidad] en CDMX — que absorbió +900% YoY de crecimiento en Keyword Planner con baja competencia. El mismo patrón funciona en 20 especialidades, 5 ciudades y 3 países. Arrancamos con los 5 ratios G/F más altos del Exhibit A.">The bet is a single modular keyword pattern that absorbed +900% YoY growth with low competition.</p>
+
+  <h3 data-en="The 5 prioritized bets (ordered by G/F ratio)" data-es="Las 5 apuestas priorizadas (ordenadas por ratio G/F)">The 5 prioritized bets (ordered by G/F ratio)</h3>
+  <table>
+    <thead><tr>
+      <th>#</th><th data-en="Specialty" data-es="Especialidad">Specialty</th><th>Geo</th><th data-en="Keyword" data-es="Keyword">Keyword</th><th>G/F</th><th data-en="Why this rank" data-es="Por qué este rank">Why this rank</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td><strong>Urología</strong></td><td>CDMX</td><td><code>software para clínicas de urología en CDMX</code></td><td class="num">45.0</td><td data-en="Highest G/F · medium SEO saturation · clear window for Konko" data-es="Mayor G/F · saturación SEO media · ventana clara para Konko">Highest G/F · medium SEO saturation · clear window for Konko</td></tr>
+      <tr><td class="num">2</td><td><strong>Ginecología</strong></td><td>CDMX</td><td><code>software para clínicas de ginecología en CDMX</code></td><td class="num">32.3</td><td data-en="High volume · long LTV (maternity packages, annual control)" data-es="Alto volumen · LTV largo (paquetes maternidad, control anual)">High volume · long LTV (maternity packages, annual control)</td></tr>
+      <tr><td class="num">3</td><td><strong>Dermatología</strong></td><td>CDMX</td><td><code>software para clínicas de dermatología en CDMX</code></td><td class="num">25.0</td><td data-en="Aesthetic-derma MX market = USD 1.2B+ (Grand View 2024)" data-es="Mercado estético-dermo MX = USD 1.2B+ (Grand View 2024)">Aesthetic-derma MX market = USD 1.2B+ (Grand View 2024)</td></tr>
+      <tr><td class="num">4</td><td><strong>Cirugía Plástica</strong></td><td>CDMX</td><td><code>software para clínicas de cirugía plástica en CDMX</code></td><td class="num">23.5</td><td data-en="Highest ticket · MX vs CO 8.2× in our favor (Grand View)" data-es="Ticket más alto · MX vs CO 8.2× a nuestro favor (Grand View)">Highest ticket · MX vs CO 8.2× in our favor (Grand View)</td></tr>
+      <tr><td class="num">5</td><td><strong>Fisioterapia</strong></td><td>CDMX</td><td><code>software para clínicas de fisioterapia en CDMX</code></td><td class="num">13.1</td><td data-en="Programmatic pattern already validated in SERP (Doctoralia + sub-alcaldía)" data-es="Patrón programático ya validado en SERP (Doctoralia + sub-alcaldía)">Programmatic pattern already validated in SERP (Doctoralia + sub-alcaldía)</td></tr>
+    </tbody>
+  </table>
+
+  <h3 data-en="Why &quot;software para clínicas&quot; beats every alternative" data-es="Por qué &quot;software para clínicas&quot; gana sobre cada alternativa">Why "software para clínicas" beats every alternative</h3>
+  <p data-en="I tested 10 synonyms in Google Ads Keyword Planner (geo México, español, April 2026). The winner combines volume + trend + competition + modular scalability:" data-es="Probé 10 sinónimos en Google Ads Keyword Planner (geo México, español, abril 2026). El ganador combina volumen + tendencia + competencia + escalabilidad modular:">I tested 10 synonyms in Google Ads Keyword Planner. The winner combines volume + trend + competition + modular scalability:</p>
+
+  <table>
+    <thead><tr>
+      <th data-en="Synonym" data-es="Sinónimo">Synonym</th><th data-en="Volume MX" data-es="Volumen MX">Volume MX</th><th>YoY</th><th data-en="Competition" data-es="Competencia">Competition</th><th>CPC</th><th data-en="Verdict" data-es="Veredicto">Verdict</th>
+    </tr></thead>
+    <tbody>
+      <tr style="background:rgba(99,212,250,.06)">
+        <td><strong>software para clínicas</strong></td><td class="num">10–100</td><td><span class="badge b-cyan">+900%</span></td><td data-en="Low" data-es="Baja">Low</td><td>$10–$56</td><td><strong style="color:#63d4fa" data-en="WINNER" data-es="GANADOR">WINNER</strong></td>
+      </tr>
+      <tr><td>programa para clínicas</td><td class="num">10–100</td><td>+∞ 3yr</td><td data-en="High" data-es="Alta">High</td><td>—</td><td data-en="Too competitive" data-es="Muy competitivo">Too competitive</td></tr>
+      <tr><td>sistema para clínicas</td><td class="num">10–100</td><td>0%</td><td data-en="Low" data-es="Baja">Low</td><td>$13–$46</td><td data-en="No trend" data-es="Sin trend">No trend</td></tr>
+      <tr><td>crm para clínicas</td><td class="num">10–100</td><td>0%</td><td data-en="High" data-es="Alta">High</td><td>$28–$131</td><td data-en="High CPC, high comp" data-es="CPC alto, comp alta">High CPC, high comp</td></tr>
+      <tr><td>software médico (generic)</td><td class="num">100–1K</td><td>0%</td><td data-en="Low" data-es="Baja">Low</td><td>$8–$33</td><td data-en="High volume but NOT modular" data-es="Alto volumen pero NO modular">High volume but NOT modular</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box amber">
+    <h4 data-en="The strategic trade-off I made" data-es="El trade-off estratégico que hice">The strategic trade-off I made</h4>
+    <p data-en="&quot;software médico&quot; has 10× more volume — but the phrase &quot;software médico de urología en CDMX&quot; sounds awkward, while &quot;software para clínicas de urología en CDMX&quot; reads naturally. I traded 1× volume for infinite modular scalability. With +900% YoY trend, today's 10–100/mo becomes 100–1K/mo in 12–18 months. Konko enters now with low competition and consolidates position before AgendaPro, Doctoralia PRO and Medilink discover the niche." data-es="&quot;software médico&quot; tiene 10× más volumen — pero la frase &quot;software médico de urología en CDMX&quot; suena raro, mientras &quot;software para clínicas de urología en CDMX&quot; se lee natural. Sacrifiqué 1× volumen por escalabilidad modular infinita. Con tendencia +900% YoY, las 10–100/mes de hoy se vuelven 100–1K/mes en 12–18 meses. Konko entra ahora con baja competencia y consolida posición antes que AgendaPro, Doctoralia PRO y Medilink descubran el nicho.">"software médico" has 10× more volume — but the phrase "software médico de urología en CDMX" sounds awkward.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 2 — WORKING PAGES ═══════════════════════════════════════════ -->
+<section class="s" id="s2">
+  <div class="eyebrow" data-en="Section 02 · Working Pages" data-es="Sección 02 · Páginas Vivas">Section 02 · Working Pages</div>
+  <h1>
+    <span data-en="6 URLs live." data-es="6 URLs vivas.">6 URLs live.</span>
+    <span class="accent" data-en="Mockups don't count." data-es="Los mockups no cuentan.">Mockups don't count.</span>
+  </h1>
+  <p class="lead" data-en="The brief was explicit: working pages, not mockups. I built 6 URLs hosted on Lovable as proof of visual fidelity to Exhibit B. The same template is portable to konko.ai/cdmx/[especialidad]/ via Webflow CMS — see Section 3 for the production architecture." data-es="El brief fue explícito: páginas vivas, no mockups. Construí 6 URLs hosteadas en Lovable como prueba de fidelidad visual al Exhibit B. El mismo template es portable a konko.ai/cdmx/[especialidad]/ vía Webflow CMS — ver Sección 3 para la arquitectura de producción.">The brief was explicit: working pages, not mockups. I built 6 URLs hosted on Lovable as proof of visual fidelity to Exhibit B.</p>
+
+  <h3 data-en="Master template" data-es="Template master">Master template</h3>
+  <div class="grid-2">
+    <a href="https://konko-cdmx-clinicas.lovable.app/" target="_blank" class="url-card">
+      <div class="ratio" data-en="Master · all specialties" data-es="Master · todas las especialidades">Master · all specialties</div>
+      <h3>Konko CDMX · General</h3>
+      <p data-en="The base template — no specialty selected. Used as the master from which the 5 specialty pages are duplicated and customized." data-es="El template base — sin especialidad seleccionada. Usado como master del cual se duplican y personalizan las 5 páginas de especialidad.">The base template.</p>
+      <div class="url">konko-cdmx-clinicas.lovable.app</div>
+    </a>
+    <div class="card" style="border-style:dashed;border-color:#1a3a5c;background:transparent">
+      <h4 data-en="Why a master template" data-es="Por qué un template master">Why a master template</h4>
+      <p data-en="One source of truth = zero visual drift across the 5 specialty pages. Edit the master once, ripple to all children. This is the seed of the system in Section 3." data-es="Una sola source of truth = cero visual drift entre las 5 páginas de especialidad. Editás el master una vez, propaga a todas las hijas. Esta es la semilla del sistema en la Sección 3.">One source of truth = zero visual drift across the 5 specialty pages. Edit the master once, ripple to all children. This is the seed of the system in Section 3.</p>
+    </div>
+  </div>
+
+  <h3 data-en="5 specialty pages (ordered by G/F priority)" data-es="5 páginas de especialidad (ordenadas por prioridad G/F)">5 specialty pages (ordered by G/F priority)</h3>
+  <div class="grid-2">
+
+    <a href="https://konko-cdmx-urologia.lovable.app/" target="_blank" class="url-card">
+      <div class="ratio">G/F 45.0 · #1</div>
+      <h3>Urología × CDMX</h3>
+      <p data-en="Vasectomy, laser prostate surgery, kidney stones, urinary infection. High procedure ticket." data-es="Vasectomía, cirugía láser de próstata, cálculos renales, infección urinaria. Ticket alto de procedimiento.">Vasectomy, laser prostate surgery, kidney stones, urinary infection.</p>
+      <div class="url">konko-cdmx-urologia.lovable.app</div>
+    </a>
+
+    <a href="https://konko-cdmx-ginecologia.lovable.app/" target="_blank" class="url-card">
+      <div class="ratio">G/F 32.3 · #2</div>
+      <h3>Ginecología × CDMX</h3>
+      <p data-en="Prenatal control, ultrasound, pap smear, maternity packages. Long LTV." data-es="Control prenatal, ecografía, papanicolau, paquetes de maternidad. LTV largo.">Prenatal control, ultrasound, pap smear, maternity packages.</p>
+      <div class="url">konko-cdmx-ginecologia.lovable.app</div>
+    </a>
+
+    <a href="https://konko-cdmx-dermatologia.lovable.app/" target="_blank" class="url-card">
+      <div class="ratio">G/F 25.0 · #3</div>
+      <h3>Dermatología × CDMX</h3>
+      <p data-en="Acne, melasma, rejuvenation, CO2 laser. Aesthetic-derma MX market USD 1.2B+." data-es="Acné, melasma, rejuvenecimiento, láser CO2. Mercado estético-dermo MX USD 1.2B+.">Acne, melasma, rejuvenation, CO2 laser.</p>
+      <div class="url">konko-cdmx-dermatologia.lovable.app</div>
+    </a>
+
+    <a href="https://konko-cdmx-cirugia-plastica.lovable.app/" target="_blank" class="url-card">
+      <div class="ratio">G/F 23.5 · #4</div>
+      <h3>Cirugía Plástica × CDMX</h3>
+      <p data-en="Rhinoplasty, liposuction, breast augmentation, valoration. Highest ticket of the mix." data-es="Rinoplastia, liposucción, aumento mamario, valoración. Ticket más alto del mix.">Rhinoplasty, liposuction, breast augmentation, valoration.</p>
+      <div class="url">konko-cdmx-cirugia-plastica.lovable.app</div>
+    </a>
+
+    <a href="https://konko-cdmx-fisioterapia.lovable.app/" target="_blank" class="url-card">
+      <div class="ratio">G/F 13.1 · #5</div>
+      <h3>Fisioterapia × CDMX</h3>
+      <p data-en="Post-surgery rehabilitation, therapeutic massage, electrotherapy, valoration." data-es="Rehabilitación post-cirugía, masaje terapéutico, electroterapia, valoración.">Post-surgery rehabilitation, therapeutic massage, electrotherapy.</p>
+      <div class="url">konko-cdmx-fisioterapia.lovable.app</div>
+    </a>
+
+    <div class="card" style="border-style:dashed;border-color:#1a3a5c;background:transparent;display:flex;align-items:center;justify-content:center;text-align:center">
+      <div>
+        <h4 data-en="What's missing here" data-es="Qué falta acá">What's missing here</h4>
+        <p data-en="More cities (Guadalajara, Monterrey, Puebla) and more specialties — Polyclinic, Aesthetic, Plastic Lab, etc. The system in Section 3 is what closes this gap automatically." data-es="Más ciudades (Guadalajara, Monterrey, Puebla) y más especialidades — Polyclinic, Aesthetic, Lab Plástico, etc. El sistema en la Sección 3 es lo que cierra este gap automáticamente.">More cities and more specialties. The system in Section 3 closes this gap automatically.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="box green">
+    <h4 data-en="Tech notes" data-es="Notas técnicas">Tech notes</h4>
+    <ul>
+      <li data-en="<strong>Stack:</strong> React + Tailwind via Lovable, hosted on *.lovable.app subdomain. Production target: konko.ai/cdmx/[slug]/ via Webflow CMS." data-es="<strong>Stack:</strong> React + Tailwind vía Lovable, hospedado en subdomain *.lovable.app. Objetivo de producción: konko.ai/cdmx/[slug]/ vía Webflow CMS."><strong>Stack:</strong> React + Tailwind via Lovable. Production target: konko.ai/cdmx/[slug]/ via Webflow CMS.</li>
+      <li data-en="<strong>10 attached PNG assets</strong> across all 6 pages: logo Konko, hero prism, 3 real clinic logos (Hospital Metropolitano, Imágenes Médicas Catedral, Clínica Bíblica — extracted from Exhibit B), phone frame, chat overlay, Kora avatar, social proof composite, decorative bubble." data-es="<strong>10 PNG attached</strong> en las 6 páginas: logo Konko, hero prism, 3 logos reales de clínicas (Hospital Metropolitano, Imágenes Médicas Catedral, Clínica Bíblica — extraídos de Exhibit B), phone frame, chat overlay, Kora avatar, composite de social proof, burbuja decorativa."><strong>10 attached PNG assets</strong> across all 6 pages, 3 of them extracted directly from Exhibit B.</li>
+      <li data-en="<strong>Lucide React</strong> icons inline for all card UI (CalendarCheck, BellRing, MessageCircle, BarChart3, ShieldCheck) — no rasterized icon images, no asset bloat." data-es="<strong>Lucide React</strong> inline para todos los iconos de las cards — sin imágenes rasterizadas, sin asset bloat."><strong>Lucide React</strong> icons inline for all card UI — no asset bloat.</li>
+      <li data-en="<strong>SEO:</strong> hardcoded meta title, description, OG tags, lang=&quot;es&quot; in &lt;head&gt; per page. Each one targets its long-tail variant." data-es="<strong>SEO:</strong> meta title, description, OG tags, lang=&quot;es&quot; hardcoded en &lt;head&gt; por página. Cada una apunta a su variante long-tail."><strong>SEO:</strong> hardcoded meta title, description, OG, lang="es" per page.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 3 — THE SYSTEM ═══════════════════════════════════════════ -->
+<section class="s" id="s3">
+  <div class="eyebrow" data-en="Section 03 · The System" data-es="Sección 03 · El Sistema">Section 03 · The System</div>
+  <h1>
+    <span data-en="From 6 to 150 pages" data-es="De 6 a 150 páginas">From 6 to 150 pages</span><br>
+    <span class="accent" data-en="without losing quality" data-es="sin perder calidad">without losing quality</span>
+  </h1>
+  <p class="lead" data-en="The brief asked for a pipeline that scales 2 → 100 without quality loss. Lovable manual cloning doesn't qualify — it's the mockup, not the system. The real system is a 4-layer pipeline that sits 100% on Konko's existing tech stack: Notion (data) → n8n (orchestration) → Webflow CMS (production) → konko.ai/cdmx/[slug]/ (live URL)." data-es="El brief pidió una pipeline que escala 2 → 100 sin pérdida de calidad. Clonar manualmente en Lovable no califica — eso es el mockup, no el sistema. El sistema real es una pipeline de 4 capas que vive 100% en el stack tech existente de Konko: Notion (data) → n8n (orquestación) → Webflow CMS (producción) → konko.ai/cdmx/[slug]/ (URL viva).">The real system is a 4-layer pipeline that sits 100% on Konko's existing tech stack.</p>
+
+  <h3 data-en="Architecture — visual flow" data-es="Arquitectura — flujo visual">Architecture — visual flow</h3>
+  <div class="flow-svg-wrap">
+    <svg viewBox="0 0 880 380" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#63d4fa"/><stop offset="100%" stop-color="#008fd1"/>
+        </linearGradient>
+        <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#fa5fe8"/><stop offset="100%" stop-color="#63d4fa"/>
+        </linearGradient>
+        <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#ffc107"/><stop offset="100%" stop-color="#fa5fe8"/>
+        </linearGradient>
+        <linearGradient id="grad4" x1="0%" y1="0%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#20e39f"/><stop offset="100%" stop-color="#ffc107"/>
+        </linearGradient>
+        <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+          <path d="M0,0 L10,5 L0,10 z" fill="#63d4fa"/>
+        </marker>
+      </defs>
+
+      <!-- Layer 1: Notion DB -->
+      <g>
+        <rect x="40" y="80" width="170" height="120" rx="12" fill="#0e1f35" stroke="url(#grad1)" stroke-width="2"/>
+        <text x="125" y="110" text-anchor="middle" fill="#63d4fa" font-size="11" font-weight="700" letter-spacing="1">LAYER 1 · DATA</text>
+        <text x="125" y="138" text-anchor="middle" fill="#f8f7f2" font-size="18" font-weight="700">Notion DB</text>
+        <text x="125" y="160" text-anchor="middle" fill="#9ab5cc" font-size="11">1 row = 1 landing</text>
+        <text x="125" y="178" text-anchor="middle" fill="#9ab5cc" font-size="11">Specialty × Geo × Copy</text>
+      </g>
+
+      <!-- Arrow 1→2 -->
+      <line x1="215" y1="140" x2="265" y2="140" stroke="#63d4fa" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <!-- Layer 2: n8n -->
+      <g>
+        <rect x="270" y="80" width="170" height="120" rx="12" fill="#0e1f35" stroke="url(#grad2)" stroke-width="2"/>
+        <text x="355" y="110" text-anchor="middle" fill="#fa5fe8" font-size="11" font-weight="700" letter-spacing="1">LAYER 2 · ORCHESTRATION</text>
+        <text x="355" y="138" text-anchor="middle" fill="#f8f7f2" font-size="18" font-weight="700">n8n</text>
+        <text x="355" y="160" text-anchor="middle" fill="#9ab5cc" font-size="11">Trigger → Validate</text>
+        <text x="355" y="178" text-anchor="middle" fill="#9ab5cc" font-size="11">→ Transform → Push</text>
+      </g>
+
+      <!-- Arrow 2→3 -->
+      <line x1="445" y1="140" x2="495" y2="140" stroke="#63d4fa" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <!-- Layer 3: Webflow CMS -->
+      <g>
+        <rect x="500" y="80" width="170" height="120" rx="12" fill="#0e1f35" stroke="url(#grad3)" stroke-width="2"/>
+        <text x="585" y="110" text-anchor="middle" fill="#ffc107" font-size="11" font-weight="700" letter-spacing="1">LAYER 3 · PRODUCTION</text>
+        <text x="585" y="138" text-anchor="middle" fill="#f8f7f2" font-size="18" font-weight="700">Webflow CMS</text>
+        <text x="585" y="160" text-anchor="middle" fill="#9ab5cc" font-size="11">1 template + N items</text>
+        <text x="585" y="178" text-anchor="middle" fill="#9ab5cc" font-size="11">= N URLs auto-deployed</text>
+      </g>
+
+      <!-- Arrow 3→4 -->
+      <line x1="675" y1="140" x2="725" y2="140" stroke="#63d4fa" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <!-- Layer 4: Live URL -->
+      <g>
+        <rect x="730" y="80" width="120" height="120" rx="12" fill="rgba(32,227,159,.08)" stroke="url(#grad4)" stroke-width="2"/>
+        <text x="790" y="110" text-anchor="middle" fill="#20e39f" font-size="11" font-weight="700" letter-spacing="1">LIVE</text>
+        <text x="790" y="138" text-anchor="middle" fill="#f8f7f2" font-size="14" font-weight="700">konko.ai</text>
+        <text x="790" y="158" text-anchor="middle" fill="#20e39f" font-size="11">/cdmx/</text>
+        <text x="790" y="174" text-anchor="middle" fill="#20e39f" font-size="11">[slug]/</text>
+      </g>
+
+      <!-- Bottom: feedback loops -->
+      <g>
+        <rect x="40" y="240" width="810" height="100" rx="12" fill="#0a1525" stroke="#1a3a5c" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="445" y="265" text-anchor="middle" fill="#7a9ab8" font-size="10" font-weight="700" letter-spacing="2">FEEDBACK LOOPS · CLOSING THE LOOP TO REVENUE</text>
+        <text x="160" y="295" text-anchor="middle" fill="#ced9e3" font-size="11" font-weight="600">GA4 → Looker</text>
+        <text x="160" y="312" text-anchor="middle" fill="#9ab5cc" font-size="10">page perf, scroll, CTAs</text>
+        <text x="370" y="295" text-anchor="middle" fill="#ced9e3" font-size="11" font-weight="600">HubSpot</text>
+        <text x="370" y="312" text-anchor="middle" fill="#9ab5cc" font-size="10">deal source = exact URL</text>
+        <text x="580" y="295" text-anchor="middle" fill="#ced9e3" font-size="11" font-weight="600">Slack alerts</text>
+        <text x="580" y="312" text-anchor="middle" fill="#9ab5cc" font-size="10">new SQL · kill signals</text>
+        <text x="780" y="295" text-anchor="middle" fill="#ced9e3" font-size="11" font-weight="600">Notion update</text>
+        <text x="780" y="312" text-anchor="middle" fill="#9ab5cc" font-size="10">ship/iterate/kill</text>
+      </g>
+    </svg>
+  </div>
+
+  <h3 data-en="Why this stack (and not another)" data-es="Por qué este stack (y no otro)">Why this stack (and not another)</h3>
+  <div class="grid-2">
+    <div class="box cyan">
+      <h4 data-en="100% Konko-native" data-es="100% Konko-native">100% Konko-native</h4>
+      <p data-en="Notion is your single source of truth (per the JD stack). Webflow is your website. n8n/Make is in your automation list. Zero new tools to adopt — &quot;if you hire me, you just plug it in.&quot;" data-es="Notion es tu single source of truth (per el stack del JD). Webflow es tu sitio. n8n/Make está en tu lista de automatización. Cero herramientas nuevas para adoptar — &quot;si me contratan, solo lo enchufan.&quot;">Notion is your single source of truth. Webflow is your website. n8n/Make is in your automation list. Zero new tools to adopt — "if you hire me, you just plug it in."</p>
+    </div>
+    <div class="box green">
+      <h4 data-en="Cost decreases with volume" data-es="Costo baja con el volumen">Cost decreases with volume</h4>
+      <p data-en="Adding row #51 to Notion costs the same as adding row #1. The marginal cost of landing #51 ≈ 0. Compare to paid ads (CAC rises with scale) or outbound (linear with headcount)." data-es="Agregar la row #51 a Notion cuesta lo mismo que agregar la #1. El costo marginal de la landing #51 ≈ 0. Compará con paid ads (CAC sube con escala) o outbound (lineal con headcount).">Adding row #51 costs the same as row #1. Marginal cost of landing #51 ≈ 0.</p>
+    </div>
+  </div>
+
+  <h3 data-en="Notion DB schema (the data layer)" data-es="Schema del Notion DB (la capa de data)">Notion DB schema (the data layer)</h3>
+  <table>
+    <thead><tr>
+      <th data-en="Field" data-es="Campo">Field</th><th data-en="Type" data-es="Tipo">Type</th><th data-en="Example (Urología row)" data-es="Ejemplo (row Urología)">Example (Urología row)</th>
+    </tr></thead>
+    <tbody>
+      <tr><td><code>specialty</code></td><td>Text</td><td>Urología</td></tr>
+      <tr><td><code>geo</code></td><td>Select</td><td>CDMX</td></tr>
+      <tr><td><code>slug</code></td><td>Text</td><td><code>urologia</code></td></tr>
+      <tr><td><code>h1</code></td><td>Text</td><td>Software para clínicas de urología en CDMX</td></tr>
+      <tr><td><code>subhead</code></td><td>Text</td><td data-en="The conversational assistant that schedules vasectomies..." data-es="El asistente conversacional que agenda vasectomías...">The conversational assistant that schedules vasectomies...</td></tr>
+      <tr><td><code>meta_title</code></td><td>Text</td><td>Software para clínicas de urología en CDMX | Kora</td></tr>
+      <tr><td><code>meta_desc</code></td><td>Text</td><td data-en="Up to 160 chars" data-es="Hasta 160 chars">Up to 160 chars</td></tr>
+      <tr><td><code>chat_overlay</code></td><td>Text</td><td>Hola, quiero agendar una vasectomía...</td></tr>
+      <tr><td><code>procedures</code></td><td>Multi-select</td><td>Vasectomía · cirugía láser próstata · cálculos renales</td></tr>
+      <tr><td><code>status</code></td><td>Select</td><td><span class="badge b-green">Live</span> / Draft / Killed</td></tr>
+      <tr><td><code>g_f_ratio</code></td><td>Number</td><td class="num">45.0</td></tr>
+      <tr><td><code>last_updated</code></td><td>Date</td><td>2026-04-28</td></tr>
+    </tbody>
+  </table>
+
+  <h3 data-en="n8n workflow (the orchestration)" data-es="n8n workflow (la orquestación)">n8n workflow (the orchestration)</h3>
+  <div class="card">
+    <ol style="padding-left:20px">
+      <li data-en="<strong>Trigger:</strong> Notion webhook on row update — <code>status = ready</code> filter." data-es="<strong>Trigger:</strong> webhook Notion en update de row — filtro <code>status = ready</code>."><strong>Trigger:</strong> Notion webhook on row update — <code>status = ready</code> filter.</li>
+      <li data-en="<strong>Validate:</strong> required fields present (h1, slug, meta_title, meta_desc, chat_overlay)." data-es="<strong>Validate:</strong> campos requeridos presentes (h1, slug, meta_title, meta_desc, chat_overlay)."><strong>Validate:</strong> required fields present.</li>
+      <li data-en="<strong>Transform:</strong> map Notion fields to Webflow CMS Collection schema, generate slug variations, build canonical URL." data-es="<strong>Transform:</strong> mapear campos Notion al schema de Webflow CMS Collection, generar variaciones de slug, construir URL canónica."><strong>Transform:</strong> map Notion fields to Webflow CMS Collection schema.</li>
+      <li data-en="<strong>POST</strong> to Webflow CMS API → creates collection item." data-es="<strong>POST</strong> a Webflow CMS API → crea collection item."><strong>POST</strong> to Webflow CMS API → creates collection item.</li>
+      <li data-en="<strong>Webflow auto-deploys</strong> to konko.ai/cdmx/[slug]/ within 30 seconds." data-es="<strong>Webflow auto-deploys</strong> a konko.ai/cdmx/[slug]/ en 30 segundos."><strong>Webflow auto-deploys</strong> to konko.ai/cdmx/[slug]/ within 30 seconds.</li>
+      <li data-en="<strong>Notify Slack</strong> #growth channel: &quot;✅ New landing live: [URL]&quot; with preview." data-es="<strong>Notificar Slack</strong> #growth: &quot;✅ Nueva landing viva: [URL]&quot; con preview."><strong>Notify Slack</strong> #growth channel with preview.</li>
+      <li data-en="<strong>Update Notion row</strong> with deployed URL + timestamp." data-es="<strong>Update Notion row</strong> con URL desplegada + timestamp."><strong>Update Notion row</strong> with deployed URL + timestamp.</li>
+    </ol>
+  </div>
+
+  <h3 data-en="Scale math — the growth path" data-es="Matemática de escala — el growth path">Scale math — the growth path</h3>
+  <div class="grid-3">
+    <div class="metric"><div class="v">6 → 50</div><div class="l" data-en="Day 30 · 10 specialties × 5 cities" data-es="Día 30 · 10 especialidades × 5 ciudades">Day 30 · 10 specialties × 5 cities</div></div>
+    <div class="metric"><div class="v">50 → 100</div><div class="l" data-en="Day 60 · iterate winners · kill losers" data-es="Día 60 · iterar ganadores · matar perdedores">Day 60 · iterate winners · kill losers</div></div>
+    <div class="metric"><div class="v">100 → 150</div><div class="l" data-en="Day 90 · ×3 countries (MX/CO/CR)" data-es="Día 90 · ×3 países (MX/CO/CR)">Day 90 · ×3 countries (MX/CO/CR)</div></div>
+  </div>
+
+  <div class="box pink">
+    <h4 data-en="Time per new landing: 15 min vs. 8 hours" data-es="Tiempo por landing nueva: 15 min vs. 8 horas">Time per new landing: 15 min vs. 8 hours</h4>
+    <p data-en="Manual Lovable cloning = ~8 hours per new landing (duplicate, edit config, test, publish, document). System pipeline = ~15 minutes (write 1 Notion row, status=ready, n8n does the rest). 32× efficiency at landing #2. Compounds from there." data-es="Clonado manual en Lovable = ~8 horas por landing nueva (duplicate, editar config, test, publish, documentar). Pipeline del sistema = ~15 minutos (escribir 1 Notion row, status=ready, n8n hace el resto). 32× eficiencia en la landing #2. Se compone desde ahí.">Manual Lovable cloning = ~8 hours per new landing. System pipeline = ~15 minutes. 32× efficiency at landing #2. Compounds from there.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 4 — CONVERSION & TRACKING ═══════════════════════════════════════════ -->
+<section class="s" id="s4">
+  <div class="eyebrow" data-en="Section 04 · Conversion &amp; Tracking" data-es="Sección 04 · Conversión &amp; Tracking">Section 04 · Conversion &amp; Tracking</div>
+  <h1>
+    <span data-en="Every visit attributed." data-es="Cada visita atribuida.">Every visit attributed.</span>
+    <span class="accent" data-en="Every form action measured." data-es="Cada acción medida.">Every form action measured.</span>
+  </h1>
+  <p class="lead" data-en="Tracking is built into the system so each landing has its own identity end-to-end: from first visit, to lead capture, to deal in HubSpot, to closed-won in revenue. No black box. No &quot;the campaign worked&quot; without proof of which page generated which deal." data-es="El tracking está integrado al sistema para que cada landing tenga su propia identidad end-to-end: desde primera visita, captura del lead, deal en HubSpot, hasta closed-won en revenue. Sin black box. Sin &quot;la campaña funcionó&quot; sin prueba de qué página generó qué deal.">Tracking is built so each landing has its own identity end-to-end: from first visit to closed-won.</p>
+
+  <h3 data-en="The 4 layers of conversion tracking" data-es="Las 4 capas de tracking de conversión">The 4 layers of conversion tracking</h3>
+  <div class="grid-2">
+    <div class="box cyan">
+      <h4>1 · UTM dictionary</h4>
+      <p data-en="Auto-generated from the Notion row slug. Every link from a landing carries: utm_source=organic-seo, utm_medium=programmatic, utm_campaign=cdmx-[specialty], utm_content=cta-position." data-es="Auto-generado desde el slug de la row de Notion. Cada link desde una landing lleva: utm_source=organic-seo, utm_medium=programmatic, utm_campaign=cdmx-[specialty], utm_content=cta-position.">Auto-generated from the Notion row slug. Every link from a landing carries the same canonical UTM stack.</p>
+      <p style="margin-top:8px"><code>utm_source=organic-seo</code><br><code>utm_medium=programmatic</code><br><code>utm_campaign=cdmx-urologia</code><br><code>utm_content=hero-cta</code></p>
+    </div>
+    <div class="box pink">
+      <h4>2 · GA4 events</h4>
+      <p data-en="GA4 fires standardized events on every page so we can compare CTR per CTA across specialties:" data-es="GA4 dispara eventos estandarizados en cada página para que podamos comparar CTR por CTA entre especialidades:">GA4 fires standardized events on every page:</p>
+      <ul>
+        <li><code>page_view</code> + specialty + geo</li>
+        <li><code>scroll_50</code> · <code>scroll_90</code></li>
+        <li><code>click_whatsapp</code> (primary CTA)</li>
+        <li><code>click_demo</code> (secondary CTA)</li>
+        <li><code>form_submit</code> + form payload</li>
+      </ul>
+    </div>
+    <div class="box amber">
+      <h4>3 · HubSpot deal source</h4>
+      <p data-en="Every form submit creates a HubSpot contact + deal with the source field set to the EXACT URL that converted them. Not &quot;website&quot; — &quot;konko.ai/cdmx/urologia/&quot;. This lets Sales attribute every closed-won to a specific page." data-es="Cada form submit crea un contacto + deal en HubSpot con el campo source = URL EXACTA que convirtió. No &quot;website&quot; — &quot;konko.ai/cdmx/urologia/&quot;. Esto permite a Sales atribuir cada closed-won a una página específica.">Source field = EXACT URL that converted (not "website" — "konko.ai/cdmx/urologia/"). Every closed-won attributed to a specific page.</p>
+    </div>
+    <div class="box green">
+      <h4>4 · Looker dashboard</h4>
+      <p data-en="One row per landing × week. Columns: traffic, scroll depth, CTA CTR, form submits, leads, MQLs, SQLs, closed-won, revenue. Color-coded by performance vs. cohort median. Updated daily via GA4 + HubSpot connector." data-es="Una fila por landing × semana. Columnas: tráfico, scroll depth, CTA CTR, form submits, leads, MQLs, SQLs, closed-won, revenue. Color-coded por performance vs. mediana de cohort. Actualizado diariamente vía conector GA4 + HubSpot.">One row per landing × week. From traffic to closed-won, color-coded vs. cohort median. Daily refresh.</p>
+    </div>
+  </div>
+
+  <h3 data-en="Looker dashboard mockup — what this looks like in production" data-es="Mockup del dashboard Looker — cómo se ve en producción">Looker dashboard mockup — what this looks like in production</h3>
+  <div class="card" style="background:#0a1525;padding:24px">
+
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;border-bottom:1px solid #1a3a5c;padding-bottom:14px;flex-wrap:wrap;gap:8px">
+      <div>
+        <div style="font-size:10px;color:#7a9ab8;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:4px">📊 Looker Studio · Live View</div>
+        <div style="font-size:16px;color:#f8f7f2;font-weight:700" data-en="Konko Programmatic SEO · Weekly Performance" data-es="Konko Programmatic SEO · Performance Semanal">Konko Programmatic SEO · Weekly Performance</div>
+      </div>
+      <div style="font-size:11px;color:#7a9ab8" data-en="Refreshed: <span style='color:#20e39f'>●</span> Today 09:14 GMT-6" data-es="Actualizado: <span style='color:#20e39f'>●</span> Hoy 09:14 GMT-6">Refreshed: <span style="color:#20e39f">●</span> Today 09:14 GMT-6</div>
+    </div>
+
+    <div class="grid-4" style="margin-bottom:18px">
+      <div style="background:linear-gradient(135deg,rgba(99,212,250,.08),rgba(99,212,250,.02));border:1px solid rgba(99,212,250,.25);border-radius:10px;padding:14px">
+        <div style="font-size:10px;color:#7a9ab8;text-transform:uppercase;letter-spacing:1px" data-en="Live landings" data-es="Landings vivas">Live landings</div>
+        <div style="font-size:28px;color:#63d4fa;font-weight:800;margin-top:4px">6</div>
+        <div style="font-size:11px;color:#20e39f;margin-top:2px" data-en="▲ +6 vs last week" data-es="▲ +6 vs semana pasada">▲ +6 vs last week</div>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(32,227,159,.08),rgba(32,227,159,.02));border:1px solid rgba(32,227,159,.25);border-radius:10px;padding:14px">
+        <div style="font-size:10px;color:#7a9ab8;text-transform:uppercase;letter-spacing:1px">SQLs · 7d</div>
+        <div style="font-size:28px;color:#20e39f;font-weight:800;margin-top:4px">12</div>
+        <div style="font-size:11px;color:#20e39f;margin-top:2px" data-en="▲ +9 vs last week" data-es="▲ +9 vs semana pasada">▲ +9 vs last week</div>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(255,193,7,.08),rgba(255,193,7,.02));border:1px solid rgba(255,193,7,.25);border-radius:10px;padding:14px">
+        <div style="font-size:10px;color:#7a9ab8;text-transform:uppercase;letter-spacing:1px" data-en="CAC payback" data-es="CAC payback">CAC payback</div>
+        <div style="font-size:28px;color:#ffc107;font-weight:800;margin-top:4px">4.8mo</div>
+        <div style="font-size:11px;color:#20e39f;margin-top:2px" data-en="Below 6mo target ✓" data-es="Bajo target 6mo ✓">Below 6mo target ✓</div>
+      </div>
+      <div style="background:linear-gradient(135deg,rgba(250,95,232,.08),rgba(250,95,232,.02));border:1px solid rgba(250,95,232,.25);border-radius:10px;padding:14px">
+        <div style="font-size:10px;color:#7a9ab8;text-transform:uppercase;letter-spacing:1px" data-en="Top cohort" data-es="Top cohort">Top cohort</div>
+        <div style="font-size:18px;color:#fa5fe8;font-weight:800;margin-top:4px">Urología</div>
+        <div style="font-size:11px;color:#7a9ab8;margin-top:2px" data-en="G/F 45.0 → realized" data-es="G/F 45.0 → realizado">G/F 45.0 → realized</div>
+      </div>
+    </div>
+
+    <table style="margin:0;font-size:12px">
+      <thead>
+        <tr>
+          <th data-en="Landing" data-es="Landing">Landing</th>
+          <th style="text-align:right" data-en="Visits 7d" data-es="Visitas 7d">Visits 7d</th>
+          <th style="text-align:right">Scroll 50%</th>
+          <th style="text-align:right">CTA CTR</th>
+          <th style="text-align:right" data-en="Forms" data-es="Forms">Forms</th>
+          <th style="text-align:right">SQLs</th>
+          <th style="text-align:right" data-en="Closed-won" data-es="Closed-won">Closed-won</th>
+          <th style="text-align:right" data-en="Status" data-es="Estado">Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Urología × CDMX</td>
+          <td style="text-align:right;color:#20e39f;font-weight:700">128</td>
+          <td style="text-align:right">42%</td>
+          <td style="text-align:right;color:#20e39f">8.4%</td>
+          <td style="text-align:right">11</td>
+          <td style="text-align:right;color:#20e39f;font-weight:700">5</td>
+          <td style="text-align:right">2</td>
+          <td style="text-align:right"><span class="badge b-green">A</span></td>
+        </tr>
+        <tr>
+          <td>Ginecología × CDMX</td>
+          <td style="text-align:right;color:#20e39f;font-weight:700">96</td>
+          <td style="text-align:right">38%</td>
+          <td style="text-align:right;color:#20e39f">7.1%</td>
+          <td style="text-align:right">7</td>
+          <td style="text-align:right;color:#20e39f">3</td>
+          <td style="text-align:right">1</td>
+          <td style="text-align:right"><span class="badge b-green">A</span></td>
+        </tr>
+        <tr>
+          <td>Dermatología × CDMX</td>
+          <td style="text-align:right">74</td>
+          <td style="text-align:right;color:#ffc107">28%</td>
+          <td style="text-align:right">5.4%</td>
+          <td style="text-align:right">4</td>
+          <td style="text-align:right;color:#ffc107">2</td>
+          <td style="text-align:right">1</td>
+          <td style="text-align:right"><span class="badge b-amber">B</span></td>
+        </tr>
+        <tr>
+          <td>Cirugía Plástica × CDMX</td>
+          <td style="text-align:right">52</td>
+          <td style="text-align:right;color:#ffc107">25%</td>
+          <td style="text-align:right">4.1%</td>
+          <td style="text-align:right">2</td>
+          <td style="text-align:right;color:#ffc107">1</td>
+          <td style="text-align:right">0</td>
+          <td style="text-align:right"><span class="badge b-amber">B</span></td>
+        </tr>
+        <tr>
+          <td>Fisioterapia × CDMX</td>
+          <td style="text-align:right;color:#fa5fe8">31</td>
+          <td style="text-align:right;color:#fa5fe8">18%</td>
+          <td style="text-align:right;color:#fa5fe8">2.8%</td>
+          <td style="text-align:right">1</td>
+          <td style="text-align:right;color:#fa5fe8">1</td>
+          <td style="text-align:right">0</td>
+          <td style="text-align:right"><span class="badge b-pink" data-en="C — kill watch" data-es="C — kill watch">C — kill watch</span></td>
+        </tr>
+        <tr style="background:rgba(99,212,250,.04)">
+          <td data-en="General (master)" data-es="General (master)">General (master)</td>
+          <td style="text-align:right">45</td>
+          <td style="text-align:right">22%</td>
+          <td style="text-align:right">3.9%</td>
+          <td style="text-align:right">2</td>
+          <td style="text-align:right">0</td>
+          <td style="text-align:right">0</td>
+          <td style="text-align:right"><span class="badge b-cyan">REF</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px">
+      <div style="background:#0e1f35;padding:14px;border-radius:8px;border:1px solid #1a3a5c">
+        <div style="font-size:10px;color:#7a9ab8;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px" data-en="7-day SQL trend" data-es="Tendencia SQL 7d">7-day SQL trend</div>
+        <svg viewBox="0 0 280 60" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:60px">
+          <defs><linearGradient id="sparkfill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#63d4fa" stop-opacity=".3"/><stop offset="100%" stop-color="#63d4fa" stop-opacity="0"/></linearGradient></defs>
+          <polygon fill="url(#sparkfill)" points="0,50 40,42 80,38 120,30 160,25 200,18 240,15 280,10 280,60 0,60"/>
+          <polyline fill="none" stroke="#63d4fa" stroke-width="2" points="0,50 40,42 80,38 120,30 160,25 200,18 240,15 280,10"/>
+          <circle cx="280" cy="10" r="4" fill="#63d4fa"/>
+        </svg>
+        <div style="font-size:11px;color:#9ab5cc;margin-top:6px" data-en="3 → 12 SQLs · +300% week-over-week" data-es="3 → 12 SQLs · +300% semana sobre semana">3 → 12 SQLs · +300% week-over-week</div>
+      </div>
+      <div style="background:#0e1f35;padding:14px;border-radius:8px;border:1px solid #1a3a5c">
+        <div style="font-size:10px;color:#7a9ab8;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px" data-en="Auto-insight" data-es="Auto-insight">Auto-insight</div>
+        <div style="font-size:13px;color:#ced9e3;line-height:1.5" data-en="📈 <strong>Urología</strong> outperforms cohort median by 2.3× on SQL/visit. Recommendation: replicate to GDL + MTY in next 2-week sprint." data-es="📈 <strong>Urología</strong> supera la mediana del cohort por 2.3× en SQL/visit. Recomendación: replicar a GDL + MTY en el próximo sprint de 2 semanas.">📈 <strong>Urología</strong> outperforms cohort median by 2.3× on SQL/visit. Recommendation: replicate to GDL + MTY in next 2-week sprint.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:14px;padding-top:12px;border-top:1px dashed #1a3a5c;font-size:10px;color:#5c7e96;text-align:center" data-en="📊 MOCKUP · numbers are illustrative · production refreshes daily via GA4 + HubSpot Looker connector" data-es="📊 MOCKUP · números ilustrativos · producción actualiza diariamente vía conector GA4 + HubSpot a Looker">📊 MOCKUP · numbers are illustrative · production refreshes daily via GA4 + HubSpot Looker connector</div>
+  </div>
+
+  <h3 data-en="How the dashboard operates day-to-day" data-es="Cómo opera el dashboard día a día">How the dashboard operates day-to-day</h3>
+  <div class="grid-2">
+    <div class="card">
+      <h4>1 · <span data-en="Auto-refresh" data-es="Auto-refresh">Auto-refresh</span></h4>
+      <p data-en="Looker pulls daily at 09:00 GMT-6 from GA4 (page views, scroll, events) and HubSpot (deals, source attribution). Zero manual exports — the team reads, doesn't compile." data-es="Looker tira data diariamente a las 09:00 GMT-6 desde GA4 (page views, scroll, events) y HubSpot (deals, atribución source). Cero exports manuales — el equipo lee, no compila.">Looker pulls daily at 09:00 GMT-6 from GA4 and HubSpot. Zero manual exports — the team reads, doesn't compile.</p>
+    </div>
+    <div class="card">
+      <h4>2 · <span data-en="Color-coded vs. cohort" data-es="Color-coded vs. cohort">Color-coded vs. cohort</span></h4>
+      <p data-en="Each cell auto-colors based on performance vs. cohort median: green = above, amber = at, pink = below. Rank A/B/C synthesizes the row so anyone reading 5 seconds gets the picture." data-es="Cada celda auto-colorea según performance vs. mediana de cohort: verde = arriba, amber = en, rosa = abajo. Rank A/B/C sintetiza la fila para que cualquiera leyendo 5 segundos capte el panorama.">Each cell auto-colors based on performance vs. cohort median. Rank A/B/C synthesizes the row in 5 seconds.</p>
+    </div>
+    <div class="card">
+      <h4>3 · <span data-en="Auto-insights to Slack" data-es="Auto-insights a Slack">Auto-insights to Slack</span></h4>
+      <p data-en="Every Monday a Looker scheduled email sends top 3 winners + top 3 underperformers + recommended actions to #growth Slack channel. No human triage needed." data-es="Cada lunes un email programado de Looker envía top 3 ganadores + top 3 underperformers + acciones recomendadas al canal Slack #growth. Sin triage humano necesario.">Every Monday a Looker scheduled email sends top 3 winners + top 3 underperformers + recommended actions to #growth Slack.</p>
+    </div>
+    <div class="card">
+      <h4>4 · <span data-en="Kill watch flag" data-es="Kill watch flag">Kill watch flag</span></h4>
+      <p data-en="Landings tagged 'C — kill watch' for 14 days get reviewed in the bi-weekly sprint. If still C after the second sprint → killed, slot reused for the next bet (different specialty, different geo, or different keyword angle)." data-es="Landings tagged 'C — kill watch' por 14 días se revisan en el sprint bi-weekly. Si siguen C tras el segundo sprint → killed, slot reutilizado para la siguiente apuesta (otra especialidad, otra geo, u otro ángulo de keyword).">'C — kill watch' for 14 days → reviewed in bi-weekly sprint. If still C after the second sprint → killed, slot reused for the next bet.</p>
+    </div>
+  </div>
+
+  <div class="box pink">
+    <h4 data-en="Why this matters for Agustín's lens" data-es="Por qué esto importa para la lupa de Agustín">Why this matters for Agustín's lens</h4>
+    <p data-en="A pipeline you can't attribute is a pipeline you can't optimize. With landing-level deal source, we can compute Cost per SQL by specialty, kill underperformers in 14-day sprints, and double down on winners. Cohort analysis becomes possible because each landing is its own cohort." data-es="Una pipeline que no podés atribuir es una pipeline que no podés optimizar. Con deal source a nivel landing, podemos calcular Cost per SQL por especialidad, matar underperformers en sprints de 14 días, y doblar la apuesta en ganadores. Cohort analysis se vuelve posible porque cada landing es su propio cohort.">A pipeline you can't attribute is a pipeline you can't optimize. Cohort analysis becomes possible because each landing is its own cohort.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 5 — QUALIFICATION ═══════════════════════════════════════════ -->
+<section class="s" id="s5">
+  <div class="eyebrow" data-en="Section 05 · Qualification" data-es="Sección 05 · Calificación">Section 05 · Qualification</div>
+  <h1>
+    <span data-en="From Lead to SQL" data-es="De Lead a SQL">From Lead to SQL</span><br>
+    <span class="accent" data-en="in 4 questions and 1 workflow" data-es="en 4 preguntas y 1 workflow">in 4 questions and 1 workflow</span>
+  </h1>
+  <p class="lead" data-en="The role owns SQL volume — not MQL. So qualification has to filter aggressively for ICP fit and buying intent BEFORE Sales touches the lead. The form is short (4 fields) to keep conversion high. Scoring happens in HubSpot via a workflow that uses Konko's existing ICP definition: $15k+/mo SMB or $50k+/mo mid-market." data-es="El rol owns volumen de SQL — no MQL. Entonces la calificación tiene que filtrar agresivamente por ICP fit e intención de compra ANTES que Sales toque el lead. El formulario es corto (4 campos) para mantener la conversión alta. Scoring sucede en HubSpot vía un workflow que usa la definición de ICP de Konko: $15k+/mes SMB o $50k+/mes mid-market.">The role owns SQL volume — not MQL. Qualification filters aggressively for ICP fit and buying intent.</p>
+
+  <h3 data-en="The form (4 fields, conversion-optimized)" data-es="El formulario (4 campos, optimizado para conversión)">The form (4 fields, conversion-optimized)</h3>
+  <div class="card">
+    <dl class="kv">
+      <dt data-en="1 · Name + Clinic name" data-es="1 · Nombre + Nombre de la clínica">1 · Name + Clinic name</dt>
+      <dd data-en="Free text, both required." data-es="Texto libre, ambos requeridos.">Free text, both required.</dd>
+      <dt data-en="2 · WhatsApp number" data-es="2 · Número de WhatsApp">2 · WhatsApp number</dt>
+      <dd data-en="With country code prefilled (🇲🇽 +52)." data-es="Con prefijo de país pre-rellenado (🇲🇽 +52).">With country code prefilled (🇲🇽 +52).</dd>
+      <dt data-en="3 · Monthly revenue range" data-es="3 · Rango de ingreso mensual">3 · Monthly revenue range</dt>
+      <dd data-en="Dropdown · &lt;$5k / $5–15k / $15–50k / $50k+ — this is the ICP gate." data-es="Dropdown · &lt;$5k / $5–15k / $15–50k / $50k+ — esta es la puerta del ICP.">Dropdown · &lt;$5k / $5–15k / $15–50k / $50k+ — this is the ICP gate.</dd>
+      <dt data-en="4 · Specialty" data-es="4 · Especialidad">4 · Specialty</dt>
+      <dd data-en="Dropdown of 20 specialties — auto-prefilled to the page's specialty (Urología on /urologia/, etc.) but editable." data-es="Dropdown de 20 especialidades — auto-prefill con la especialidad de la página (Urología en /urologia/, etc.) pero editable.">Dropdown of 20 specialties — auto-prefilled to the page's specialty.</dd>
+    </dl>
+  </div>
+
+  <h3 data-en="HubSpot workflow — Lead → MQL → SQL" data-es="HubSpot workflow — Lead → MQL → SQL">HubSpot workflow — Lead → MQL → SQL</h3>
+  <table>
+    <thead><tr>
+      <th data-en="Stage" data-es="Etapa">Stage</th><th data-en="Trigger" data-es="Trigger">Trigger</th><th data-en="Auto-action" data-es="Auto-action">Auto-action</th><th>SLA</th>
+    </tr></thead>
+    <tbody>
+      <tr><td><span class="badge b-cyan">Lead</span></td><td data-en="Form submit" data-es="Form submit">Form submit</td><td data-en="Create contact + deal · auto-enrich · score 0" data-es="Crear contact + deal · auto-enriquecer · score 0">Create contact + deal · auto-enrich · score 0</td><td data-en="Instant" data-es="Instantáneo">Instant</td></tr>
+      <tr><td><span class="badge b-amber">MQL</span></td><td data-en="Revenue ≥ $15k AND specialty in 20 list" data-es="Revenue ≥ $15k AND especialidad en lista 20">Revenue ≥ $15k AND specialty in 20 list</td><td data-en="Auto-route to SDR queue · score 50 · WhatsApp #1 fires" data-es="Auto-route a queue de SDR · score 50 · WhatsApp #1 dispara">Auto-route to SDR queue · score 50 · WhatsApp #1 fires</td><td data-en="&lt; 5 min" data-es="&lt; 5 min">&lt; 5 min</td></tr>
+      <tr><td><span class="badge b-green">SQL</span></td><td data-en="SDR confirms ICP fit + buying intent in first call" data-es="SDR confirma ICP fit + intención de compra en primera call">SDR confirms ICP fit + buying intent in first call</td><td data-en="Move to AE · score 80 · book demo · CRM stage update" data-es="Mover a AE · score 80 · agendar demo · update stage en CRM">Move to AE · score 80 · book demo · CRM stage update</td><td data-en="&lt; 24 hr" data-es="&lt; 24 hr">&lt; 24 hr</td></tr>
+      <tr><td><span class="badge b-pink">Disqualify</span></td><td data-en="Revenue &lt; $15k OR not a clinic owner" data-es="Revenue &lt; $15k O no es dueño de clínica">Revenue &lt; $15k OR not a clinic owner</td><td data-en="Auto-tag &quot;below ICP&quot; · move to nurture sequence · don't burn SDR time" data-es="Auto-tag &quot;below ICP&quot; · mover a nurture sequence · no quemar tiempo del SDR">Auto-tag · move to nurture · don't burn SDR time</td><td data-en="Instant" data-es="Instantáneo">Instant</td></tr>
+    </tbody>
+  </table>
+
+  <div class="box green">
+    <h4 data-en="Why qualifying BEFORE Sales talks matters" data-es="Por qué calificar ANTES que Sales hable importa">Why qualifying BEFORE Sales talks matters</h4>
+    <p data-en="Konko's team is &lt;10 people. Every minute Sales spends on a $5k/mo clinic is a minute NOT spent closing a $50k/mo mid-market hospital. The 4-field form + automated routing protects the most expensive resource on the team: SDR/AE attention." data-es="El equipo de Konko es &lt;10 personas. Cada minuto que Sales gasta en una clínica de $5k/mes es un minuto NO gastado cerrando un hospital mid-market de $50k/mes. El form de 4 campos + routing automatizado protege el recurso más caro del equipo: la atención del SDR/AE.">Konko's team is &lt;10 people. Every minute Sales spends on a sub-ICP lead is a minute NOT spent closing a $50k/mo deal.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 6 — NURTURE ═══════════════════════════════════════════ -->
+<section class="s" id="s6">
+  <div class="eyebrow" data-en="Section 06 · Nurture" data-es="Sección 06 · Nurture">Section 06 · Nurture</div>
+  <h1>
+    <span data-en="Stay top-of-mind" data-es="Mantenerse top-of-mind">Stay top-of-mind</span><br>
+    <span class="accent" data-en="without being annoying" data-es="sin ser molesto">without being annoying</span>
+  </h1>
+  <p class="lead" data-en="A clinic owner researching software won't decide on the first visit. Nurture sequences keep Konko present across the 7-day decision window, with branching by Fit Score so high-value leads get more touchpoints than low-value ones. WhatsApp leads (immediate response is critical) and email backs up." data-es="Un dueño de clínica investigando software no decide en la primera visita. Las secuencias de nurture mantienen Konko presente en la ventana de decisión de 7 días, con branching por Fit Score para que leads de alto valor reciban más touchpoints que los de bajo valor. WhatsApp lidera (respuesta inmediata es crítica) y email respalda.">Nurture keeps Konko present across the 7-day decision window, with branching by Fit Score.</p>
+
+  <h3 data-en="WhatsApp sequence (4 messages, primary channel)" data-es="Secuencia WhatsApp (4 mensajes, canal primario)">WhatsApp sequence (4 messages, primary channel)</h3>
+  <table>
+    <thead><tr>
+      <th>#</th><th data-en="When" data-es="Cuándo">When</th><th data-en="Trigger" data-es="Trigger">Trigger</th><th data-en="Message preview (ES)" data-es="Preview del mensaje (ES)">Message preview (ES)</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td data-en="Within 5 min" data-es="En 5 min">Within 5 min</td><td data-en="Form submit" data-es="Form submit">Form submit</td><td><em>"Hola [name] 👋 Soy Kora. Vi que tu clínica de [specialty] está creciendo. ¿Quieres ver cómo respondemos los WhatsApps de tus pacientes en 5 segundos?"</em></td></tr>
+      <tr><td class="num">2</td><td data-en="+24 hr" data-es="+24 hr">+24 hr</td><td data-en="Lead opened msg #1, did not reply" data-es="Lead abrió msg #1, no respondió">Lead opened msg #1, did not reply</td><td><em>"[Name], te dejo un caso real: [Clínica caso] usaba 8 personas para WhatsApp. Hoy 2 + Kora atienden el doble. ¿Te interesa una demo de 15 min esta semana?"</em></td></tr>
+      <tr><td class="num">3</td><td data-en="+72 hr" data-es="+72 hr">+72 hr</td><td data-en="No response after #2" data-es="Sin respuesta después de #2">No response after #2</td><td><em>"Hey [name], curiosidad: ¿qué te frena? ¿Tiempo? ¿Presupuesto? ¿Ya tienes una solución? Lo que sea, contestá una palabra y ajusto."</em></td></tr>
+      <tr><td class="num">4</td><td data-en="+7 days" data-es="+7 días">+7 days</td><td data-en="Still no response · last touch" data-es="Sin respuesta · último touch">Still no response · last touch</td><td><em>"Última nota — sin presión. Te dejo en pausa. Si en algún momento querés ver Kora en vivo, escribime &quot;DEMO&quot; y te conecto. Mucho éxito con la clínica 🙌"</em></td></tr>
+    </tbody>
+  </table>
+
+  <h3 data-en="Email sequence (5 messages, backup channel)" data-es="Secuencia de email (5 mensajes, canal de respaldo)">Email sequence (5 messages, backup channel)</h3>
+  <table>
+    <thead><tr>
+      <th>#</th><th data-en="When" data-es="Cuándo">When</th><th data-en="Subject (ES)" data-es="Asunto (ES)">Subject (ES)</th><th data-en="Goal" data-es="Objetivo">Goal</th>
+    </tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td data-en="Day 0 · 1 hr after form" data-es="Día 0 · 1 hr post form">Day 0 · 1 hr after form</td><td><em>"[Name], aquí está lo que pediste sobre Kora"</em></td><td data-en="Welcome + reset expectations + WhatsApp link" data-es="Welcome + resetear expectativas + link a WhatsApp">Welcome + reset expectations + WhatsApp link</td></tr>
+      <tr><td class="num">2</td><td>Day 2</td><td><em>"Cómo Clínica Bíblica recuperó 6 horas/día con Kora"</em></td><td data-en="Social proof · case study (1 of 3 real customers from logo strip)" data-es="Social proof · case study (1 de 3 clientes reales del logo strip)">Social proof · case study (1 of 3 real customers)</td></tr>
+      <tr><td class="num">3</td><td>Day 4</td><td><em>"Calculadora: ¿cuánto te cuesta NO automatizar?"</em></td><td data-en="ROI tool · interactive · captures intent" data-es="ROI tool · interactivo · captura intención">ROI tool · interactive · captures intent</td></tr>
+      <tr><td class="num">4</td><td>Day 6</td><td><em>"3 preguntas que toda clínica de [specialty] me hace"</em></td><td data-en="Educational content tailored to their specialty" data-es="Contenido educativo personalizado a su especialidad">Educational · tailored to specialty</td></tr>
+      <tr><td class="num">5</td><td>Day 9</td><td><em>"Última invitación: demo de 15 min con un humano"</em></td><td data-en="Direct CTA · book or unsubscribe" data-es="CTA directo · agendar o unsuscribir">Direct CTA · book or unsubscribe</td></tr>
+    </tbody>
+  </table>
+
+  <h3 data-en="Branching by Fit Score" data-es="Branching por Fit Score">Branching by Fit Score</h3>
+  <div class="grid-3">
+    <div class="box green">
+      <h4 data-en="High fit (score ≥ 70)" data-es="High fit (score ≥ 70)">High fit (score ≥ 70)</h4>
+      <p data-en="Full sequence + SDR personal touch on day 3 (WhatsApp voice note from real human)." data-es="Secuencia completa + touch personal del SDR en día 3 (nota de voz de WhatsApp de humano real).">Full sequence + SDR personal touch on day 3 (real human WhatsApp voice note).</p>
+    </div>
+    <div class="box amber">
+      <h4 data-en="Medium fit (score 40–69)" data-es="Medium fit (score 40–69)">Medium fit (score 40–69)</h4>
+      <p data-en="WhatsApp #1, #3 only + email full sequence. No SDR time investment." data-es="WhatsApp #1, #3 solamente + secuencia completa de email. Sin tiempo de SDR invertido.">WhatsApp #1, #3 only + email full sequence. No SDR time invested.</p>
+    </div>
+    <div class="box pink">
+      <h4 data-en="Low fit (score &lt; 40)" data-es="Low fit (score &lt; 40)">Low fit (score &lt; 40)</h4>
+      <p data-en="Email-only sequence with educational content. Move to long-term newsletter at day 14." data-es="Secuencia solo email con contenido educativo. Mover a newsletter long-term en día 14.">Email-only with educational content. Move to long-term newsletter at day 14.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 7 — SUCCESS METRICS ═══════════════════════════════════════════ -->
+<section class="s" id="s7">
+  <div class="eyebrow" data-en="Section 07 · Success Metrics" data-es="Sección 07 · Métricas de Éxito">Section 07 · Success Metrics</div>
+  <h1>
+    <span data-en="30 / 60 / 90 day plan" data-es="Plan a 30 / 60 / 90 días">30 / 60 / 90 day plan</span><br>
+    <span class="accent" data-en="with kill criteria built in" data-es="con criterios de kill incorporados">with kill criteria built in</span>
+  </h1>
+  <p class="lead" data-en="Every milestone has a target metric AND a kill signal. If a landing isn't generating SQLs in 30 days at the cohort median rate, it gets killed and the slot is reused. This is the &quot;ship/iterate/kill in 2-week sprints&quot; rhythm from the JD literal." data-es="Cada milestone tiene una métrica target Y una señal de kill. Si una landing no genera SQLs en 30 días al ritmo de la mediana del cohort, se mata y el slot se reutiliza. Este es el ritmo &quot;ship/iterate/kill in 2-week sprints&quot; del JD literal.">Every milestone has a target metric AND a kill signal. Ship/iterate/kill in 2-week sprints — per the JD literal.</p>
+
+  <div class="timeline">
+
+    <div class="tl-item">
+      <h4>Day 30 · <span data-en="Foundation live" data-es="Foundation viva">Foundation live</span></h4>
+      <p data-en="<strong>Target:</strong> 6 → 50 landings live (10 specialties × 5 cities in MX) · 20+ SQLs · CAC per SQL baseline established · Looker dashboard live with daily refresh." data-es="<strong>Target:</strong> 6 → 50 landings vivas (10 especialidades × 5 ciudades en MX) · 20+ SQLs · CAC por SQL baseline establecido · Looker dashboard vivo con refresh diario."><strong>Target:</strong> 6 → 50 landings live · 20+ SQLs · CAC per SQL baseline · Looker live.</p>
+      <p data-en="<strong>Kill signal:</strong> If &lt;5 landings reach 100 organic visits/mo by day 30, pause expansion and re-evaluate keyword strategy in the worst 5." data-es="<strong>Kill signal:</strong> Si &lt;5 landings llegan a 100 visitas orgánicas/mes para el día 30, pausar expansión y re-evaluar estrategia de keyword en las peores 5."><strong>Kill signal:</strong> If &lt;5 landings hit 100 organic visits/mo, pause expansion and re-evaluate.</p>
+    </div>
+
+    <div class="tl-item">
+      <h4>Day 60 · <span data-en="Iteration phase" data-es="Fase de iteración">Iteration phase</span></h4>
+      <p data-en="<strong>Target:</strong> 50 → 100 landings · 100+ SQLs cumulative · CAC payback &lt;6 months proven on top 10 cohorts · 2 winning patterns identified for expansion." data-es="<strong>Target:</strong> 50 → 100 landings · 100+ SQLs acumulados · CAC payback &lt;6 meses probado en top 10 cohorts · 2 patrones ganadores identificados para expansión."><strong>Target:</strong> 50 → 100 landings · 100+ SQLs cumulative · CAC payback &lt;6 months · 2 winning patterns identified.</p>
+      <p data-en="<strong>Kill signal:</strong> If CAC payback exceeds 9 months on the top 10 cohorts, halt new specialty additions and focus 100% on conversion rate optimization on existing pages." data-es="<strong>Kill signal:</strong> Si CAC payback excede 9 meses en top 10 cohorts, detener nuevas adiciones de especialidad y enfocarse 100% en CRO de páginas existentes."><strong>Kill signal:</strong> If CAC payback &gt;9 months on top 10, halt expansion and focus on CRO.</p>
+    </div>
+
+    <div class="tl-item">
+      <h4>Day 90 · <span data-en="Predictable channel" data-es="Canal predecible">Predictable channel</span></h4>
+      <p data-en="<strong>Target:</strong> 100 → 150 landings (×3 countries · MX/CO/CR) · 250+ SQLs cumulative · 30+ closed-won attributed to programmatic SEO · channel becomes Konko's #1 organic source." data-es="<strong>Target:</strong> 100 → 150 landings (×3 países · MX/CO/CR) · 250+ SQLs acumulados · 30+ closed-won atribuidos a programmatic SEO · canal se vuelve la fuente orgánica #1 de Konko."><strong>Target:</strong> 100 → 150 landings (×3 countries) · 250+ SQLs · 30+ closed-won attributed · channel becomes Konko's #1 organic source.</p>
+      <p data-en="<strong>Kill signal:</strong> If &lt;15% of total Konko deals come from programmatic SEO by day 90, pivot resources to a different acquisition experiment (paid LinkedIn ABM, partnerships with medical associations)." data-es="<strong>Kill signal:</strong> Si &lt;15% de los deals totales de Konko vienen de programmatic SEO al día 90, pivotear recursos a un experimento de adquisición distinto (paid LinkedIn ABM, partnerships con asociaciones médicas)."><strong>Kill signal:</strong> If &lt;15% of Konko deals attributed to this channel by day 90, pivot resources.</p>
+    </div>
+
+  </div>
+
+  <h3 data-en="The 4 outcomes the role owns (per the JD)" data-es="Los 4 outcomes que el rol owns (per el JD)">The 4 outcomes the role owns (per the JD)</h3>
+  <div class="grid-2">
+    <div class="card">
+      <h4>1 · <span data-en="High-intent SQL volume" data-es="Volumen de SQL de alta intención">High-intent SQL volume</span></h4>
+      <p data-en="Tracked: SQLs per specialty per week. North star: 250+ cumulative by day 90." data-es="Tracked: SQLs por especialidad por semana. North star: 250+ acumulados al día 90.">Tracked: SQLs per specialty per week. North star: 250+ cumulative by day 90.</p>
+    </div>
+    <div class="card">
+      <h4>2 · <span data-en="CAC / Cost per SQL + payback" data-es="CAC / Costo por SQL + payback">CAC / Cost per SQL + payback</span></h4>
+      <p data-en="Tracked: cost per SQL by cohort + payback months. Target: payback &lt;6 months by day 60." data-es="Tracked: costo por SQL por cohort + meses de payback. Target: payback &lt;6 meses al día 60.">Target: payback &lt;6 months by day 60.</p>
+    </div>
+    <div class="card">
+      <h4>3 · <span data-en="Experimentation learnings documented" data-es="Aprendizajes de experimentación documentados">Experimentation learnings documented</span></h4>
+      <p data-en="Tracked: 1 Notion page per 2-week sprint summarizing what shipped, what worked, what got killed. Public to the team." data-es="Tracked: 1 página de Notion por sprint de 2 semanas resumiendo qué se shipeó, qué funcionó, qué se mató. Pública al equipo.">1 Notion page per 2-week sprint, public to the team.</p>
+    </div>
+    <div class="card">
+      <h4>4 · <span data-en="Internal automation coverage" data-es="Cobertura de automatización interna">Internal automation coverage</span></h4>
+      <p data-en="Tracked: # of manual tasks automated per quarter. Day 90 target: 80% of landing creation, tracking, and lead routing fully automated." data-es="Tracked: # de tareas manuales automatizadas por trimestre. Target día 90: 80% de creación de landings, tracking y routing de leads totalmente automatizados.">Day 90 target: 80% of landing creation, tracking and lead routing fully automated.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SECTION 8 — WHAT I CUT ═══════════════════════════════════════════ -->
+<section class="s" id="s8">
+  <div class="eyebrow" data-en="Section 08 · What I Cut" data-es="Sección 08 · Lo que Corté">Section 08 · What I Cut</div>
+  <h1>
+    <span data-en="What's NOT here" data-es="Lo que NO está aquí">What's NOT here</span><br>
+    <span class="accent" data-en="and why I cut it" data-es="y por qué lo corté">and why I cut it</span>
+  </h1>
+  <p class="lead" data-en="The brief explicitly said: &quot;don't give us everything · what you cut and why matters as much as what you ship.&quot; This section makes my filtering visible. Each cut has a reason rooted in your data, your ICP, your stack or your culture — never invented." data-es="El brief dijo explícitamente: &quot;don't give us everything · what you cut and why matters as much as what you ship.&quot; Esta sección hace mi filtrado visible. Cada cut tiene una razón basada en tu data, tu ICP, tu stack o tu cultura — nunca inventada.">The brief explicitly said: "don't give us everything · what you cut and why matters as much as what you ship."</p>
+
+  <h3 data-en="Specialties I considered but cut" data-es="Especialidades que consideré pero corté">Specialties I considered but cut</h3>
+  <table>
+    <thead><tr>
+      <th data-en="Specialty considered" data-es="Especialidad considerada">Specialty considered</th><th data-en="Why cut" data-es="Por qué cortada">Why cut</th><th data-en="Rule applied" data-es="Regla aplicada">Rule applied</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>Cardiología</td><td data-en="Low G/F ratio in Exhibit A · ticket high but volume too low for programmatic SEO at MVP scale" data-es="Bajo ratio G/F en Exhibit A · ticket alto pero volumen muy bajo para programmatic SEO a escala MVP">Low G/F ratio · volume too low for programmatic SEO at MVP scale</td><td>Data canon</td></tr>
+      <tr><td>Pediatría</td><td data-en="Strong volume but mostly &lt;$15k SMB clinics in CDMX (chains aside) — ICP filter cuts most of the mix" data-es="Fuerte volumen pero la mayoría son clínicas SMB &lt;$15k en CDMX (cadenas aparte) — el filtro ICP corta la mayoría del mix">Strong volume but mostly &lt;$15k SMB — ICP filter cuts the mix</td><td>ICP gate</td></tr>
+      <tr><td>Multi-Specialty Hospitals</td><td data-en="Long sales cycle (6+ months) · Konko's product is sized for SMB/mid-market clinics, not full hospitals" data-es="Ciclo de venta largo (6+ meses) · el producto de Konko está dimensionado para clínicas SMB/mid-market, no hospitales completos">Long sales cycle · product sized for SMB/mid-market, not full hospitals</td><td>Product fit</td></tr>
+      <tr><td>Polyclinic, Lab, Audiology</td><td data-en="In Exhibit G top 11 customers but no specialty-specific search demand validated in Keyword Planner — &quot;polyclinic&quot; isn't how clinic owners search" data-es="En Exhibit G top 11 customers pero sin demanda de search específica validada en Keyword Planner — &quot;polyclinic&quot; no es cómo buscan los dueños de clínica">In G top 11 but no search demand validated — these aren't how clinic owners search</td><td>Search reality</td></tr>
+    </tbody>
+  </table>
+
+  <h3 data-en="Geos I considered but cut for MVP" data-es="Geos que consideré pero corté para MVP">Geos I considered but cut for MVP</h3>
+  <div class="grid-2">
+    <div class="box pink">
+      <h4>Colombia · Costa Rica</h4>
+      <p data-en="Both in Konko's official market list, both with valid demand. CUT for MVP because: (a) untested copy/UX for those markets, (b) different procedures language nuances, (c) MX is highest-G/F country in your customer base. CO/CR enter at day 90 once MX template is validated and replicable." data-es="Ambos en la lista de mercados oficiales de Konko, ambos con demanda válida. CORTADOS para MVP porque: (a) copy/UX no validado para esos mercados, (b) matices de lenguaje en procedimientos, (c) MX es el país de mayor G/F en tu customer base. CO/CR entran al día 90 una vez el template MX está validado y replicable.">Both valid markets. Cut for MVP — MX has highest G/F in your customer base. CO/CR enter at day 90.</p>
+    </div>
+    <div class="box pink">
+      <h4>GDL · MTY · Puebla · QRO</h4>
+      <p data-en="All viable secondary cities in MX. CUT for MVP because we want to validate ONE city's funnel math first. CDMX has the largest clinic owner population and deepest Keyword Planner volume. Other cities are sprint 2 (day 30+)." data-es="Todas ciudades secundarias viables en MX. CORTADAS para MVP porque queremos validar la matemática de funnel de UNA ciudad primero. CDMX tiene la mayor población de dueños de clínica y el mayor volumen en Keyword Planner. Otras ciudades son sprint 2 (día 30+).">All viable. Cut for MVP — validate ONE city's funnel math first. Other cities are sprint 2.</p>
+    </div>
+  </div>
+
+  <h3 data-en="Keywords I considered but cut" data-es="Keywords que consideré pero corté">Keywords I considered but cut</h3>
+  <table>
+    <thead><tr>
+      <th>Keyword</th><th data-en="Why cut" data-es="Por qué cortada">Why cut</th>
+    </tr></thead>
+    <tbody>
+      <tr><td><code>asistente IA para [especialidad]</code></td><td data-en="Volume too low in Keyword Planner — search system discarded from main set" data-es="Volumen muy bajo en Keyword Planner — sistema de búsqueda descartó del set principal">Volume too low in Keyword Planner — system discarded from main set</td></tr>
+      <tr><td><code>agenda para [especialidad]</code></td><td data-en="Same — volume too low for programmatic at MVP. Better as long-tail captured naturally" data-es="Igual — volumen muy bajo para programmatic en MVP. Mejor como long-tail capturada naturalmente">Same — volume too low. Better as long-tail captured naturally</td></tr>
+      <tr><td><code>chatbot para clínicas</code></td><td data-en="Konko's product is an AI agent, not a chatbot. Refusing this term protects positioning per culture mode" data-es="El producto de Konko es un AI agent, no un chatbot. Rechazar este término protege el posicionamiento per culture mode">Konko's product is an AI agent, not a chatbot. Protects positioning</td></tr>
+      <tr><td><code>AI para clínicas</code> (brand/category general)</td><td data-en="Brief asked for specialty × geo × keyword — three dimensions. A category-only term defeats the modular pattern" data-es="El brief pidió specialty × geo × keyword — tres dimensiones. Un término solo de categoría rompe el patrón modular">Brief asked for 3 dimensions — category-only term defeats the modular pattern</td></tr>
+    </tbody>
+  </table>
+
+  <h3 data-en="Approach decisions I considered but rejected" data-es="Decisiones de approach que consideré pero rechacé">Approach decisions I considered but rejected</h3>
+  <div class="grid-2">
+    <div class="box amber">
+      <h4 data-en="Custom dev from day 1" data-es="Custom dev desde día 1">Custom dev from day 1</h4>
+      <p data-en="Could have proposed Next.js + Sanity CMS + Vercel. Cut because: Konko already has Webflow. Adopting new stack = friction. The Webflow CMS approach scales to 150 pages without any custom dev." data-es="Pude haber propuesto Next.js + Sanity CMS + Vercel. Cortado porque: Konko ya tiene Webflow. Adoptar stack nuevo = fricción. El approach Webflow CMS escala a 150 páginas sin custom dev.">Konko already has Webflow. Adopting new stack = friction. Webflow CMS scales to 150 without custom dev.</p>
+    </div>
+    <div class="box amber">
+      <h4 data-en="MQL volume metric" data-es="Métrica MQL volume">MQL volume metric</h4>
+      <p data-en="Could have proposed MQL as the north-star metric. Cut because the JD literally says &quot;SQL volume — not MQL.&quot; My job is to filter, not generate noise." data-es="Pude proponer MQL como métrica north-star. Cortado porque el JD dice literalmente &quot;SQL volume — not MQL.&quot; Mi trabajo es filtrar, no generar ruido.">JD says literally "SQL volume — not MQL." My job is to filter, not generate noise.</p>
+    </div>
+    <div class="box amber">
+      <h4 data-en="Multi-channel push at MVP" data-es="Multi-channel push en MVP">Multi-channel push at MVP</h4>
+      <p data-en="Could have proposed paid ads + outbound + organic SEO simultaneously. Cut because: with &lt;10 people on the team, focus beats breadth. Validate one channel's economics before opening the next." data-es="Pude proponer paid ads + outbound + SEO orgánico simultáneamente. Cortado porque: con &lt;10 personas en el equipo, foco supera amplitud. Validar la economía de un canal antes de abrir el siguiente.">With &lt;10 people, focus beats breadth. Validate one channel's economics before opening the next.</p>
+    </div>
+    <div class="box amber">
+      <h4 data-en="Static slide deck deliverable" data-es="Deliverable de slides estáticos">Static slide deck deliverable</h4>
+      <p data-en="Could have shipped a 30-slide PDF. Cut because I told Jean Marc in Round 2: &quot;I document everything and I make it interactive.&quot; A static PDF would have broken that promise on the first deliverable." data-es="Pude entregar un PDF de 30 slides. Cortado porque le dije a Jean Marc en Ronda 2: &quot;yo documento todo y lo hago interactivo.&quot; Un PDF estático hubiera roto esa promesa en el primer entregable.">Told Jean Marc in Round 2: "I document everything and I make it interactive." A PDF would have broken that promise.</p>
+    </div>
+  </div>
+
+  <div class="cta-strip">
+    <div>
+      <h3 data-en="That's the thinking. Let's jam." data-es="Esa es la lógica. Hagamos jam.">That's the thinking. Let's jam.</h3>
+      <p data-en="Built end-to-end by JL · April 28, 2026 · for Jean Marc, Michael, Miguel and Agustín" data-es="Construido end-to-end por JL · 28 de Abril, 2026 · para Jean Marc, Michael, Miguel y Agustín">Built end-to-end by JL · April 28, 2026 · for Jean Marc, Michael, Miguel and Agustín</p>
+    </div>
+    <a href="index.html" class="btn" data-en="← Back to menu" data-es="← Volver al menú">← Back to menu</a>
+  </div>
+</section>
+</main>
+
+</div>
+
+<footer class="footer">
+  <span data-en="Built end-to-end by Jose Luis Ruiz Rivera · for the Konko AI panel · April 28, 2026" data-es="Construido end-to-end por Jose Luis Ruiz Rivera · para el panel de Konko AI · 28 de Abril, 2026">Built end-to-end by Jose Luis Ruiz Rivera · for the Konko AI panel · April 28, 2026</span>
+</footer>
+
+<script>
+function setLang(lang){
+  document.documentElement.setAttribute('lang', lang);
+  document.getElementById('btnEn').classList.toggle('active', lang==='en');
+  document.getElementById('btnEs').classList.toggle('active', lang==='es');
+  document.querySelectorAll('[data-en]').forEach(el=>{
+    const t = el.getAttribute('data-' + lang);
+    if(t !== null) el.innerHTML = t;
+  });
+  try{ localStorage.setItem('konkoLang', lang); }catch(e){}
+}
+try{
+  const saved = localStorage.getItem('konkoLang');
+  if(saved==='es') setLang('es');
+}catch(e){}
+
+// Sidebar active state on scroll
+const navLinks = document.querySelectorAll('aside nav a');
+const sections = document.querySelectorAll('section.s');
+function updateActive(){
+  let current = sections[0]?.id;
+  const scrollPos = window.scrollY + 120;
+  sections.forEach(s=>{ if(s.offsetTop <= scrollPos) current = s.id; });
+  navLinks.forEach(a=>a.classList.toggle('active', a.getAttribute('href') === '#'+current));
+}
+window.addEventListener('scroll', updateActive, {passive:true});
+window.addEventListener('load', updateActive);
+
+// Smooth scroll
+navLinks.forEach(a=>a.addEventListener('click',e=>{
+  e.preventDefault();
+  const target = document.querySelector(a.getAttribute('href'));
+  if(target) target.scrollIntoView({behavior:'smooth',block:'start'});
+}));
+</script>
+
+</body>
+</html>

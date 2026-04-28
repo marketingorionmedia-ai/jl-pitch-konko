@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jose Luis Ruiz Rivera — Pitch for Konko AI</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0b1929;color:#f8f7f2;min-height:100vh;overflow:hidden}
+
+/* ===== SLIDE SYSTEM ===== */
+.slide{display:none;width:100vw;height:100vh;padding:60px 80px;overflow-y:auto;position:relative}
+.slide.active{display:flex;flex-direction:column}
+
+/* ===== NAVIGATION ===== */
+.nav-bar{position:fixed;bottom:0;left:0;right:0;height:56px;background:rgba(11,25,41,.95);border-top:1px solid #1a3a5c;display:flex;align-items:center;justify-content:space-between;padding:0 30px;z-index:100;backdrop-filter:blur(10px)}
+.nav-bar .progress{display:flex;gap:6px;align-items:center}
+.nav-bar .dot{width:10px;height:10px;border-radius:50%;background:#1a3a5c;cursor:pointer;transition:all .3s}
+.nav-bar .dot.active{background:#63d4fa;transform:scale(1.3)}
+.nav-bar .dot.visited{background:#1a5a7c}
+.nav-btn{background:none;border:1px solid #1a3a5c;color:#63d4fa;padding:8px 20px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:600;transition:all .2s;display:flex;align-items:center;gap:6px}
+.nav-btn:hover{background:rgba(99,212,250,.1);border-color:#63d4fa}
+.nav-btn:disabled{opacity:.3;cursor:default}
+.slide-counter{color:#5c7e96;font-size:12px;letter-spacing:1px}
+
+/* ===== TYPOGRAPHY ===== */
+h1{font-size:38px;color:#f8f7f2;margin-bottom:6px;line-height:1.2}
+h1 span{color:#63d4fa}
+h2{font-size:24px;color:#f8f7f2;margin-bottom:4px}
+h2 span{color:#63d4fa}
+h3{font-size:17px;color:#f8f7f2;margin-bottom:10px}
+.subtitle{color:#63d4fa;font-size:11px;letter-spacing:3px;text-transform:uppercase;margin-bottom:8px}
+.big-subtitle{color:#5c7e96;font-size:14px;margin-bottom:30px;max-width:700px;line-height:1.6}
+
+/* ===== CARDS & LAYOUT ===== */
+.card{background:linear-gradient(135deg,#0e1f35,#132c4a);border:1px solid #1a3a5c;border-radius:14px;padding:24px;margin-bottom:16px}
+.card p,.card li{color:#9ab5cc;font-size:13px;line-height:1.7}
+.card ul{list-style:none;padding:0}.card ul li{padding:4px 0;padding-left:18px;position:relative}
+.card ul li::before{content:"▸";position:absolute;left:0;color:#63d4fa}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.flex-center{display:flex;align-items:center;justify-content:center;flex:1}
+
+/* ===== METRICS ===== */
+.metric{text-align:center;padding:18px 12px;background:#0e1f35;border-radius:12px;border:1px solid #1a3a5c}
+.metric .val{font-size:24px;font-weight:800;color:#63d4fa}
+.metric .label{font-size:10px;color:#7a9ab8;margin-top:4px;text-transform:uppercase;letter-spacing:1px}
+
+/* ===== HIGHLIGHT BOXES ===== */
+.highlight{background:linear-gradient(135deg,rgba(99,212,250,.08),rgba(0,143,209,.03));border:1px solid rgba(99,212,250,.2);border-radius:12px;padding:18px;margin:10px 0}
+.highlight h4{color:#63d4fa;margin-bottom:5px;font-size:13px}
+.highlight p{color:#ced9e3;font-size:12px;line-height:1.7}
+.success{background:linear-gradient(135deg,rgba(32,227,159,.08),rgba(32,227,159,.02));border:1px solid rgba(32,227,159,.2);border-radius:12px;padding:18px;margin:10px 0}
+.success h4{color:#20e39f;margin-bottom:5px;font-size:13px}
+.success p,.success li{color:#ced9e3;font-size:12px;line-height:1.7}
+.warn{background:linear-gradient(135deg,rgba(250,95,232,.08),rgba(250,95,232,.02));border:1px solid rgba(250,95,232,.2);border-radius:12px;padding:18px;margin:10px 0}
+.warn h4{color:#fa5fe8;margin-bottom:5px;font-size:13px}
+.warn p{color:#ced9e3;font-size:12px;line-height:1.7}
+.amber{background:linear-gradient(135deg,rgba(255,193,7,.08),rgba(255,193,7,.02));border:1px solid rgba(255,193,7,.2);border-radius:12px;padding:18px;margin:10px 0}
+.amber h4{color:#ffc107;margin-bottom:5px;font-size:13px}
+.amber p{color:#ced9e3;font-size:12px;line-height:1.7}
+
+/* ===== BADGES ===== */
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:10px;font-weight:600}
+.b-cyan{background:rgba(99,212,250,.15);color:#63d4fa}
+.b-green{background:rgba(32,227,159,.15);color:#20e39f}
+.b-pink{background:rgba(250,95,232,.15);color:#fa5fe8}
+.b-amber{background:rgba(255,193,7,.15);color:#ffc107}
+.b-blue{background:rgba(0,143,209,.15);color:#008fd1}
+
+/* ===== TABLES ===== */
+table{width:100%;border-collapse:collapse;margin:12px 0}
+th{text-align:left;padding:10px 12px;background:#0e1f35;color:#63d4fa;font-size:10.5px;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid #1a3a5c}
+td{padding:10px 12px;border-bottom:1px solid #132c4a;font-size:12px;color:#ced9e3}
+tr:hover td{background:rgba(99,212,250,.03)}
+
+/* ===== FLOW VISUAL ===== */
+.flow-container{background:#0a1525;border:1px solid #1a3a5c;border-radius:16px;padding:24px;margin:12px 0}
+.flow-row{display:flex;align-items:center;justify-content:center;gap:0;flex-wrap:wrap}
+.flow-box{background:linear-gradient(135deg,#132c4a,#1a3a5c);border:2px solid #1a3a5c;border-radius:12px;padding:14px 18px;text-align:center;min-width:130px;max-width:160px}
+.flow-box .icon{font-size:24px;margin-bottom:4px}
+.flow-box .label{font-size:11px;color:#f8f7f2;font-weight:600}
+.flow-box .desc{font-size:9px;color:#7a9ab8;margin-top:2px}
+.flow-arrow{color:#63d4fa;font-size:20px;padding:0 6px}
+.flow-arrow-down{text-align:center;color:#63d4fa;font-size:24px;margin:6px 0}
+.konko-core{background:linear-gradient(135deg,rgba(99,212,250,.12),rgba(0,143,209,.06));border:2px solid #63d4fa;border-radius:16px;padding:20px;text-align:center;margin:8px auto;max-width:600px}
+.konko-core h3{color:#63d4fa;font-size:18px;margin-bottom:4px}
+.konko-core p{color:#ced9e3;font-size:11px}
+.konko-core .badge-row{display:flex;justify-content:center;gap:6px;margin-top:8px;flex-wrap:wrap}
+.konko-core .badge{background:rgba(99,212,250,.1);border:1px solid rgba(99,212,250,.3);padding:3px 10px;border-radius:20px;font-size:9px;color:#63d4fa;font-weight:600}
+.output-box{background:linear-gradient(135deg,rgba(32,227,159,.08),rgba(32,227,159,.03));border:1px solid rgba(32,227,159,.3);border-radius:10px;padding:14px;text-align:center;flex:1}
+.output-box .icon{font-size:20px;margin-bottom:3px}
+.output-box .label{font-size:11px;color:#20e39f;font-weight:700}
+
+/* ===== VS CONTAINER ===== */
+.vs-container{display:grid;grid-template-columns:1fr 50px 1fr;gap:0;align-items:stretch;margin:12px 0}
+.vs-left{background:linear-gradient(135deg,rgba(250,95,232,.06),rgba(250,95,232,.02));border:1px solid rgba(250,95,232,.2);border-radius:14px 0 0 14px;padding:20px}
+.vs-right{background:linear-gradient(135deg,rgba(32,227,159,.06),rgba(32,227,159,.02));border:1px solid rgba(32,227,159,.2);border-radius:0 14px 14px 0;padding:20px}
+.vs-center{display:flex;align-items:center;justify-content:center;background:#0e1f35;font-size:16px;font-weight:800;color:#7a9ab8}
+.vs-left h4{color:#fa5fe8;font-size:13px;margin-bottom:8px}
+.vs-right h4{color:#20e39f;font-size:13px;margin-bottom:8px}
+.vs-left li,.vs-right li{color:#ced9e3;font-size:11px;padding:3px 0;list-style:none;padding-left:16px;position:relative}
+.vs-left li::before{content:"✗";position:absolute;left:0;color:#fa5fe8}
+.vs-right li::before{content:"✓";position:absolute;left:0;color:#20e39f}
+
+/* ===== PHASE CARDS ===== */
+.phase{border-radius:14px;padding:22px;margin-bottom:14px}
+.phase h3{margin-bottom:10px}
+.phase ul{list-style:none;padding:0}
+.phase ul li{padding:5px 0;padding-left:20px;position:relative;font-size:12px;color:#ced9e3;line-height:1.6}
+.phase ul li::before{content:"→";position:absolute;left:0;font-weight:700}
+.phase-1{background:linear-gradient(135deg,rgba(99,212,250,.08),rgba(99,212,250,.02));border:1px solid rgba(99,212,250,.2)}
+.phase-1 h3{color:#63d4fa}.phase-1 ul li::before{color:#63d4fa}
+.phase-2{background:linear-gradient(135deg,rgba(32,227,159,.08),rgba(32,227,159,.02));border:1px solid rgba(32,227,159,.2)}
+.phase-2 h3{color:#20e39f}.phase-2 ul li::before{color:#20e39f}
+.phase-3{background:linear-gradient(135deg,rgba(250,95,232,.08),rgba(250,95,232,.02));border:1px solid rgba(250,95,232,.2)}
+.phase-3 h3{color:#fa5fe8}.phase-3 ul li::before{color:#fa5fe8}
+
+/* ===== PILLAR CARDS ===== */
+.pillar{border-radius:14px;padding:22px;margin-bottom:14px}
+.p1{background:linear-gradient(135deg,rgba(99,212,250,.08),rgba(99,212,250,.02));border:1px solid rgba(99,212,250,.2)}
+.p2{background:linear-gradient(135deg,rgba(32,227,159,.08),rgba(32,227,159,.02));border:1px solid rgba(32,227,159,.2)}
+.p3{background:linear-gradient(135deg,rgba(250,95,232,.08),rgba(250,95,232,.02));border:1px solid rgba(250,95,232,.2)}
+
+/* ===== TITLE SLIDE ===== */
+.title-slide{justify-content:center;align-items:center;text-align:center}
+.title-slide h1{font-size:48px;margin-bottom:10px}
+.title-slide .big-name{font-size:18px;color:#63d4fa;letter-spacing:4px;text-transform:uppercase;margin-bottom:30px}
+.title-slide .tagline{font-size:16px;color:#9ab5cc;max-width:600px;line-height:1.7}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:#0b1929}::-webkit-scrollbar-thumb{background:#1a3a5c;border-radius:2px}
+
+/* ===== KEYBOARD HINT ===== */
+.key-hint{position:fixed;top:15px;right:20px;color:#2a4a66;font-size:10px;z-index:50;letter-spacing:1px}
+
+@media(max-width:1000px){
+.slide{padding:30px 30px 80px}
+h1{font-size:28px}
+.grid-2,.grid-3,.grid-4{grid-template-columns:1fr 1fr}
+.flow-row{flex-direction:column;gap:8px}
+.vs-container{grid-template-columns:1fr}
+.vs-left{border-radius:14px 14px 0 0}.vs-right{border-radius:0 0 14px 14px}.vs-center{padding:10px}
+}
+</style>
+</head>
+<body>
+
+<div class="key-hint">← → ARROW KEYS TO NAVIGATE</div>
+
+<!-- ==================== SLIDE 0: TITLE ==================== -->
+<div class="slide active title-slide" id="s0">
+<p class="subtitle" style="margin-bottom:20px">Interview Presentation · April 2026</p>
+<h1>I know <span>Konko</span>.<br>And I have a <span>plan</span>.</h1>
+<div class="big-name" style="margin-top:20px">Jose Luis Ruiz Rivera</div>
+<p class="tagline">Growth Marketing Specialist with hands-on experience in B2B SaaS, performance marketing, AI automation, and data analytics. Here's what I researched about Konko, its market, and what I'd do from Day 1.</p>
+<div style="margin-top:40px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+<span class="badge b-cyan" style="font-size:12px;padding:6px 16px">Growth & Performance</span>
+<span class="badge b-green" style="font-size:12px;padding:6px 16px">AI Automation</span>
+<span class="badge b-pink" style="font-size:12px;padding:6px 16px">Creativity & Content</span>
+<span class="badge b-amber" style="font-size:12px;padding:6px 16px">Data-Driven</span>
+</div>
+</div>
+
+<!-- ==================== SLIDE 1: WHAT KONKO DOES ==================== -->
+<div class="slide" id="s1">
+<p class="subtitle">Section 1 · What I Understand</p>
+<h1>I know what <span>Konko</span> does</h1>
+<p class="big-subtitle">Konko AI is building the operating system for the modern clinic in Latin America. Kora is an AI-powered agent that automates patient communication and appointment scheduling 24/7 via WhatsApp — so clinics can grow beyond their limits.</p>
+
+<div class="flow-container">
+<p style="text-align:center;color:#7a9ab8;font-size:10px;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px">Patient Reaches Out → Kora Handles It → Clinic Grows</p>
+<div class="flow-row">
+<div class="flow-box"><div class="icon">📱</div><div class="label">WhatsApp Message</div><div class="desc">Patient inquiry 24/7</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="icon">🤖</div><div class="label">Kora Responds</div><div class="desc">~5 sec response time</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="icon">💬</div><div class="label">Qualifies & Answers</div><div class="desc">Pricing, objections, info</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="icon">📅</div><div class="label">Books Appointment</div><div class="desc">Automatic scheduling</div></div>
+<div class="flow-arrow">→</div>
+<div class="flow-box"><div class="icon">📈</div><div class="label">Clinic Revenue Grows</div><div class="desc">+30% avg in 60 days</div></div>
+</div>
+</div>
+
+<div class="grid-3" style="margin-top:16px">
+<div class="metric"><div class="val">$550K+</div><div class="label">Contracted ARR</div></div>
+<div class="metric"><div class="val">&lt;10</div><div class="label">Team Members</div></div>
+<div class="metric"><div class="val">Millions</div><div class="label">Clinic-Patient Interactions/Year</div></div>
+</div>
+
+<div class="highlight" style="margin-top:12px">
+<h4>My read on the core value</h4>
+<p>Clinics hit a growth ceiling because they can't physically attend more patients — staff is overwhelmed, calls are missed, WhatsApp messages go unanswered for hours. <strong style="color:#f8f7f2">Kora breaks that ceiling.</strong> It's not about replacing people — it's about <strong style="color:#f8f7f2">helping clinics scale beyond their limits</strong> by automating the front-door so the human team can focus on what matters: patient care.</p>
+</div>
+</div>
+
+<!-- ==================== SLIDE 2: THE PROBLEM KONKO SOLVES ==================== -->
+<div class="slide" id="s2">
+<p class="subtitle">Section 1b · The Value Proposition</p>
+<h1>The problem <span>Konko</span> solves</h1>
+<p class="big-subtitle">Clinics in LATAM lose patients every day because they can't respond fast enough. Konko solves this with AI that never sleeps.</p>
+
+<div class="vs-container">
+<div class="vs-left">
+<h4>Without Kora (the problem)</h4>
+<ul>
+<li>Missed calls and unanswered WhatsApp messages</li>
+<li>Coordinators juggling 50+ conversations manually</li>
+<li>Patients lost to competitors who respond faster</li>
+<li>Revenue capped by staff availability</li>
+<li>No data on why patients don't book</li>
+<li>After-hours inquiries completely lost</li>
+<li>3-4 hours/day wasted on repetitive admin tasks</li>
+</ul>
+</div>
+<div class="vs-center">VS</div>
+<div class="vs-right">
+<h4>With Kora (the solution)</h4>
+<ul>
+<li>Every message answered in ~5 seconds, 24/7</li>
+<li>AI handles thousands of conversations simultaneously</li>
+<li>+40% increase in booked appointments</li>
+<li>Revenue growth uncapped — clinic scales beyond limits</li>
+<li>Full data on patient interactions and conversions</li>
+<li>After-hours = fully operational with Kora</li>
+<li>4-6 hours/day recovered per staff member</li>
+</ul>
+</div>
+</div>
+
+<div class="grid-4" style="margin-top:14px">
+<div class="metric"><div class="val">+40%</div><div class="label">More Appointments</div></div>
+<div class="metric"><div class="val">5 sec</div><div class="label">Avg Response Time</div></div>
+<div class="metric"><div class="val">14x</div><div class="label">ROI Reported</div></div>
+<div class="metric"><div class="val">2x</div><div class="label">Conversion Rate</div></div>
+</div>
+</div>
+
+<!-- ==================== SLIDE 3: MARKET LANDSCAPE ==================== -->
+<div class="slide" id="s3">
+<p class="subtitle">Section 2 · Market Landscape</p>
+<h1>The <span>healthcare AI</span> opportunity in LATAM</h1>
+<p class="big-subtitle">I researched the competitive landscape for healthcare AI in Latin America. Konko has a unique positioning — here's why.</p>
+
+<div class="grid-2">
+<div class="card">
+<h3 style="color:#fa5fe8">The Real Competitor: "Doing Nothing"</h3>
+<p style="font-size:12px;color:#ced9e3;line-height:1.7">Most clinics in LATAM still rely on <strong style="color:#f8f7f2">manual WhatsApp, phone calls, and overwhelmed coordinators</strong>. The biggest "competitor" isn't another software — it's the status quo. The messaging should attack this directly: <strong style="color:#ffc107">"You're losing patients every night your clinic sleeps. Kora doesn't."</strong></p>
+</div>
+<div class="card">
+<h3 style="color:#ffc107">Why Konko Wins</h3>
+<p style="font-size:12px;color:#ced9e3;line-height:1.7"><strong style="color:#f8f7f2">Built for LATAM clinics specifically.</strong> Not a generic chatbot adapted for healthcare — an AI agent trained on 20+ medical specialties, handling pricing objections, and scheduling in the way LATAM patients actually communicate. Plus: <strong style="color:#f8f7f2">WhatsApp-native</strong> — that's where 90%+ of patient communication happens in LATAM.</p>
+</div>
+</div>
+
+<table>
+<thead><tr><th>Capability</th><th style="text-align:center">Konko (Kora)</th><th style="text-align:center">Generic Chatbots</th><th style="text-align:center">EHR Platforms</th><th style="text-align:center">Manual (Status Quo)</th></tr></thead>
+<tbody>
+<tr><td style="color:#f8f7f2;font-weight:600">WhatsApp-native AI agent</td><td style="color:#20e39f;font-weight:700;text-align:center">✓</td><td style="color:#5c7e96;text-align:center">Partial</td><td style="color:#fa5fe8;text-align:center">✗</td><td style="color:#fa5fe8;text-align:center">✗</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Trained on 20+ medical specialties</td><td style="color:#20e39f;font-weight:700;text-align:center">✓</td><td style="color:#fa5fe8;text-align:center">✗</td><td style="color:#fa5fe8;text-align:center">✗</td><td style="color:#fa5fe8;text-align:center">✗</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Handles pricing & objections</td><td style="color:#20e39f;font-weight:700;text-align:center">✓</td><td style="color:#fa5fe8;text-align:center">✗</td><td style="color:#fa5fe8;text-align:center">✗</td><td style="color:#ffc107;text-align:center">Manual</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">24/7 autonomous operation</td><td style="color:#20e39f;font-weight:700;text-align:center">✓</td><td style="color:#20e39f;text-align:center">✓</td><td style="color:#fa5fe8;text-align:center">✗</td><td style="color:#fa5fe8;text-align:center">✗</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Auto appointment booking</td><td style="color:#20e39f;font-weight:700;text-align:center">✓</td><td style="color:#5c7e96;text-align:center">Basic</td><td style="color:#5c7e96;text-align:center">Partial</td><td style="color:#ffc107;text-align:center">Manual</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Revenue impact measurable</td><td style="color:#20e39f;font-weight:700;text-align:center">✓</td><td style="color:#fa5fe8;text-align:center">✗</td><td style="color:#fa5fe8;text-align:center">✗</td><td style="color:#fa5fe8;text-align:center">✗</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Zero engineering lift for clinic</td><td style="color:#20e39f;font-weight:700;text-align:center">✓</td><td style="color:#ffc107;text-align:center">Varies</td><td style="color:#fa5fe8;text-align:center">Heavy</td><td style="color:#20e39f;text-align:center">N/A</td></tr>
+</tbody>
+</table>
+
+<div class="success" style="margin-top:10px">
+<h4>The messaging I'd build</h4>
+<p><strong style="color:#f8f7f2">"Your clinic loses patients every time a message goes unanswered. Kora responds in 5 seconds, 24/7, and books the appointment — so your team can focus on care, not admin. Clinics using Kora see +40% more bookings in 60 days."</strong></p>
+</div>
+</div>
+
+<!-- ==================== SLIDE 4: TARGET MARKET ==================== -->
+<div class="slide" id="s4">
+<p class="subtitle">Section 3 · Target Market</p>
+<h1><span>Healthcare segments</span> with highest potential</h1>
+<p class="big-subtitle">Focused 100% on the healthcare vertical — these are the segments I'd prioritize for acquisition campaigns, each with a tailored approach.</p>
+
+<div class="grid-3">
+<div class="card" style="text-align:center;border-color:rgba(99,212,250,.3)">
+<div style="font-size:32px;margin-bottom:8px">🦷</div>
+<h3 style="color:#63d4fa">Dental Clinics</h3>
+<p>High volume of inquiries, price-sensitive patients, multiple daily appointments. <strong style="color:#f8f7f2">Perfect fit for Kora — automate scheduling, handle pricing questions.</strong></p>
+<p style="margin-top:8px"><span class="badge b-cyan">High Volume</span></p>
+</div>
+<div class="card" style="text-align:center;border-color:rgba(32,227,159,.3)">
+<div style="font-size:32px;margin-bottom:8px">👁️</div>
+<h3 style="color:#20e39f">Ophthalmology</h3>
+<p>Elective procedures (LASIK, cataract) with high-value tickets. Patients research and compare — <strong style="color:#f8f7f2">fast response = higher conversion.</strong></p>
+<p style="margin-top:8px"><span class="badge b-green">High Ticket</span></p>
+</div>
+<div class="card" style="text-align:center;border-color:rgba(250,95,232,.3)">
+<div style="font-size:32px;margin-bottom:8px">💊</div>
+<h3 style="color:#fa5fe8">General Practice / Family Medicine</h3>
+<p>Highest appointment frequency. Recurring patients. <strong style="color:#f8f7f2">Kora reduces no-shows and automates reminders.</strong></p>
+<p style="margin-top:8px"><span class="badge b-pink">Recurring Revenue</span></p>
+</div>
+<div class="card" style="text-align:center;border-color:rgba(255,193,7,.3)">
+<div style="font-size:32px;margin-bottom:8px">🏥</div>
+<h3 style="color:#ffc107">Multi-Specialty Hospitals</h3>
+<p>Complex scheduling across departments. <strong style="color:#f8f7f2">Kora handles routing to the right specialty automatically.</strong></p>
+<p style="margin-top:8px"><span class="badge b-amber">Enterprise</span></p>
+</div>
+<div class="card" style="text-align:center;border-color:rgba(0,143,209,.3)">
+<div style="font-size:32px;margin-bottom:8px">🧴</div>
+<h3 style="color:#008fd1">Dermatology & Aesthetics</h3>
+<p>High-value elective procedures. Social media-driven demand. <strong style="color:#f8f7f2">Patients expect instant responses — Kora delivers.</strong></p>
+<p style="margin-top:8px"><span class="badge b-blue">Social-Driven</span></p>
+</div>
+<div class="card" style="text-align:center;border-color:rgba(99,212,250,.3)">
+<div style="font-size:32px;margin-bottom:8px">👶</div>
+<h3 style="color:#63d4fa">Pediatrics & OB-GYN</h3>
+<p>Anxious parents/patients who message at all hours. <strong style="color:#f8f7f2">24/7 response is critical — and Kora delivers peace of mind.</strong></p>
+<p style="margin-top:8px"><span class="badge b-cyan">24/7 Critical</span></p>
+</div>
+</div>
+
+<div class="highlight" style="margin-top:10px">
+<h4>My strategy: Segment-specific campaigns</h4>
+<p>I wouldn't run generic "Kora for clinics" campaigns. I'd create <strong style="color:#f8f7f2">tailored landing pages and ad copy per specialty</strong>: "Kora for Dentists" emphasizing appointment volume, "Kora for Ophthalmology" emphasizing high-value conversions, "Kora for Hospitals" emphasizing multi-department routing. Each segment has a different pain point and needs a different hook.</p>
+</div>
+</div>
+
+<!-- ==================== SLIDE 5: CAMPAIGN STRATEGY ==================== -->
+<div class="slide" id="s5">
+<p class="subtitle">Section 4 · Campaign Strategy</p>
+<h1>My <span>growth campaign</span> plan</h1>
+<p class="big-subtitle">How I'd structure paid and organic campaigns for Konko, tailored specifically for acquiring healthcare clinics in LATAM.</p>
+
+<div class="grid-2">
+<div class="card">
+<h3 style="color:#63d4fa">Google Ads — High-Intent Search</h3>
+<table>
+<thead><tr><th>Ad Group</th><th>Keywords</th><th>Intent</th></tr></thead>
+<tbody>
+<tr><td style="color:#f8f7f2">Scheduling</td><td>"sistema agendar citas clinica", "appointment booking clinic"</td><td style="color:#20e39f">🔥 High</td></tr>
+<tr><td style="color:#f8f7f2">WhatsApp</td><td>"chatbot WhatsApp consultorio", "WhatsApp para clinicas"</td><td style="color:#20e39f">🔥 High</td></tr>
+<tr><td style="color:#f8f7f2">AI Healthcare</td><td>"inteligencia artificial clinica", "AI medical scheduling"</td><td style="color:#ffc107">Medium</td></tr>
+<tr><td style="color:#f8f7f2">Pain Point</td><td>"como agendar mas citas", "perder pacientes WhatsApp"</td><td style="color:#20e39f">🔥 High</td></tr>
+<tr><td style="color:#f8f7f2">Competitor</td><td>Competitor brand terms + alternatives</td><td style="color:#20e39f">🔥 High</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="card">
+<h3 style="color:#20e39f">Meta Ads — Targeted to Healthcare Pros</h3>
+<table>
+<thead><tr><th>Campaign</th><th>Audience</th><th>Objective</th></tr></thead>
+<tbody>
+<tr><td style="color:#f8f7f2">Awareness</td><td>Doctors, clinic owners in MX + LATAM</td><td>Video views</td></tr>
+<tr><td style="color:#f8f7f2">Case Studies</td><td>Lookalike of current clients</td><td>Demos</td></tr>
+<tr><td style="color:#f8f7f2">Retargeting</td><td>Website visitors + video viewers</td><td>Conversion</td></tr>
+<tr><td style="color:#f8f7f2">"11 PM Test"</td><td>Clinic managers, admin staff</td><td>Engagement</td></tr>
+<tr><td style="color:#f8f7f2">Specialty-Specific</td><td>Dentists, dermatologists, pediatricians</td><td>Demos</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="grid-2" style="margin-top:12px">
+<div class="card">
+<h3 style="color:#fa5fe8">Content & SEO — Organic Engine</h3>
+<ul>
+<li><strong style="color:#f8f7f2">SEO blog posts:</strong> 4-6/month targeting high-intent healthcare keywords</li>
+<li><strong style="color:#f8f7f2">Video case studies:</strong> 1-2/month — real clinics, real results, storytelling format</li>
+<li><strong style="color:#f8f7f2">Founder-led LinkedIn:</strong> Jean Marc & Michael publishing 3-4x/week</li>
+<li><strong style="color:#f8f7f2">"The Modern Clinic" series:</strong> Short-form video showing before/after with Kora</li>
+<li><strong style="color:#f8f7f2">Email nurturing:</strong> 5-7 email sequences per funnel stage</li>
+</ul>
+</div>
+<div class="card">
+<h3 style="color:#ffc107">Creative Growth Tactics</h3>
+<ul>
+<li><strong style="color:#f8f7f2">Live Kora Demo:</strong> Prospects experience Kora booking a real appointment via WhatsApp — the product IS the marketing</li>
+<li><strong style="color:#f8f7f2">Doctor-to-Doctor Referrals:</strong> Referral program where clinics earn benefits for bringing other clinics</li>
+<li><strong style="color:#f8f7f2">Congress Hacking:</strong> At medical events like Healthnology, Kora demos live during talks</li>
+<li><strong style="color:#f8f7f2">"Your Coordinator Never Sleeps":</strong> Campaign showing what happens at 11 PM — with and without Kora</li>
+</ul>
+</div>
+</div>
+</div>
+
+<!-- ==================== SLIDE 6: THE 3 PILLARS ==================== -->
+<div class="slide" id="s6">
+<p class="subtitle">Section 5 · What I Bring</p>
+<h1>The <span>3 Pillars</span> I deliver</h1>
+<p class="big-subtitle">Growth strategy, AI automation, and relentless creativity — the three capabilities I bring to Konko from Day 1.</p>
+
+<div class="grid-3">
+<div class="pillar p1">
+<h3 style="color:#63d4fa;font-size:15px">Pillar 1: Growth & Marketing</h3>
+<ul style="list-style:none;padding:0">
+<li style="padding:5px 0;padding-left:18px;position:relative;font-size:12px;color:#ced9e3"><span style="position:absolute;left:0;color:#63d4fa">▸</span><strong style="color:#f8f7f2">GoBots:</strong> Reduced ad spend 49% ($106K→$54K) while maintaining results</li>
+<li style="padding:5px 0;padding-left:18px;position:relative;font-size:12px;color:#ced9e3"><span style="position:absolute;left:0;color:#63d4fa">▸</span><strong style="color:#f8f7f2">+91K conversions</strong> and +509% client growth</li>
+<li style="padding:5px 0;padding-left:18px;position:relative;font-size:12px;color:#ced9e3"><span style="position:absolute;left:0;color:#63d4fa">▸</span>Full-stack: Meta, Google, LinkedIn Ads, SEO, email, content</li>
+<li style="padding:5px 0;padding-left:18px;position:relative;font-size:12px;color:#ced9e3"><span style="position:absolute;left:0;color:#63d4fa">▸</span>Data-driven decisions — dashboards, UTMs, attribution</li>
+</ul>
+</div>
+<div class="pillar p2">
+<h3 style="color:#20e39f;font-size:15px">Pillar 2: AI Automation</h3>
+<ul style="list-style:none;padding:0">
+<li style="padding:5px 0;padding-left:18px;position:relative;font-size:12px;color:#ced9e3"><span style="position:absolute;left:0;color:#20e39f">▸</span><strong style="color:#f8f7f2">n8n + Claude:</strong> Automated weekly campaign reports — 3hrs → 0 manual work</li>
+<li style="padding:5px 0;padding-left:18px;position:relative;font-size:12px;color:#ced9e3"><span style="position:absolute;left:0;color:#20e39f">▸</span><strong style="color:#f8f7f2">AI content pipeline:</strong> Drafts generated by AI, edited by human</li>
+<li style="padding:5px 0;padding-left:18px;position:relative;font-size:12px;color:#ced9e3"><span style="position:absolute;left:0;color:#20e39f">▸</span><strong style="color:#f8f7f2">Competitive research:</strong> Full market analysis with AI in hours, not days</li>
+<li style="padding:5px 0;padding-left:18px;position:relative;font-size:12px;color:#ced9e3"><span style="position:absolute;left:0;color:#20e39f">▸</span>Tools: n8n, Claude, APIs, webhooks, Supabase, Vercel</li>
+</ul>
+</div>
+<div class="pillar p3">
+<h3 style="color:#fa5fe8;font-size:15px">Pillar 3: Creativity</h3>
+<ul style="list-style:none;padding:0">
+<li style="padding:5px 0;padding-left:18px;position:relative;font-size:12px;color:#ced9e3"><span style="position:absolute;left:0;color:#fa5fe8">▸</span><strong style="color:#f8f7f2">"Live demo as marketing"</strong> — prospects experience Kora, not just read about it</li>
+<li style="padding:5px 0;padding-left:18px;position:relative;font-size:12px;color:#ced9e3"><span style="position:absolute;left:0;color:#fa5fe8">▸</span><strong style="color:#f8f7f2">Doctor-referral programs:</strong> Low cost, high trust, community-driven growth</li>
+<li style="padding:5px 0;padding-left:18px;position:relative;font-size:12px;color:#ced9e3"><span style="position:absolute;left:0;color:#fa5fe8">▸</span><strong style="color:#f8f7f2">Storytelling video:</strong> "The Modern Clinic" — before/after series</li>
+<li style="padding:5px 0;padding-left:18px;position:relative;font-size:12px;color:#ced9e3"><span style="position:absolute;left:0;color:#fa5fe8">▸</span><strong style="color:#f8f7f2">Founder-led thought leadership</strong> on healthcare AI in LATAM</li>
+</ul>
+</div>
+</div>
+
+<div class="success" style="margin-top:10px">
+<h4>Why this combination matters for Konko</h4>
+<p>Most marketers only execute campaigns. I also <strong style="color:#f8f7f2">automate processes with AI</strong> (n8n, Claude, APIs), <strong style="color:#f8f7f2">understand tech products deeply</strong>, and <strong style="color:#f8f7f2">generate creative ideas constantly</strong>. For a startup with &lt;10 people, that means I do the work of 2-3 people — growth strategy, automation, and content — with the speed and efficiency that early-stage demands.</p>
+</div>
+</div>
+
+<!-- ==================== SLIDE 7: AI AUTOMATION EXAMPLES ==================== -->
+<div class="slide" id="s7">
+<p class="subtitle">Section 5b · AI Automation Deep Dive</p>
+<h1>How I <span>automate with AI</span></h1>
+<p class="big-subtitle">Real examples of AI automation I've built — and what I'd build for Konko to accelerate growth operations.</p>
+
+<div class="grid-2">
+<div class="card">
+<h3 style="color:#20e39f">What I've Built</h3>
+<table>
+<thead><tr><th>Automation</th><th>Stack</th><th>Impact</th></tr></thead>
+<tbody>
+<tr><td style="color:#f8f7f2;font-weight:600">Weekly Campaign Reports</td><td>n8n + Claude + Google Sheets</td><td style="color:#20e39f">3 hrs/week → 0 manual</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Content Draft Pipeline</td><td>Claude + Templates</td><td style="color:#20e39f">4 hrs → 1 hr per piece</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Competitive Analysis</td><td>Claude + Web Research</td><td style="color:#20e39f">2 days → 3 hours</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">UTM & Campaign Taxonomy</td><td>n8n + CRM Integration</td><td style="color:#20e39f">Full attribution, zero manual tagging</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Email Sequence Drafting</td><td>Claude + Brief Framework</td><td style="color:#20e39f">5 emails in 30 min</td></tr>
+</tbody>
+</table>
+</div>
+<div class="card">
+<h3 style="color:#63d4fa">What I'd Build for Konko</h3>
+<table>
+<thead><tr><th>Automation</th><th>How</th><th>Impact</th></tr></thead>
+<tbody>
+<tr><td style="color:#f8f7f2;font-weight:600">Lead Scoring Pipeline</td><td>Kora interaction data → CRM auto-tag</td><td style="color:#63d4fa">Hot leads prioritized instantly</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Post-Demo Follow-Up</td><td>AI-personalized email based on demo notes</td><td style="color:#63d4fa">Higher conversion, zero manual work</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Content Calendar Engine</td><td>Claude + SEO data → weekly content briefs</td><td style="color:#63d4fa">Consistent output, always on-strategy</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">KPI Dashboard Auto-Update</td><td>n8n + Ads APIs + Looker Studio</td><td style="color:#63d4fa">Real-time visibility for the whole team</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Referral Program Tracking</td><td>Webhook + CRM + notification</td><td style="color:#63d4fa">Automated tracking & rewards</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="highlight" style="margin-top:10px">
+<h4>My philosophy on AI automation</h4>
+<p>I align with Konko's own philosophy: <strong style="color:#f8f7f2">AI doesn't replace people — it eliminates friction.</strong> I use AI to kill the repetitive work (reports, drafts, data pulls) so I can focus my human energy on strategy, creativity, and decisions that actually move the needle. In a team of &lt;10, this is the difference between being reactive and being strategic.</p>
+</div>
+</div>
+
+<!-- ==================== SLIDE 8: MESSAGING & NARRATIVE ==================== -->
+<div class="slide" id="s8">
+<p class="subtitle">Section 6 · Messaging</p>
+<h1>How I'd <span>communicate</span> Konko</h1>
+<p class="big-subtitle">Doctors don't buy technology — they buy results. The narrative needs to translate AI into business outcomes they care about.</p>
+
+<div class="grid-2">
+<div class="warn" style="margin:0">
+<h4>Technical message (less effective)</h4>
+<p style="font-size:14px">"AI-powered agent-native platform for healthcare automation with WhatsApp integration and multi-specialty NLP"</p>
+</div>
+<div class="success" style="margin:0">
+<h4>My proposed narrative</h4>
+<p style="font-size:14px">"Book more appointments without hiring more staff. Kora responds to every patient in 5 seconds, 24/7 — so your clinic grows while your team focuses on care."</p>
+</div>
+</div>
+
+<div class="card" style="margin-top:16px">
+<h3>Messaging by audience</h3>
+<table>
+<thead><tr><th>Audience</th><th>What They Care About</th><th>Message for Them</th></tr></thead>
+<tbody>
+<tr><td style="color:#63d4fa;font-weight:600">Clinic Owner / Doctor</td><td>More patients, more revenue, less hassle</td><td style="color:#f8f7f2">"Grow your clinic 30% in 60 days — without hiring a single person."</td></tr>
+<tr><td style="color:#63d4fa;font-weight:600">Clinic Administrator</td><td>Less workload, fewer missed messages</td><td style="color:#f8f7f2">"Your coordinator handles 50 chats. Kora handles 5,000. At the same time."</td></tr>
+<tr><td style="color:#63d4fa;font-weight:600">Hospital Director</td><td>Scale, ROI, data visibility</td><td style="color:#f8f7f2">"14x ROI. 40% more bookings. Full data on every patient interaction."</td></tr>
+<tr><td style="color:#63d4fa;font-weight:600">Medical Specialist</td><td>More patients in their specialty</td><td style="color:#f8f7f2">"Every inquiry about LASIK, braces, or a checkup — answered instantly and booked."</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="grid-2" style="margin-top:12px">
+<div class="highlight">
+<h4>Video Case Studies — My proposed format</h4>
+<p><strong style="color:#f8f7f2">Format: 60-90 sec, documentary-style</strong></p>
+<p style="margin-top:6px">▸ "How [Dental Clinic X] went from missing calls to +40% appointments"<br>
+▸ "11 PM — the message that booked 3 surgeries while the clinic slept"<br>
+▸ "From 1 coordinator to 1,000 conversations — the [Hospital Y] story"</p>
+</div>
+<div class="highlight">
+<h4>Future product messaging (from Miguel's insights)</h4>
+<p>Miguel mentioned that <strong style="color:#f8f7f2">a CRM and a medical note-taking AI agent are in the plans</strong>. When those launch, the narrative evolves from "book more appointments" to <strong style="color:#f8f7f2">"run your entire clinic on autopilot"</strong>. I'd start building the messaging framework for these products now so we're ready on launch day.</p>
+</div>
+</div>
+</div>
+
+<!-- ==================== SLIDE 9: 90-DAY PLAN ==================== -->
+<div class="slide" id="s9">
+<p class="subtitle">Section 7 · Execution</p>
+<h1>My <span>90-Day Plan</span> at Konko</h1>
+<p class="big-subtitle">I don't need a long ramp-up. I've already researched the product, the market, and the competitive landscape. Here's what I'd execute.</p>
+
+<div class="grid-3">
+<div class="phase phase-1">
+<h3>Days 1-30 · Immersion + Quick Wins</h3>
+<ul>
+<li><strong style="color:#f8f7f2">Week 1-2:</strong> Deep dive into product, ICP, sales cycle — which specialties convert best?</li>
+<li><strong style="color:#f8f7f2">Audit:</strong> Current campaigns, analytics, content, LinkedIn presence</li>
+<li><strong style="color:#f8f7f2">Quick Win:</strong> LinkedIn content calendar for founders (3-4 posts/week)</li>
+<li><strong style="color:#f8f7f2">Quick Win:</strong> Optimize existing paid campaigns based on data</li>
+<li><strong style="color:#f8f7f2">Quick Win:</strong> First video case study with a current client</li>
+</ul>
+</div>
+
+<div class="phase phase-2">
+<h3>Days 31-60 · Scale</h3>
+<ul>
+<li><strong style="color:#f8f7f2">Google Ads:</strong> High-intent keywords for healthcare scheduling</li>
+<li><strong style="color:#f8f7f2">Meta Ads:</strong> Specialty-specific campaigns targeting medical professionals</li>
+<li><strong style="color:#f8f7f2">Landing Pages:</strong> "Kora for Dentists", "Kora for Hospitals", etc.</li>
+<li><strong style="color:#f8f7f2">Email Nurturing:</strong> Automated sequences by funnel stage</li>
+<li><strong style="color:#f8f7f2">Referral Program:</strong> Launch doctor-to-doctor referral engine</li>
+</ul>
+</div>
+
+<div class="phase phase-3">
+<h3>Days 61-90 · Optimize</h3>
+<ul>
+<li><strong style="color:#f8f7f2">Data Review:</strong> Which channels generate the best-quality leads?</li>
+<li><strong style="color:#f8f7f2">Re-allocation:</strong> Move budget toward highest-ROI channels</li>
+<li><strong style="color:#f8f7f2">Thought Leadership:</strong> Position founders as voices in healthcare AI</li>
+<li><strong style="color:#f8f7f2">KPI Dashboard:</strong> MQLs, CAC, pipeline influenced, conversion by specialty</li>
+<li><strong style="color:#f8f7f2">Scale:</strong> Double down on what works, cut what doesn't</li>
+</ul>
+</div>
+</div>
+
+<div class="success" style="margin-top:10px">
+<h4>What I'd deliver in 90 days</h4>
+<p>Content engine running · Google + Meta campaigns generating MQLs · Founders publishing regularly on LinkedIn · 2-3 video case studies · Specialty-specific landing pages · Referral program live · KPI dashboard with full attribution · Messaging framework for current + upcoming products</p>
+</div>
+</div>
+
+<!-- ==================== SLIDE 10: MEASUREMENT ==================== -->
+<div class="slide" id="s10">
+<p class="subtitle">Section 8 · Measurement</p>
+<h1>How I'd <span>measure</span> everything</h1>
+<p class="big-subtitle">Every marketing dollar needs to justify itself with data. Here's the measurement framework I'd implement.</p>
+
+<div class="card">
+<h3>KPI Dashboard I'd Build</h3>
+<table>
+<thead><tr><th>Category</th><th>Metrics</th><th>Tool</th></tr></thead>
+<tbody>
+<tr><td style="color:#63d4fa;font-weight:600">Demand Gen</td><td>MQLs by channel, SQLs, pipeline influenced, demos booked</td><td>CRM + Looker Studio</td></tr>
+<tr><td style="color:#63d4fa;font-weight:600">Paid Media</td><td>CPL, CPA, ROAS, CTR, frequency, quality score</td><td>Google/Meta + Dashboard</td></tr>
+<tr><td style="color:#63d4fa;font-weight:600">Content</td><td>Engagement rate, reach, shares, time-on-page, downloads</td><td>GA4 + LinkedIn</td></tr>
+<tr><td style="color:#63d4fa;font-weight:600">Founder LinkedIn</td><td>Impressions, engagement, profile views, inbound DMs</td><td>LinkedIn Analytics</td></tr>
+<tr><td style="color:#63d4fa;font-weight:600">SEO</td><td>Organic traffic, keyword rankings, backlinks</td><td>GA4 + Search Console</td></tr>
+<tr><td style="color:#63d4fa;font-weight:600">Referrals</td><td>Referral rate, referred CAC vs paid CAC, NPS</td><td>CRM + Custom tracking</td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="grid-2" style="margin-top:10px">
+<div class="card">
+<h3>My Optimization Framework</h3>
+<div style="display:flex;flex-direction:column;gap:8px">
+<div style="display:flex;align-items:center;gap:10px"><span style="background:#63d4fa;color:#0b1929;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">1</span><span style="color:#ced9e3;font-size:12px"><strong style="color:#f8f7f2">Measure everything:</strong> UTMs on every campaign, end-to-end tracking</span></div>
+<div style="display:flex;align-items:center;gap:10px"><span style="background:#63d4fa;color:#0b1929;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">2</span><span style="color:#ced9e3;font-size:12px"><strong style="color:#f8f7f2">Weekly dashboard:</strong> KPIs updated by channel, visible to all</span></div>
+<div style="display:flex;align-items:center;gap:10px"><span style="background:#63d4fa;color:#0b1929;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">3</span><span style="color:#ced9e3;font-size:12px"><strong style="color:#f8f7f2">Bi-weekly analysis:</strong> Which channel delivers best lead quality?</span></div>
+<div style="display:flex;align-items:center;gap:10px"><span style="background:#63d4fa;color:#0b1929;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">4</span><span style="color:#ced9e3;font-size:12px"><strong style="color:#f8f7f2">Monthly re-allocation:</strong> Budget goes where ROI lives</span></div>
+<div style="display:flex;align-items:center;gap:10px"><span style="background:#63d4fa;color:#0b1929;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;flex-shrink:0">5</span><span style="color:#ced9e3;font-size:12px"><strong style="color:#f8f7f2">Continuous A/B testing:</strong> Copy, creatives, audiences, landing pages</span></div>
+</div>
+</div>
+<div class="card">
+<h3>Proof: What I've achieved with data</h3>
+<div class="grid-2" style="margin:10px 0">
+<div class="metric"><div class="val" style="color:#fa5fe8">$106K</div><div class="label">Spend BEFORE</div></div>
+<div class="metric"><div class="val" style="color:#20e39f">$54K</div><div class="label">Spend AFTER</div></div>
+</div>
+<p style="color:#ced9e3;font-size:12px;line-height:1.6"><strong style="color:#f8f7f2">49% cost reduction</strong> while maintaining results. I identified segments with 3x higher CPA that weren't generating quality leads. Redistributed budget to what actually worked.</p>
+<div style="margin-top:10px">
+<div class="grid-2">
+<div class="metric" style="padding:12px"><div class="val" style="font-size:18px">91K+</div><div class="label">Conversions</div></div>
+<div class="metric" style="padding:12px"><div class="val" style="font-size:18px">+509%</div><div class="label">Client Growth</div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+<!-- ==================== SLIDE 11: TOOLS & STACK ==================== -->
+<div class="slide" id="s11">
+<p class="subtitle">Section 9 · My Stack</p>
+<h1>Tools I <span>master</span></h1>
+<p class="big-subtitle">I don't just run campaigns — I automate, analyze, and scale with technology.</p>
+
+<div class="grid-3">
+<div class="card" style="text-align:center;border-color:rgba(99,212,250,.3)">
+<h3 style="color:#63d4fa">Ads & Performance</h3>
+<p style="font-size:14px;color:#ced9e3">Meta Ads · Google Ads · LinkedIn Ads · TikTok Ads · YouTube Ads</p>
+</div>
+<div class="card" style="text-align:center;border-color:rgba(32,227,159,.3)">
+<h3 style="color:#20e39f">Analytics & Data</h3>
+<p style="font-size:14px;color:#ced9e3">Google Analytics 4 · Looker Studio · GTM · Custom Dashboards</p>
+</div>
+<div class="card" style="text-align:center;border-color:rgba(250,95,232,.3)">
+<h3 style="color:#fa5fe8">CRM & Automation</h3>
+<p style="font-size:14px;color:#ced9e3">HubSpot · Pipedrive · n8n · Mailchimp · ActiveCampaign</p>
+</div>
+<div class="card" style="text-align:center;border-color:rgba(255,193,7,.3)">
+<h3 style="color:#ffc107">AI & Productivity</h3>
+<p style="font-size:14px;color:#ced9e3">Claude · ChatGPT · Perplexity · n8n + APIs · AI Workflows</p>
+</div>
+<div class="card" style="text-align:center;border-color:rgba(0,143,209,.3)">
+<h3 style="color:#008fd1">Content & Creative</h3>
+<p style="font-size:14px;color:#ced9e3">Copywriting · Video · LinkedIn Strategy · Founder-Led Marketing</p>
+</div>
+<div class="card" style="text-align:center;border-color:rgba(99,212,250,.3)">
+<h3 style="color:#63d4fa">Tech & Dev</h3>
+<p style="font-size:14px;color:#ced9e3">Supabase · Vercel · REST APIs · Webhooks · Landing Pages</p>
+</div>
+</div>
+
+<div class="success" style="margin-top:14px">
+<h4>My differentiator: Marketing + Technology + AI</h4>
+<p>Most marketers only run campaigns. I also <strong style="color:#f8f7f2">automate processes with AI</strong> (n8n, Claude, GPT), <strong style="color:#f8f7f2">understand APIs and tech products</strong>, and <strong style="color:#f8f7f2">speak the language of developers and founders</strong>. For Konko this is critical — you need someone who understands both the product and the marketing narrative.</p>
+</div>
+
+<div class="amber">
+<h4>What this means for Konko</h4>
+<p>I can talk to the engineering team about Kora's capabilities and translate that into copy that converts. I can automate reports with n8n instead of doing them manually. I can build landing pages fast without depending on engineering. <strong style="color:#f8f7f2">I do more with less — and that's exactly what a &lt;10 person startup needs.</strong></p>
+</div>
+</div>
+
+<!-- ==================== SLIDE 12: SEO AUDIT ==================== -->
+<div class="slide" id="s12">
+<p class="subtitle">Bonus · Already Working</p>
+<h1>I already <span>audited</span> konko.ai</h1>
+<p class="big-subtitle">I ran a full Screaming Frog crawl on konko.ai to identify quick wins and critical SEO issues. Here's what I found — and what I'd fix first.</p>
+
+<div class="grid-4" style="margin-bottom:16px">
+<div class="metric" style="border-color:rgba(250,95,95,.4)"><div class="val" style="color:#fa5f5f">139</div><div class="label">Pages Missing Canonicals</div></div>
+<div class="metric" style="border-color:rgba(250,95,95,.4)"><div class="val" style="color:#fa5f5f">125</div><div class="label">Pages Missing H1</div></div>
+<div class="metric" style="border-color:rgba(250,95,95,.4)"><div class="val" style="color:#fa5f5f">130</div><div class="label">Duplicate Page Titles</div></div>
+<div class="metric" style="border-color:rgba(250,95,95,.4)"><div class="val" style="color:#fa5f5f">122</div><div class="label">Duplicate Meta Descriptions</div></div>
+</div>
+
+<div class="grid-2">
+<div class="card" style="border-color:rgba(250,95,95,.3)">
+<h3 style="color:#fa5f5f">Critical Issues <span class="badge" style="background:rgba(250,95,95,.15);color:#fa5f5f">Fix Now</span></h3>
+<table>
+<thead><tr><th>Issue</th><th>Impact</th><th>Pages</th></tr></thead>
+<tbody>
+<tr><td style="color:#f8f7f2;font-weight:600">100% pages missing canonical tags</td><td style="color:#fa5f5f">Google can't determine preferred URL version — unpredictable rankings</td><td style="text-align:center">139</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">89.9% pages missing H1 tags</td><td style="color:#fa5f5f">Google can't identify page topic — massive ranking opportunity lost</td><td style="text-align:center">125</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">All blog titles are identical</td><td style="color:#fa5f5f">Every blog post = "Blog Konko AI | IA Médica..." — Google can't differentiate them</td><td style="text-align:center">~55</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">8 HTTP URLs (not HTTPS)</td><td style="color:#fa5f5f">Chrome shows "Not Secure" warning — trust killer for healthcare</td><td style="text-align:center">8</td></tr>
+</tbody>
+</table>
+</div>
+<div class="card" style="border-color:rgba(255,193,7,.3)">
+<h3 style="color:#ffc107">High-Impact Opportunities <span class="badge b-amber">Quick Wins</span></h3>
+<table>
+<thead><tr><th>Opportunity</th><th>Impact</th><th>Pages</th></tr></thead>
+<tbody>
+<tr><td style="color:#f8f7f2;font-weight:600">All images missing ALT text</td><td style="color:#ffc107">0% accessibility + 0% image SEO — easy fix, big gain</td><td style="text-align:center">154</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">87% duplicate meta descriptions</td><td style="color:#ffc107">Google ignores them → lower CTR in search results</td><td style="text-align:center">122</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">54.5% images over 100KB</td><td style="color:#ffc107">Slow page load → worse user experience + lower Core Web Vitals</td><td style="text-align:center">84</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Missing hreflang x-default</td><td style="color:#ffc107">Bilingual site (ES/EN) without proper language signals</td><td style="text-align:center">136</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="success" style="margin-top:10px">
+<h4>What this means</h4>
+<p>Konko has <strong style="color:#f8f7f2">55+ blog posts</strong> — that's a solid content foundation. But almost zero SEO value is being extracted because titles, H1s, meta descriptions, and canonicals are broken. <strong style="color:#f8f7f2">Fixing just the blog titles and H1s could unlock significant organic traffic</strong> for high-intent healthcare keywords they're already writing about.</p>
+</div>
+</div>
+
+<!-- ==================== SLIDE 13: SEO FIX PLAN ==================== -->
+<div class="slide" id="s13">
+<p class="subtitle">Bonus · SEO Action Plan</p>
+<h1>My <span>SEO fix plan</span> for konko.ai</h1>
+<p class="big-subtitle">Prioritized by impact. These are the changes I'd implement in the first 30 days to unlock organic growth.</p>
+
+<div class="grid-3">
+<div class="phase phase-1">
+<h3>Week 1-2 · Critical Fixes</h3>
+<ul>
+<li><strong style="color:#f8f7f2">Add canonical tags</strong> to all 139 pages — prevents duplicate content issues</li>
+<li><strong style="color:#f8f7f2">Fix blog post titles</strong> — each post needs a unique, keyword-rich title instead of generic "Blog Konko AI"</li>
+<li><strong style="color:#f8f7f2">Add H1 tags</strong> to all pages — match the blog topic for each post</li>
+<li><strong style="color:#f8f7f2">Fix HTTP→HTTPS</strong> — redirect all 8 HTTP URLs to HTTPS</li>
+<li><strong style="color:#f8f7f2">Add hreflang x-default</strong> for proper ES/EN language handling</li>
+</ul>
+</div>
+
+<div class="phase phase-2">
+<h3>Week 3-4 · Quick Wins</h3>
+<ul>
+<li><strong style="color:#f8f7f2">Unique meta descriptions</strong> for all 55+ blog posts — boost CTR in search results</li>
+<li><strong style="color:#f8f7f2">Image ALT text</strong> on all 154 images — accessibility + image SEO</li>
+<li><strong style="color:#f8f7f2">Compress images</strong> — 84 images >100KB slowing page load</li>
+<li><strong style="color:#f8f7f2">Fix 6 broken external links</strong> (4xx errors)</li>
+<li><strong style="color:#f8f7f2">Add image dimensions</strong> to reduce CLS (layout shifts)</li>
+</ul>
+</div>
+
+<div class="phase phase-3">
+<h3>Ongoing · SEO Strategy</h3>
+<ul>
+<li><strong style="color:#f8f7f2">Keyword-optimized blog titles:</strong> Target specific long-tail keywords per post</li>
+<li><strong style="color:#f8f7f2">Internal linking strategy:</strong> 3 pages have zero outgoing internal links</li>
+<li><strong style="color:#f8f7f2">Security headers:</strong> Add Content-Security-Policy, X-Frame-Options</li>
+<li><strong style="color:#f8f7f2">Translate EN blog URLs:</strong> /en/ pages still have Spanish slugs</li>
+<li><strong style="color:#f8f7f2">Content readability:</strong> 52% of pages scored "difficult to read"</li>
+</ul>
+</div>
+</div>
+
+<div class="grid-2" style="margin-top:12px">
+<div class="highlight">
+<h4>The biggest missed opportunity</h4>
+<p>Konko has 55+ blog posts covering great topics: "How to scale your clinic", "AI for medical practices", "Chatbot vs AI agent". But <strong style="color:#f8f7f2">every single blog post has the identical title tag</strong>: "Blog Konko AI | IA Médica y Transformación Digital". Google literally cannot tell them apart. Fixing this alone could be a game-changer for organic traffic.</p>
+</div>
+<div class="highlight">
+<h4>Example: What optimized titles would look like</h4>
+<p style="font-size:11px">
+<span style="color:#fa5f5f">Before:</span> "Blog Konko AI | IA Médica y Transformación Digital" (x55 posts)<br><br>
+<span style="color:#20e39f">After examples:</span><br>
+▸ "Cómo Escalar tu Clínica Sin Contratar Más Personal | Konko AI"<br>
+▸ "Chatbot vs Agente de IA para Clínicas: Cuál Elegir | Konko AI"<br>
+▸ "5 Errores de Comunicación que Frenan tu Clínica | Konko AI"<br>
+▸ "IA para Agendar Citas: Guía para Médicos | Konko AI"
+</p>
+</div>
+</div>
+</div>
+
+<!-- ==================== SLIDE 14: LINKEDIN AUDIT ==================== -->
+<div class="slide" id="s14">
+<p class="subtitle">Bonus · LinkedIn Analysis</p>
+<h1>I audited Konko's <span>LinkedIn presence</span></h1>
+<p class="big-subtitle">LinkedIn is the #1 B2B channel for healthcare SaaS. Here's where Konko stands today and what I'd improve.</p>
+
+<div class="grid-2">
+<div class="card">
+<h3 style="color:#63d4fa">Company Page: Konko AI</h3>
+<table>
+<thead><tr><th>Metric</th><th>Current</th><th>Assessment</th></tr></thead>
+<tbody>
+<tr><td style="color:#f8f7f2;font-weight:600">Followers</td><td>646</td><td style="color:#ffc107">Low for $550K+ ARR — room to grow 5-10x</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Recent engagement</td><td>9-47 reactions/post</td><td style="color:#20e39f">Decent ratio for follower count</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Posting frequency</td><td>Inconsistent</td><td style="color:#fa5f5f">Needs a consistent calendar</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Content mix</td><td>Events, thought leadership</td><td style="color:#ffc107">Missing: case studies, product demos, data</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Languages</td><td>EN + ES mixed</td><td style="color:#20e39f">Good for LATAM reach</td></tr>
+</tbody>
+</table>
+</div>
+<div class="card">
+<h3 style="color:#ffd700">CEO: Jean Marc Goguikian</h3>
+<table>
+<thead><tr><th>Metric</th><th>Current</th><th>Assessment</th></tr></thead>
+<tbody>
+<tr><td style="color:#f8f7f2;font-weight:600">Followers</td><td>3,000+</td><td style="color:#20e39f">Strong personal brand base</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Top post</td><td>129 likes (launch)</td><td style="color:#20e39f">Proves high potential when posting</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Avg engagement</td><td>47-60 reactions</td><td style="color:#20e39f">Good — founder content outperforms company page</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Content themes</td><td>AI in clinics, founder journey, events</td><td style="color:#ffc107">Could add: client wins, data, behind-the-scenes</td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">Frequency</td><td>~2-3 posts/month</td><td style="color:#fa5f5f">Should be 3-4/week for maximum growth</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+<div class="grid-2" style="margin-top:12px">
+<div class="success">
+<h4>What's working well</h4>
+<p>▸ Jean Marc's personal posts get <strong style="color:#f8f7f2">4-5x more engagement</strong> than the company page — founder-led content is the right strategy<br>
+▸ Bilingual content (EN/ES) reaches both investor and LATAM clinic audiences<br>
+▸ Event presence (Healthnology 2026) creates credibility and content opportunities<br>
+▸ Mission-driven messaging resonates — "elevate human potential, not replace it"</p>
+</div>
+<div class="warn">
+<h4>What I'd change immediately</h4>
+<p>▸ <strong style="color:#f8f7f2">Increase founder posting to 3-4x/week</strong> — I'd ghost-write drafts capturing Jean Marc's voice<br>
+▸ <strong style="color:#f8f7f2">Add case study posts:</strong> "How Clínicas Sanare increased bookings +40%" with data<br>
+▸ <strong style="color:#f8f7f2">Product demo clips:</strong> 30-sec screen recordings of Kora in action on WhatsApp<br>
+▸ <strong style="color:#f8f7f2">Data-driven posts:</strong> "We analyzed 1M patient interactions — here's what we learned"<br>
+▸ <strong style="color:#f8f7f2">Employee advocacy:</strong> Get the whole team resharing and commenting</p>
+</div>
+</div>
+
+<div class="highlight" style="margin-top:10px">
+<h4>The opportunity</h4>
+<p>Jean Marc has 3,000+ followers and averages 50+ reactions when he posts. If he posted 3-4x/week with optimized content, <strong style="color:#f8f7f2">he could realistically reach 10K+ followers in 6 months</strong> and generate inbound leads directly from LinkedIn. I'd implement a system where I interview him 30 min/week, create the content calendar, write the drafts, and he just approves and posts.</p>
+</div>
+</div>
+
+<!-- ==================== SLIDE 15: AD COPY MOCKUPS ==================== -->
+<div class="slide" id="s15">
+<p class="subtitle">Bonus · Ready-to-Run Ads</p>
+<h1><span>Ad copy mockups</span> for Konko</h1>
+<p class="big-subtitle">Five campaign concepts ready to test — each targeting a different pain point and audience segment in the healthcare vertical.</p>
+
+<div class="grid-2">
+<div class="card" style="border-color:rgba(99,212,250,.3)">
+<h3 style="color:#63d4fa">Google Search Ad #1 — High Intent</h3>
+<div style="background:#0a1525;border-radius:10px;padding:16px;margin-top:8px;font-family:Arial,sans-serif">
+<p style="color:#8ab4f8;font-size:14px;margin-bottom:2px;font-weight:600">Agenda Citas Automáticamente | Kora AI para Clínicas</p>
+<p style="color:#bdc1c6;font-size:11px;margin-bottom:6px">konko.ai/kora</p>
+<p style="color:#bdc1c6;font-size:12px;line-height:1.5">Tu clínica pierde pacientes cuando no contestas. Kora responde en 5 seg, 24/7 vía WhatsApp y agenda la cita. +40% más citas en 60 días. Sin contratar más personal. Agenda tu demo gratis →</p>
+</div>
+<p style="margin-top:8px;font-size:10px;color:#7a9ab8">Target: "sistema agendar citas clínica", "chatbot WhatsApp consultorio"</p>
+</div>
+
+<div class="card" style="border-color:rgba(32,227,159,.3)">
+<h3 style="color:#20e39f">Google Search Ad #2 — Competitor</h3>
+<div style="background:#0a1525;border-radius:10px;padding:16px;margin-top:8px;font-family:Arial,sans-serif">
+<p style="color:#8ab4f8;font-size:14px;margin-bottom:2px;font-weight:600">¿Tu Chatbot Pierde Pacientes? | Kora es Diferente</p>
+<p style="color:#bdc1c6;font-size:11px;margin-bottom:6px">konko.ai/kora-vs-chatbot</p>
+<p style="color:#bdc1c6;font-size:12px;line-height:1.5">Los chatbots genéricos no entienden medicina. Kora está entrenada en 20+ especialidades, maneja objeciones de precio, y cierra la cita. 14x ROI promedio. Pruébala gratis →</p>
+</div>
+<p style="margin-top:8px;font-size:10px;color:#7a9ab8">Target: "chatbot para clínicas", "asistente virtual médico"</p>
+</div>
+
+<div class="card" style="border-color:rgba(250,95,232,.3)">
+<h3 style="color:#fa5fe8">Meta Ad #1 — "11 PM Test"</h3>
+<div style="background:#0a1525;border-radius:10px;padding:16px;margin-top:8px">
+<p style="color:#fa5fe8;font-size:10px;letter-spacing:1px;margin-bottom:6px">CREATIVE CONCEPT — VIDEO AD 15s</p>
+<p style="color:#f8f7f2;font-size:13px;line-height:1.6"><strong>Visual:</strong> Split screen. Left: dark clinic, phone buzzing, "Message from patient: Quiero agendar una cita" — no one answers. Right: Same message → Kora responds in 5 seconds → appointment booked.</p>
+<p style="color:#ced9e3;font-size:12px;margin-top:8px"><strong>Copy:</strong> "Son las 11 PM. Un paciente te escribió por WhatsApp. ¿Quién le contesta? 🤔 Con Kora, nadie tiene que estar despierto. Agenda tu demo → konko.ai"</p>
+</div>
+<p style="margin-top:8px;font-size:10px;color:#7a9ab8">Target: Clinic owners, medical directors on Facebook/Instagram</p>
+</div>
+
+<div class="card" style="border-color:rgba(255,193,7,.3)">
+<h3 style="color:#ffc107">Meta Ad #2 — Case Study</h3>
+<div style="background:#0a1525;border-radius:10px;padding:16px;margin-top:8px">
+<p style="color:#ffc107;font-size:10px;letter-spacing:1px;margin-bottom:6px">CREATIVE CONCEPT — CAROUSEL</p>
+<p style="color:#f8f7f2;font-size:13px;line-height:1.6"><strong>Slide 1:</strong> "Esta clínica duplicó sus citas sin contratar a nadie"<br>
+<strong>Slide 2:</strong> Before: 3 hrs/day answering WhatsApp manually<br>
+<strong>Slide 3:</strong> After: Kora handles 100% of initial conversations<br>
+<strong>Slide 4:</strong> Result: +40% appointments, 14x ROI<br>
+<strong>Slide 5:</strong> CTA: "¿Tu clínica podría ser la siguiente?"</p>
+</div>
+<p style="margin-top:8px;font-size:10px;color:#7a9ab8">Target: Lookalike of current clients, retargeting website visitors</p>
+</div>
+</div>
+
+<div class="card" style="border-color:rgba(0,143,209,.3)">
+<h3 style="color:#008fd1">LinkedIn Ad — Founder Promoted Post</h3>
+<div style="background:#0a1525;border-radius:10px;padding:16px;margin-top:8px">
+<p style="color:#008fd1;font-size:10px;letter-spacing:1px;margin-bottom:6px">SPONSORED CONTENT — JEAN MARC'S PROFILE</p>
+<p style="color:#f8f7f2;font-size:13px;line-height:1.6">"I've been inside 50+ clinics across Mexico and LATAM this year. The #1 reason they lose patients? It's not their medical skills — it's response time. The average clinic takes 4+ hours to reply to a WhatsApp message. By then, the patient already booked somewhere else. That's why we built Kora — an AI agent that responds in 5 seconds and books the appointment automatically. One clinic went from 15 to 25 appointments/day in their first month. Without hiring anyone. [Link to case study]"</p>
+</div>
+<p style="margin-top:8px;font-size:10px;color:#7a9ab8">Target: Healthcare professionals, clinic owners, medical directors in MX/LATAM</p>
+</div>
+</div>
+
+<!-- ==================== SLIDE 16: KEYWORD RESEARCH ==================== -->
+<div class="slide" id="s16">
+<p class="subtitle">Bonus · Keyword Opportunities</p>
+<h1><span>Keyword research</span> for healthcare AI in LATAM</h1>
+<p class="big-subtitle">High-intent keywords Konko should own — organized by intent level and funnel stage. These would fuel both paid and organic strategy.</p>
+
+<div class="card">
+<h3>Priority Keywords by Intent</h3>
+<table>
+<thead><tr><th>Keyword (Spanish)</th><th>Intent</th><th>Funnel Stage</th><th>Channel</th><th>Priority</th></tr></thead>
+<tbody>
+<tr><td style="color:#f8f7f2;font-weight:600">sistema para agendar citas clínica</td><td style="color:#20e39f">Transactional</td><td>Bottom</td><td>Google Ads + SEO</td><td><span class="badge b-green">P1</span></td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">chatbot WhatsApp para consultorio</td><td style="color:#20e39f">Transactional</td><td>Bottom</td><td>Google Ads + SEO</td><td><span class="badge b-green">P1</span></td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">asistente virtual para clínicas</td><td style="color:#20e39f">Transactional</td><td>Bottom</td><td>Google Ads + SEO</td><td><span class="badge b-green">P1</span></td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">inteligencia artificial para clínicas</td><td style="color:#ffc107">Informational+</td><td>Mid</td><td>SEO Blog</td><td><span class="badge b-amber">P1</span></td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">cómo agendar más citas en mi clínica</td><td style="color:#ffc107">Problem-aware</td><td>Mid</td><td>SEO Blog</td><td><span class="badge b-amber">P1</span></td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">software gestión clínica México</td><td style="color:#20e39f">Transactional</td><td>Bottom</td><td>Google Ads</td><td><span class="badge b-green">P1</span></td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">cómo escalar mi clínica</td><td style="color:#ffc107">Problem-aware</td><td>Top-Mid</td><td>SEO Blog + LinkedIn</td><td><span class="badge b-cyan">P2</span></td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">automatizar atención pacientes</td><td style="color:#20e39f">Solution-aware</td><td>Mid</td><td>SEO + Google Ads</td><td><span class="badge b-cyan">P2</span></td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">perder pacientes por no contestar</td><td style="color:#ffc107">Pain-point</td><td>Top</td><td>Meta Ads + Blog</td><td><span class="badge b-cyan">P2</span></td></tr>
+<tr><td style="color:#f8f7f2;font-weight:600">CRM para clínicas médicas</td><td style="color:#20e39f">Transactional</td><td>Bottom</td><td>Google Ads + SEO</td><td><span class="badge b-pink">Future (CRM launch)</span></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="grid-2" style="margin-top:12px">
+<div class="highlight">
+<h4>English Keywords (for EN version of site)</h4>
+<p style="font-size:11px">
+▸ "AI scheduling for clinics" — Transactional, P1<br>
+▸ "WhatsApp chatbot for medical practice" — Transactional, P1<br>
+▸ "how to get more patients for my clinic" — Problem-aware, P2<br>
+▸ "clinic management AI LATAM" — Solution-aware, P2<br>
+▸ "patient booking automation" — Transactional, P1<br>
+▸ "healthcare AI agent" — Informational, P2
+</p>
+</div>
+<div class="highlight">
+<h4>Content mapping: Blog posts that already exist but aren't ranking</h4>
+<p style="font-size:11px">
+Konko already has blog posts for many of these topics, but because <strong style="color:#f8f7f2">all titles and meta descriptions are identical</strong>, Google can't rank them. Example:<br><br>
+<span style="color:#fa5f5f">Current:</span> "Blog Konko AI | IA Médica..."<br>
+<span style="color:#20e39f">Should be:</span> "Cómo Agendar Más Citas en tu Clínica con IA | Konko AI"<br><br>
+<strong style="color:#f8f7f2">Fixing titles + adding H1s = immediate organic traffic unlock</strong> for keywords they're already writing about.
+</p>
+</div>
+</div>
+</div>
+
+<!-- ==================== SLIDE 17: CLOSE ==================== -->
+<div class="slide title-slide" id="s17">
+<p class="subtitle">Summary</p>
+<h1 style="font-size:36px">I'm not here to tell you what I've done.<br>I'm here to show you <span>what I'll do at Konko</span>.</h1>
+
+<div class="grid-4" style="margin:30px auto;max-width:800px">
+<div class="metric"><div class="val" style="font-size:16px">I Know</div><div class="label">The Product</div></div>
+<div class="metric"><div class="val" style="font-size:16px">I Researched</div><div class="label">The Market</div></div>
+<div class="metric"><div class="val" style="font-size:16px">I Have</div><div class="label">A Plan</div></div>
+<div class="metric"><div class="val" style="font-size:16px">I Execute</div><div class="label">From Day 1</div></div>
+</div>
+
+<div style="display:flex;gap:12px;justify-content:center;margin:20px 0;flex-wrap:wrap">
+<span class="badge b-cyan" style="font-size:12px;padding:6px 16px">Growth & Performance</span>
+<span class="badge b-green" style="font-size:12px;padding:6px 16px">AI Automation</span>
+<span class="badge b-pink" style="font-size:12px;padding:6px 16px">Relentless Creativity</span>
+</div>
+
+<div style="max-width:500px;margin:20px auto 0">
+<div class="highlight" style="text-align:left">
+<h4>Jose Luis Ruiz Rivera</h4>
+<p>▸ luisruizr525@gmail.com<br>
+▸ +52 55 1609 6375<br>
+▸ linkedin.com/in/jose-luis-ruiz-rivera-a0a6551b7/</p>
+</div>
+</div>
+
+<p style="color:#2a4a66;font-size:11px;margin-top:30px">Presentation prepared for Konko AI interview · April 2026</p>
+</div>
+
+<!-- ===== NAVIGATION BAR ===== -->
+<div class="nav-bar">
+<button class="nav-btn" id="prevBtn" onclick="go(-1)" disabled>← Previous</button>
+<div style="display:flex;align-items:center;gap:14px">
+<div class="progress" id="dots"></div>
+<span class="slide-counter" id="counter">1 / 18</span>
+</div>
+<button class="nav-btn" id="nextBtn" onclick="go(1)">Next →</button>
+</div>
+
+<script>
+let cur=0;
+const total=document.querySelectorAll('.slide').length;
+const dots=document.getElementById('dots');
+
+for(let i=0;i<total;i++){
+  const d=document.createElement('div');
+  d.className='dot'+(i===0?' active':'');
+  d.onclick=()=>goTo(i);
+  dots.appendChild(d);
+}
+
+function goTo(n){
+  if(n<0||n>=total)return;
+  document.querySelectorAll('.slide').forEach((s,i)=>s.classList.toggle('active',i===n));
+  document.querySelectorAll('.dot').forEach((d,i)=>{
+    d.classList.toggle('active',i===n);
+    if(i<=n)d.classList.add('visited');
+  });
+  cur=n;
+  document.getElementById('counter').textContent=(cur+1)+' / '+total;
+  document.getElementById('prevBtn').disabled=cur===0;
+  document.getElementById('nextBtn').disabled=cur===total-1;
+  window.scrollTo(0,0);
+}
+
+function go(dir){goTo(cur+dir)}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key===' ')go(1);
+  if(e.key==='ArrowLeft')go(-1);
+});
+</script>
+
+</body>
+</html>

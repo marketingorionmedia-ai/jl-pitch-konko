@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JL · Growth Specialist Application for Konko AI</title>
+<meta name="description" content="Two ways to explore my work for Konko AI: the original pitch and the AI & Automation assignment.">
+<link rel="icon" type="image/png" href="favicon-konko-512.png">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#0b1929;color:#f8f7f2;min-height:100vh;overflow-x:hidden;display:flex;flex-direction:column}
+
+/* ===== TOP BAR ===== */
+.topbar{position:fixed;top:0;left:0;right:0;height:56px;background:rgba(11,25,41,.85);backdrop-filter:blur(12px);border-bottom:1px solid #1a3a5c;display:flex;align-items:center;justify-content:space-between;padding:0 32px;z-index:100}
+.brand{display:flex;align-items:center;gap:10px;font-size:13px;letter-spacing:1.5px;color:#63d4fa;font-weight:600;text-transform:uppercase}
+.brand .logo{width:24px;height:24px;background:linear-gradient(135deg,#63d4fa,#008fd1);border-radius:5px;display:flex;align-items:center;justify-content:center;font-weight:800;color:#0b1929;font-size:14px}
+.lang-toggle{display:flex;gap:4px;background:#0e1f35;border:1px solid #1a3a5c;border-radius:24px;padding:3px}
+.lang-btn{background:transparent;border:none;color:#7a9ab8;padding:6px 14px;border-radius:20px;cursor:pointer;font-size:11px;font-weight:700;letter-spacing:1px;transition:all .2s}
+.lang-btn:hover{color:#63d4fa}
+.lang-btn.active{background:linear-gradient(135deg,#63d4fa,#008fd1);color:#0b1929}
+
+/* ===== HERO ===== */
+.hero{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 24px 60px;text-align:center;max-width:1200px;margin:0 auto;width:100%}
+.eyebrow{color:#63d4fa;font-size:11px;letter-spacing:3px;text-transform:uppercase;margin-bottom:18px;font-weight:600}
+h1{font-size:clamp(36px,6vw,64px);line-height:1.1;margin-bottom:18px;font-weight:700;letter-spacing:-1px}
+h1 .accent{background:linear-gradient(135deg,#63d4fa,#fa5fe8 60%,#ffc107);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.subtitle{color:#9ab5cc;font-size:clamp(15px,1.6vw,18px);max-width:680px;line-height:1.6;margin-bottom:54px}
+
+/* ===== TWO BUTTONS ===== */
+.choices{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:22px;width:100%;max-width:920px;margin-bottom:48px}
+.choice{background:linear-gradient(135deg,#0e1f35,#132c4a);border:1px solid #1a3a5c;border-radius:18px;padding:32px 28px;text-decoration:none;color:inherit;transition:all .3s;display:flex;flex-direction:column;align-items:flex-start;text-align:left;position:relative;overflow:hidden}
+.choice::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#63d4fa,#008fd1);opacity:0;transition:opacity .3s}
+.choice:hover{transform:translateY(-6px);border-color:#63d4fa;box-shadow:0 20px 60px rgba(99,212,250,.15)}
+.choice:hover::before{opacity:1}
+.choice .pill{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#63d4fa;font-weight:700;margin-bottom:14px;display:inline-block;padding:4px 10px;background:rgba(99,212,250,.1);border:1px solid rgba(99,212,250,.25);border-radius:20px}
+.choice h2{font-size:24px;color:#f8f7f2;margin-bottom:8px;font-weight:700;line-height:1.2}
+.choice p{color:#9ab5cc;font-size:13px;line-height:1.6;margin-bottom:18px}
+.choice .meta{display:flex;flex-direction:column;gap:6px;width:100%;border-top:1px solid #1a3a5c;padding-top:14px;margin-top:auto}
+.choice .meta-row{display:flex;justify-content:space-between;font-size:11px;color:#7a9ab8}
+.choice .meta-row strong{color:#ced9e3;font-weight:600}
+.choice .cta{margin-top:18px;color:#63d4fa;font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px;transition:gap .2s}
+.choice:hover .cta{gap:12px}
+.choice.assignment::before{background:linear-gradient(90deg,#fa5fe8,#ffc107)}
+.choice.assignment .pill{color:#fa5fe8;background:rgba(250,95,232,.1);border-color:rgba(250,95,232,.25)}
+.choice.assignment .cta{color:#fa5fe8}
+
+/* ===== FOOTER ===== */
+.footer{padding:24px 32px;border-top:1px solid #1a3a5c;text-align:center;color:#5c7e96;font-size:11px;letter-spacing:.5px}
+
+@media(max-width:640px){
+  .topbar{padding:0 16px}
+  .hero{padding:80px 16px 40px}
+  .choices{grid-template-columns:1fr;gap:16px}
+  .choice{padding:24px 20px}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><span class="logo">K</span><span data-en="JL · Konko Application" data-es="JL · Postulación Konko">JL · Konko Application</span></div>
+  <div class="lang-toggle">
+    <button class="lang-btn active" id="btnEn" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" id="btnEs" onclick="setLang('es')">ES</button>
+  </div>
+</div>
+
+<main class="hero">
+
+  <div class="eyebrow" data-en="Growth Specialist Application · April 28, 2026" data-es="Postulación Growth Specialist · 28 de Abril, 2026">Growth Specialist Application · April 28, 2026</div>
+  <h1>
+    <span data-en="Two ways to explore" data-es="Dos formas de explorar">Two ways to explore</span> <br>
+    <span data-en="my work for" data-es="mi trabajo para">my work for</span> <span class="accent">Konko AI</span>
+  </h1>
+  <p class="subtitle" data-en="Built for Jean Marc, Michael, Miguel and Agustín — the original pitch and the AI &amp; Automation assignment, side by side. Choose where to start." data-es="Construido para Jean Marc, Michael, Miguel y Agustín — el pitch original y el assignment de AI &amp; Automation, lado a lado. Elige por dónde empezar.">Built for Jean Marc, Michael, Miguel and Agustín — the original pitch and the AI &amp; Automation assignment, side by side. Choose where to start.</p>
+
+  <div class="choices">
+
+    <a href="pitch.html" class="choice">
+      <span class="pill" data-en="Pre-assignment" data-es="Pre-assignment">Pre-assignment</span>
+      <h2 data-en="Original Pitch" data-es="Pitch Original">Original Pitch</h2>
+      <p data-en="The 18-slide deck I first shared with Miguel and then refined for Round 2 with Jean Marc — why I'm a fit for the role, the GoBots case study, the 5 production automations and the 3 pillars (Growth · AI Automation · Creativity)." data-es="El deck de 18 slides que compartí inicialmente con Miguel y luego refiné para la Ronda 2 con Jean Marc — por qué soy fit para el rol, el case de GoBots, las 5 automatizaciones en producción y los 3 pilares (Growth · AI Automation · Creatividad).">The 18-slide deck I first shared with Miguel and then refined for Round 2 with Jean Marc — why I'm a fit for the role, the GoBots case study, the 5 production automations and the 3 pillars (Growth · AI Automation · Creativity).</p>
+      <div class="meta">
+        <div class="meta-row"><span data-en="Slides" data-es="Slides">Slides</span><strong>18</strong></div>
+        <div class="meta-row"><span data-en="Reading time" data-es="Tiempo de lectura">Reading time</span><strong>~12 min</strong></div>
+        <div class="meta-row"><span data-en="Last updated" data-es="Última actualización">Last updated</span><strong>Apr 21, 2026</strong></div>
+      </div>
+      <span class="cta" data-en="Open the pitch →" data-es="Abrir el pitch →">Open the pitch →</span>
+    </a>
+
+    <a href="assignment.html" class="choice assignment">
+      <span class="pill" data-en="Assignment Deliverable" data-es="Entregable del Assignment">Assignment Deliverable</span>
+      <h2 data-en="AI &amp; Automation Assignment" data-es="Assignment AI &amp; Automation">AI &amp; Automation Assignment</h2>
+      <p data-en="Konko's first organic growth channel: a programmatic SEO engine. The bet, 6 working pages live, the system to scale 6 → 150, conversion tracking, qualification, nurture sequences and 30/60/90 metrics." data-es="El primer canal de growth orgánico de Konko: un motor de programmatic SEO. La apuesta, 6 landings vivas, el sistema para escalar de 6 a 150, tracking, calificación, secuencias de nurture y métricas a 30/60/90 días.">Konko's first organic growth channel: a programmatic SEO engine. The bet, 6 working pages live, the system to scale 6 → 150, conversion tracking, qualification, nurture sequences and 30/60/90 metrics.</p>
+      <div class="meta">
+        <div class="meta-row"><span data-en="Sections" data-es="Secciones">Sections</span><strong>9</strong></div>
+        <div class="meta-row"><span data-en="Working URLs" data-es="URLs vivas">Working URLs</span><strong>6</strong></div>
+        <div class="meta-row"><span data-en="Last updated" data-es="Última actualización">Last updated</span><strong>Apr 28, 2026</strong></div>
+      </div>
+      <span class="cta" data-en="Open the assignment →" data-es="Abrir el assignment →">Open the assignment →</span>
+    </a>
+
+  </div>
+
+</main>
+
+<footer class="footer">
+  <span data-en="Built end-to-end by Jose Luis Ruiz Rivera · for the Konko AI panel · April 28, 2026" data-es="Construido end-to-end por Jose Luis Ruiz Rivera · para el panel de Konko AI · 28 de Abril, 2026">Built end-to-end by Jose Luis Ruiz Rivera · for the Konko AI panel · April 28, 2026</span>
+</footer>
+
+<script>
+function setLang(lang){
+  document.documentElement.setAttribute('lang', lang);
+  document.getElementById('btnEn').classList.toggle('active', lang==='en');
+  document.getElementById('btnEs').classList.toggle('active', lang==='es');
+  document.querySelectorAll('[data-en]').forEach(el=>{
+    const t = el.getAttribute('data-' + lang);
+    if(t !== null) el.innerHTML = t;
+  });
+  try{ localStorage.setItem('konkoLang', lang); }catch(e){}
+}
+try{
+  const saved = localStorage.getItem('konkoLang');
+  if(saved==='es') setLang('es');
+}catch(e){}
+</script>
+
+</body>
+</html>
