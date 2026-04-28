@@ -363,9 +363,9 @@ td code{font-size:11px}
   </h1>
   <p class="lead" data-en="The brief asked for a pipeline that scales 2 → 100 without quality loss. Lovable manual cloning doesn't qualify — it's the mockup, not the system. The real system is a 4-layer pipeline that sits 100% on Konko's existing tech stack: Notion (data) → n8n (orchestration) → Webflow CMS (production) → konko.ai/cdmx/[slug]/ (live URL)." data-es="El brief pidió una pipeline que escala 2 → 100 sin pérdida de calidad. Clonar manualmente en Lovable no califica — eso es el mockup, no el sistema. El sistema real es una pipeline de 4 capas que vive 100% en el stack tech existente de Konko: Notion (data) → n8n (orquestación) → Webflow CMS (producción) → konko.ai/cdmx/[slug]/ (URL viva).">The real system is a 4-layer pipeline that sits 100% on Konko's existing tech stack.</p>
 
-  <h3 data-en="Architecture — visual flow" data-es="Arquitectura — flujo visual">Architecture — visual flow</h3>
+  <h3 data-en="Architecture — 7-stage flow with quality gates" data-es="Arquitectura — flujo de 7 etapas con quality gates">Architecture — 7-stage flow with quality gates</h3>
   <div class="flow-svg-wrap">
-    <svg viewBox="0 0 880 380" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 880 480" xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
           <stop offset="0%" stop-color="#63d4fa"/><stop offset="100%" stop-color="#008fd1"/>
@@ -384,63 +384,94 @@ td code{font-size:11px}
         </marker>
       </defs>
 
-      <!-- Layer 1: Notion DB -->
+      <!-- Stage 1: Notion DB -->
       <g>
-        <rect x="40" y="80" width="170" height="120" rx="12" fill="#0e1f35" stroke="url(#grad1)" stroke-width="2"/>
-        <text x="125" y="110" text-anchor="middle" fill="#63d4fa" font-size="11" font-weight="700" letter-spacing="1">LAYER 1 · DATA</text>
-        <text x="125" y="138" text-anchor="middle" fill="#f8f7f2" font-size="18" font-weight="700">Notion DB</text>
-        <text x="125" y="160" text-anchor="middle" fill="#9ab5cc" font-size="11">1 row = 1 landing</text>
-        <text x="125" y="178" text-anchor="middle" fill="#9ab5cc" font-size="11">Specialty × Geo × Copy</text>
+        <rect x="20" y="80" width="140" height="110" rx="10" fill="#0e1f35" stroke="url(#grad1)" stroke-width="2"/>
+        <text x="90" y="105" text-anchor="middle" fill="#63d4fa" font-size="9" font-weight="700" letter-spacing="1">1 · DATA</text>
+        <text x="90" y="128" text-anchor="middle" fill="#f8f7f2" font-size="14" font-weight="700">Notion DB</text>
+        <text x="90" y="150" text-anchor="middle" fill="#9ab5cc" font-size="10">1 row = 1 landing</text>
+        <text x="90" y="166" text-anchor="middle" fill="#9ab5cc" font-size="10">+ lifecycle states</text>
+      </g>
+      <line x1="165" y1="135" x2="195" y2="135" stroke="#63d4fa" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <!-- Stage 2: n8n -->
+      <g>
+        <rect x="200" y="80" width="135" height="110" rx="10" fill="#0e1f35" stroke="url(#grad2)" stroke-width="2"/>
+        <text x="267" y="105" text-anchor="middle" fill="#fa5fe8" font-size="9" font-weight="700" letter-spacing="1">2 · ORCHESTRATION</text>
+        <text x="267" y="128" text-anchor="middle" fill="#f8f7f2" font-size="14" font-weight="700">n8n</text>
+        <text x="267" y="150" text-anchor="middle" fill="#9ab5cc" font-size="10">trigger · transform</text>
+        <text x="267" y="166" text-anchor="middle" fill="#9ab5cc" font-size="10">enrich · validate</text>
+      </g>
+      <line x1="340" y1="135" x2="370" y2="135" stroke="#63d4fa" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <!-- Stage 3: Quality Gate (NEW · highlighted) -->
+      <g>
+        <rect x="375" y="80" width="135" height="110" rx="10" fill="rgba(255,193,7,.08)" stroke="#ffc107" stroke-width="2.5"/>
+        <text x="442" y="105" text-anchor="middle" fill="#ffc107" font-size="9" font-weight="700" letter-spacing="1">3 · QUALITY GATE</text>
+        <text x="442" y="128" text-anchor="middle" fill="#f8f7f2" font-size="14" font-weight="700">9 Validations</text>
+        <text x="442" y="150" text-anchor="middle" fill="#ffc107" font-size="10">no Frankenstein</text>
+        <text x="442" y="166" text-anchor="middle" fill="#ffc107" font-size="10">pages reach prod</text>
+      </g>
+      <line x1="515" y1="135" x2="545" y2="135" stroke="#63d4fa" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <!-- Stage 4: Human Approval (NEW) -->
+      <g>
+        <rect x="550" y="80" width="135" height="110" rx="10" fill="rgba(250,95,232,.06)" stroke="#fa5fe8" stroke-width="2"/>
+        <text x="617" y="105" text-anchor="middle" fill="#fa5fe8" font-size="9" font-weight="700" letter-spacing="1">4 · HUMAN APPROVAL</text>
+        <text x="617" y="128" text-anchor="middle" fill="#f8f7f2" font-size="14" font-weight="700">Status flip</text>
+        <text x="617" y="150" text-anchor="middle" fill="#9ab5cc" font-size="10">Approved → Publish</text>
+        <text x="617" y="166" text-anchor="middle" fill="#9ab5cc" font-size="10">scarce-time gate</text>
+      </g>
+      <line x1="690" y1="135" x2="720" y2="135" stroke="#63d4fa" stroke-width="2" marker-end="url(#arrow)"/>
+
+      <!-- Stage 5: Webflow CMS -->
+      <g>
+        <rect x="725" y="80" width="135" height="110" rx="10" fill="#0e1f35" stroke="url(#grad3)" stroke-width="2"/>
+        <text x="792" y="105" text-anchor="middle" fill="#ffc107" font-size="9" font-weight="700" letter-spacing="1">5 · PRODUCTION</text>
+        <text x="792" y="128" text-anchor="middle" fill="#f8f7f2" font-size="14" font-weight="700">Webflow CMS</text>
+        <text x="792" y="150" text-anchor="middle" fill="#9ab5cc" font-size="10">+ canonicals</text>
+        <text x="792" y="166" text-anchor="middle" fill="#9ab5cc" font-size="10">+ index control</text>
       </g>
 
-      <!-- Arrow 1→2 -->
-      <line x1="215" y1="140" x2="265" y2="140" stroke="#63d4fa" stroke-width="2" marker-end="url(#arrow)"/>
+      <!-- Down arrow Stage 5 → Live -->
+      <line x1="792" y1="195" x2="792" y2="225" stroke="#63d4fa" stroke-width="2" marker-end="url(#arrow)"/>
 
-      <!-- Layer 2: n8n -->
+      <!-- Stage 6: Live URL -->
       <g>
-        <rect x="270" y="80" width="170" height="120" rx="12" fill="#0e1f35" stroke="url(#grad2)" stroke-width="2"/>
-        <text x="355" y="110" text-anchor="middle" fill="#fa5fe8" font-size="11" font-weight="700" letter-spacing="1">LAYER 2 · ORCHESTRATION</text>
-        <text x="355" y="138" text-anchor="middle" fill="#f8f7f2" font-size="18" font-weight="700">n8n</text>
-        <text x="355" y="160" text-anchor="middle" fill="#9ab5cc" font-size="11">Trigger → Validate</text>
-        <text x="355" y="178" text-anchor="middle" fill="#9ab5cc" font-size="11">→ Transform → Push</text>
+        <rect x="725" y="230" width="135" height="60" rx="10" fill="rgba(32,227,159,.08)" stroke="url(#grad4)" stroke-width="2"/>
+        <text x="792" y="252" text-anchor="middle" fill="#20e39f" font-size="9" font-weight="700" letter-spacing="1">6 · LIVE</text>
+        <text x="792" y="273" text-anchor="middle" fill="#f8f7f2" font-size="13" font-weight="700">konko.ai/cdmx/[slug]/</text>
       </g>
 
-      <!-- Arrow 2→3 -->
-      <line x1="445" y1="140" x2="495" y2="140" stroke="#63d4fa" stroke-width="2" marker-end="url(#arrow)"/>
-
-      <!-- Layer 3: Webflow CMS -->
+      <!-- Stage 7: FEEDBACK LOOPS (4 sources, expanded) -->
       <g>
-        <rect x="500" y="80" width="170" height="120" rx="12" fill="#0e1f35" stroke="url(#grad3)" stroke-width="2"/>
-        <text x="585" y="110" text-anchor="middle" fill="#ffc107" font-size="11" font-weight="700" letter-spacing="1">LAYER 3 · PRODUCTION</text>
-        <text x="585" y="138" text-anchor="middle" fill="#f8f7f2" font-size="18" font-weight="700">Webflow CMS</text>
-        <text x="585" y="160" text-anchor="middle" fill="#9ab5cc" font-size="11">1 template + N items</text>
-        <text x="585" y="178" text-anchor="middle" fill="#9ab5cc" font-size="11">= N URLs auto-deployed</text>
-      </g>
+        <rect x="20" y="310" width="840" height="160" rx="12" fill="#0a1525" stroke="#1a3a5c" stroke-width="1" stroke-dasharray="4 4"/>
+        <text x="440" y="335" text-anchor="middle" fill="#7a9ab8" font-size="10" font-weight="700" letter-spacing="2">7 · FEEDBACK LOOPS · CLOSING THE LOOP TO REVENUE + LEARNING</text>
 
-      <!-- Arrow 3→4 -->
-      <line x1="675" y1="140" x2="725" y2="140" stroke="#63d4fa" stroke-width="2" marker-end="url(#arrow)"/>
+        <!-- 5 feedback sources (added GSC) -->
+        <text x="105" y="368" text-anchor="middle" fill="#63d4fa" font-size="11" font-weight="700">GSC</text>
+        <text x="105" y="385" text-anchor="middle" fill="#9ab5cc" font-size="9">impressions, queries</text>
+        <text x="105" y="399" text-anchor="middle" fill="#9ab5cc" font-size="9">CTR, position</text>
+        <text x="105" y="413" text-anchor="middle" fill="#9ab5cc" font-size="9">indexation status</text>
 
-      <!-- Layer 4: Live URL -->
-      <g>
-        <rect x="730" y="80" width="120" height="120" rx="12" fill="rgba(32,227,159,.08)" stroke="url(#grad4)" stroke-width="2"/>
-        <text x="790" y="110" text-anchor="middle" fill="#20e39f" font-size="11" font-weight="700" letter-spacing="1">LIVE</text>
-        <text x="790" y="138" text-anchor="middle" fill="#f8f7f2" font-size="14" font-weight="700">konko.ai</text>
-        <text x="790" y="158" text-anchor="middle" fill="#20e39f" font-size="11">/cdmx/</text>
-        <text x="790" y="174" text-anchor="middle" fill="#20e39f" font-size="11">[slug]/</text>
-      </g>
+        <text x="270" y="368" text-anchor="middle" fill="#63d4fa" font-size="11" font-weight="700">GA4 → Looker</text>
+        <text x="270" y="385" text-anchor="middle" fill="#9ab5cc" font-size="9">scroll · CTAs</text>
+        <text x="270" y="399" text-anchor="middle" fill="#9ab5cc" font-size="9">engagement</text>
 
-      <!-- Bottom: feedback loops -->
-      <g>
-        <rect x="40" y="240" width="810" height="100" rx="12" fill="#0a1525" stroke="#1a3a5c" stroke-width="1" stroke-dasharray="4 4"/>
-        <text x="445" y="265" text-anchor="middle" fill="#7a9ab8" font-size="10" font-weight="700" letter-spacing="2">FEEDBACK LOOPS · CLOSING THE LOOP TO REVENUE</text>
-        <text x="160" y="295" text-anchor="middle" fill="#ced9e3" font-size="11" font-weight="600">GA4 → Looker</text>
-        <text x="160" y="312" text-anchor="middle" fill="#9ab5cc" font-size="10">page perf, scroll, CTAs</text>
-        <text x="370" y="295" text-anchor="middle" fill="#ced9e3" font-size="11" font-weight="600">HubSpot</text>
-        <text x="370" y="312" text-anchor="middle" fill="#9ab5cc" font-size="10">deal source = exact URL</text>
-        <text x="580" y="295" text-anchor="middle" fill="#ced9e3" font-size="11" font-weight="600">Slack alerts</text>
-        <text x="580" y="312" text-anchor="middle" fill="#9ab5cc" font-size="10">new SQL · kill signals</text>
-        <text x="780" y="295" text-anchor="middle" fill="#ced9e3" font-size="11" font-weight="600">Notion update</text>
-        <text x="780" y="312" text-anchor="middle" fill="#9ab5cc" font-size="10">ship/iterate/kill</text>
+        <text x="435" y="368" text-anchor="middle" fill="#fa5fe8" font-size="11" font-weight="700">HubSpot</text>
+        <text x="435" y="385" text-anchor="middle" fill="#9ab5cc" font-size="9">deal source =</text>
+        <text x="435" y="399" text-anchor="middle" fill="#9ab5cc" font-size="9">exact URL</text>
+
+        <text x="600" y="368" text-anchor="middle" fill="#ffc107" font-size="11" font-weight="700">Slack alerts</text>
+        <text x="600" y="385" text-anchor="middle" fill="#9ab5cc" font-size="9">new SQL</text>
+        <text x="600" y="399" text-anchor="middle" fill="#9ab5cc" font-size="9">kill signals</text>
+
+        <text x="765" y="368" text-anchor="middle" fill="#20e39f" font-size="11" font-weight="700">Notion update</text>
+        <text x="765" y="385" text-anchor="middle" fill="#9ab5cc" font-size="9">improve / scale</text>
+        <text x="765" y="399" text-anchor="middle" fill="#9ab5cc" font-size="9">merge / kill / noindex</text>
+
+        <!-- Loop arrow back to Notion -->
+        <text x="440" y="442" text-anchor="middle" fill="#fa5fe8" font-size="10" font-weight="700" letter-spacing="1">↻ FEEDBACK FEEDS BACK INTO NOTION DB → improve, expand winners, kill losers</text>
       </g>
     </svg>
   </div>
@@ -457,26 +488,62 @@ td code{font-size:11px}
     </div>
   </div>
 
-  <h3 data-en="Notion DB schema (the data layer)" data-es="Schema del Notion DB (la capa de data)">Notion DB schema (the data layer)</h3>
+  <h3 data-en="Notion DB schema · the data layer (28 fields, grouped)" data-es="Schema del Notion DB · la capa de data (28 campos, agrupados)">Notion DB schema · the data layer (28 fields, grouped)</h3>
+  <p data-en="Notion isn't just a database — it's an editorial OS. Each row carries strategy, content, automation, quality, measurement, revenue, and decision metadata. Below is the full schema, grouped by purpose:" data-es="Notion no es solo una base de datos — es un OS editorial. Cada fila lleva metadata de estrategia, contenido, automatización, calidad, medición, revenue, y decisión. Debajo el schema completo, agrupado por propósito:">Notion isn't just a database — it's an editorial OS.</p>
   <table>
     <thead><tr>
-      <th data-en="Field" data-es="Campo">Field</th><th data-en="Type" data-es="Tipo">Type</th><th data-en="Example (Urología row)" data-es="Ejemplo (row Urología)">Example (Urología row)</th>
+      <th data-en="Group" data-es="Grupo">Group</th><th data-en="Fields" data-es="Campos">Fields</th><th data-en="Example (Urología row)" data-es="Ejemplo (fila Urología)">Example (Urología row)</th>
     </tr></thead>
     <tbody>
-      <tr><td><code>specialty</code></td><td>Text</td><td>Urología</td></tr>
-      <tr><td><code>geo</code></td><td>Select</td><td>CDMX</td></tr>
-      <tr><td><code>slug</code></td><td>Text</td><td><code>urologia</code></td></tr>
-      <tr><td><code>h1</code></td><td>Text</td><td>Software para clínicas de urología en CDMX</td></tr>
-      <tr><td><code>subhead</code></td><td>Text</td><td data-en="The conversational assistant that schedules vasectomies..." data-es="El asistente conversacional que agenda vasectomías...">The conversational assistant that schedules vasectomies...</td></tr>
-      <tr><td><code>meta_title</code></td><td>Text</td><td>Software para clínicas de urología en CDMX | Kora</td></tr>
-      <tr><td><code>meta_desc</code></td><td>Text</td><td data-en="Up to 160 chars" data-es="Hasta 160 chars">Up to 160 chars</td></tr>
-      <tr><td><code>chat_overlay</code></td><td>Text</td><td>Hola, quiero agendar una vasectomía...</td></tr>
-      <tr><td><code>procedures</code></td><td>Multi-select</td><td>Vasectomía · cirugía láser próstata · cálculos renales</td></tr>
-      <tr><td><code>status</code></td><td>Select</td><td><span class="badge b-green">Live</span> / Draft / Killed</td></tr>
-      <tr><td><code>g_f_ratio</code></td><td>Number</td><td class="num">45.0</td></tr>
-      <tr><td><code>last_updated</code></td><td>Date</td><td>2026-04-28</td></tr>
+      <tr><td><strong data-en="Strategy" data-es="Estrategia">Strategy</strong></td><td><code>specialty</code> · <code>geo</code> · <code>icp_segment</code> · <code>intent</code> · <code>funnel_stage</code> · <code>g_f_ratio</code></td><td>Urología · CDMX · SMB-$15k+ · Transactional · Bottom · 45.0</td></tr>
+      <tr><td><strong>SEO</strong></td><td><code>main_keyword</code> · <code>secondary_keywords</code> · <code>meta_title</code> · <code>meta_desc</code> · <code>slug</code> · <code>canonical_url</code></td><td>software para clínicas de urología en CDMX · ...</td></tr>
+      <tr><td><strong data-en="Content" data-es="Contenido">Content</strong></td><td><code>h1</code> · <code>subhead</code> · <code>chat_overlay</code> · <code>procedures</code> · <code>faqs</code> · <code>cta</code> · <code>proof_points</code></td><td>H1 + 5 procedimientos urológicos + 3 FAQs específicas</td></tr>
+      <tr><td><strong data-en="Automation" data-es="Automatización">Automation</strong></td><td><code>status</code> · <code>publish_date</code> · <code>webflow_item_id</code> · <code>live_url</code></td><td><span class="badge b-green">Published</span> · 2026-04-28 · wf_xyz · konko.ai/cdmx/urologia/</td></tr>
+      <tr><td><strong data-en="Quality" data-es="Calidad">Quality</strong></td><td><code>uniqueness_score</code> · <code>human_reviewed_by</code> · <code>approved_by</code> · <code>approved_date</code></td><td>92% · JL · Miguel · 2026-04-28</td></tr>
+      <tr><td><strong data-en="Indexation" data-es="Indexación">Indexation</strong></td><td><code>index_status</code> · <code>sitemap_include</code> · <code>priority_score</code></td><td><span class="badge b-cyan">index</span> · true · 0.9</td></tr>
+      <tr><td><strong data-en="Measurement" data-es="Medición">Measurement</strong></td><td><code>impressions</code> · <code>clicks</code> · <code>ctr</code> · <code>avg_position</code> · <code>sessions</code> · <code>scroll_50</code> · <code>cta_clicks</code></td><td>auto-fed from GSC + GA4 daily</td></tr>
+      <tr><td><strong>Revenue</strong></td><td><code>leads</code> · <code>mqls</code> · <code>sqls</code> · <code>deals</code> · <code>customers</code> · <code>pipeline_value</code></td><td>auto-fed from HubSpot daily</td></tr>
+      <tr><td><strong data-en="Decision" data-es="Decisión">Decision</strong></td><td><code>action</code> · <code>last_decision_date</code></td><td><span class="badge b-amber">keep · expand · merge · noindex · kill</span></td></tr>
     </tbody>
   </table>
+
+  <h3 data-en="Lifecycle states · how a row moves through Notion" data-es="Lifecycle states · cómo una fila se mueve por Notion">Lifecycle states · how a row moves through Notion</h3>
+  <p data-en="A landing isn't &quot;built and forgotten&quot; — it cycles through 8 states. The status field gates everything downstream (n8n only picks up <code>Approved</code> rows; Webflow only deploys <code>Published</code>; Slack only alerts on state changes)." data-es="Una landing no es &quot;construida y olvidada&quot; — cicla por 8 estados. El campo status gates todo downstream (n8n solo agarra filas <code>Approved</code>; Webflow solo deploys <code>Published</code>; Slack solo alerta en cambios de estado).">8 states. The status field gates everything downstream.</p>
+  <div class="card">
+    <p style="margin:0;font-size:14px;color:#ced9e3;line-height:2.2">
+      <span class="badge b-cyan">1 · Idea</span> →
+      <span class="badge b-cyan">2 · Keyword Validated</span> →
+      <span class="badge b-amber">3 · Draft Generated</span> →
+      <span class="badge b-amber">4 · Human Review</span> →
+      <span class="badge b-green">5 · Approved</span> →
+      <span class="badge b-green">6 · Published</span> →
+      <span class="badge b-amber">7 · Needs Update</span> →
+      <span class="badge b-pink">8 · Kill / Noindex</span>
+    </p>
+  </div>
+
+  <h3 data-en="The Quality Gate · 9 validations before any page reaches production" data-es="El Quality Gate · 9 validaciones antes que cualquier página llegue a producción">The Quality Gate · 9 validations before any page reaches production</h3>
+  <p data-en="Programmatic SEO done badly = a Frankenstein with CMS · Google ranks you down for thin/duplicate content. The Quality Gate runs in n8n BEFORE Webflow ever sees the row. If any validation fails, status flips back to <code>Needs Update</code> with a Slack alert listing what to fix." data-es="Programmatic SEO mal hecho = un Frankenstein con CMS · Google te baja el ranking por contenido thin/duplicate. El Quality Gate corre en n8n ANTES que Webflow vea la fila. Si cualquier validación falla, status regresa a <code>Needs Update</code> con alerta en Slack listando qué arreglar.">Quality Gate runs in n8n BEFORE Webflow ever sees the row.</p>
+  <table>
+    <thead><tr>
+      <th>#</th><th data-en="Validation" data-es="Validación">Validation</th><th data-en="Rule" data-es="Regla">Rule</th>
+    </tr></thead>
+    <tbody>
+      <tr><td>1</td><td>H1</td><td data-en="Non-empty AND contains main keyword" data-es="No vacío Y contiene main keyword">Non-empty AND contains main keyword</td></tr>
+      <tr><td>2</td><td>Meta title</td><td data-en="≤ 60 characters · contains main keyword" data-es="≤ 60 caracteres · contiene main keyword">≤ 60 characters · contains main keyword</td></tr>
+      <tr><td>3</td><td>Meta description</td><td data-en="≤ 160 characters · contains specialty + geo" data-es="≤ 160 caracteres · contiene especialidad + geo">≤ 160 characters · contains specialty + geo</td></tr>
+      <tr><td>4</td><td data-en="Uniqueness" data-es="Unicidad">Uniqueness</td><td data-en="No more than 90% similarity vs any other published row" data-es="No más de 90% similaridad vs cualquier otra fila publicada">No more than 90% similarity vs any other published row</td></tr>
+      <tr><td>5</td><td data-en="Specialty + geo" data-es="Especialidad + geo">Specialty + geo</td><td data-en="Both must exist in the validated taxonomy" data-es="Ambos deben existir en la taxonomía validada">Both must exist in the validated taxonomy</td></tr>
+      <tr><td>6</td><td>CTA</td><td data-en="Primary CTA assigned · WhatsApp number valid" data-es="CTA primario asignado · número de WhatsApp válido">Primary CTA assigned · WhatsApp number valid</td></tr>
+      <tr><td>7</td><td>FAQ</td><td data-en="Minimum 3 specialty-specific questions" data-es="Mínimo 3 preguntas específicas a la especialidad">Minimum 3 specialty-specific questions</td></tr>
+      <tr><td>8</td><td>URL slug</td><td data-en="Lowercase · no special chars · no spaces · matches pattern" data-es="Lowercase · sin chars especiales · sin espacios · coincide con patrón">Lowercase · no special chars · matches pattern</td></tr>
+      <tr><td>9</td><td>Status</td><td data-en="Must be <code>Approved</code> by a human reviewer (not <code>Draft</code>)" data-es="Debe ser <code>Approved</code> por un human reviewer (no <code>Draft</code>)">Must be <code>Approved</code> by a human reviewer</td></tr>
+    </tbody>
+  </table>
+  <div class="box amber">
+    <h4 data-en="Why this matters" data-es="Por qué esto importa">Why this matters</h4>
+    <p data-en="Google doesn't penalize scale — it penalizes thin/duplicate content at scale. The Quality Gate is what separates programmatic SEO with a brain from programmatic SEO on steroids. <strong>Page #51 only goes live if it passes the same bar as page #1.</strong>" data-es="Google no penaliza escala — penaliza contenido thin/duplicate a escala. El Quality Gate es lo que separa programmatic SEO con cerebro de programmatic SEO con esteroides. <strong>La página #51 solo se publica si pasa el mismo bar que la página #1.</strong>">Google penalizes thin content at scale, not scale itself.</p>
+  </div>
 
   <h3 data-en="n8n workflow (the orchestration)" data-es="n8n workflow (la orquestación)">n8n workflow (the orchestration)</h3>
   <div class="card">
@@ -500,8 +567,43 @@ td code{font-size:11px}
 
   <div class="box pink">
     <h4 data-en="Time per new landing: 15 min vs. 8 hours" data-es="Tiempo por landing nueva: 15 min vs. 8 horas">Time per new landing: 15 min vs. 8 hours</h4>
-    <p data-en="Manual Lovable cloning = ~8 hours per new landing (duplicate, edit config, test, publish, document). System pipeline = ~15 minutes (write 1 Notion row, status=ready, n8n does the rest). 32× efficiency at landing #2. Compounds from there." data-es="Clonado manual en Lovable = ~8 horas por landing nueva (duplicate, editar config, test, publish, documentar). Pipeline del sistema = ~15 minutos (escribir 1 Notion row, status=ready, n8n hace el resto). 32× eficiencia en la landing #2. Se compone desde ahí.">Manual Lovable cloning = ~8 hours per new landing. System pipeline = ~15 minutes. 32× efficiency at landing #2. Compounds from there.</p>
+    <p data-en="Manual Lovable cloning = ~8 hours per new landing. System pipeline = ~15 minutes (write 1 Notion row, status=Approved, n8n does the rest including Quality Gate). 32× efficiency at landing #2. Compounds from there." data-es="Clonado manual en Lovable = ~8 horas por landing nueva. Pipeline del sistema = ~15 minutos (escribir 1 fila Notion, status=Approved, n8n hace el resto incluyendo Quality Gate). 32× eficiencia en la landing #2. Se compone desde ahí.">~8 hours manual vs ~15 min via system. 32× efficiency at landing #2.</p>
   </div>
+
+  <h3 data-en="Internal linking · auto-generated, not manual" data-es="Internal linking · auto-generado, no manual">Internal linking · auto-generated, not manual</h3>
+  <p data-en="A page with zero incoming internal links is an orphan — Google ignores it. The system auto-generates 5 internal link slots per landing, populated by n8n at deploy time:" data-es="Una página con cero internal links entrantes es una huérfana — Google la ignora. El sistema auto-genera 5 slots de internal link por landing, poblados por n8n al momento del deploy:">Auto-generated, not manual.</p>
+  <table>
+    <thead><tr>
+      <th data-en="Link slot" data-es="Slot de link">Link slot</th><th data-en="Target" data-es="Target">Target</th><th data-en="Example for /cdmx/urologia/" data-es="Ejemplo para /cdmx/urologia/">Example for /cdmx/urologia/</th>
+    </tr></thead>
+    <tbody>
+      <tr><td data-en="Parent · specialty" data-es="Madre · especialidad">Parent · specialty</td><td data-en="The specialty hub page (no geo)" data-es="La página hub de la especialidad (sin geo)">The specialty hub page (no geo)</td><td><code>konko.ai/urologia/</code></td></tr>
+      <tr><td data-en="Parent · geo" data-es="Madre · geo">Parent · geo</td><td data-en="The geo hub page (all specialties in CDMX)" data-es="La página hub de la geo (todas las especialidades en CDMX)">The geo hub page (all specialties in CDMX)</td><td><code>konko.ai/cdmx/</code></td></tr>
+      <tr><td data-en="Sibling · same specialty, other cities" data-es="Hermana · misma especialidad, otras ciudades">Sibling · same specialty, other cities</td><td data-en="Other geo pages of same specialty" data-es="Otras geo pages de misma especialidad">Other geo pages of same specialty</td><td><code>/gdl/urologia/</code> · <code>/mty/urologia/</code></td></tr>
+      <tr><td data-en="Sibling · same geo, other specialties" data-es="Hermana · misma geo, otras especialidades">Sibling · same geo, other specialties</td><td data-en="Top 3 G/F-ratio specialties in same geo" data-es="Top 3 especialidades por ratio G/F en misma geo">Top 3 G/F-ratio specialties in same geo</td><td><code>/cdmx/ginecologia/</code> · <code>/cdmx/dermatologia/</code></td></tr>
+      <tr><td data-en="Conversion · master" data-es="Conversión · master">Conversion · master</td><td data-en="The /cdmx/clinicas/ master + Konko home" data-es="La /cdmx/clinicas/ master + home de Konko">The /cdmx/clinicas/ master + Konko home</td><td><code>konko.ai/cdmx/clinicas/</code></td></tr>
+    </tbody>
+  </table>
+
+  <h3 data-en="Indexation control · which pages reach Google" data-es="Control de indexación · qué páginas llegan a Google">Indexation control · which pages reach Google</h3>
+  <p data-en="Not every page should be indexed from day 1. Risk in programmatic SEO isn't <em>creating</em> too many pages — it's <em>indexing</em> too many weak pages and being penalized for it. Three Notion fields gate this:" data-es="No toda página debe indexarse desde día 1. Riesgo en programmatic SEO no es <em>crear</em> muchas páginas — es <em>indexar</em> muchas páginas débiles y ser penalizado. Tres campos de Notion controlan esto:">Risk isn't creating pages — it's indexing weak pages.</p>
+  <div class="grid-3">
+    <div class="card"><h4><code>index_status</code></h4><p data-en="<code>index</code> for Approved + Published rows. <code>noindex</code> for Drafts, killed pages, low-quality variants. n8n writes the &lt;meta name=&quot;robots&quot;&gt; tag at deploy." data-es="<code>index</code> para filas Approved + Published. <code>noindex</code> para Drafts, páginas killed, variantes low-quality. n8n escribe el &lt;meta name=&quot;robots&quot;&gt; tag al deploy."><code>index</code> for Approved + Published. <code>noindex</code> for everything else.</p></div>
+    <div class="card"><h4><code>canonical_url</code></h4><p data-en="Prevents duplicate content penalties. If two specialty variants serve similar intent, one is canonical, the other points to it. n8n auto-fills based on G/F ratio (highest wins canonical)." data-es="Previene penalties de contenido duplicado. Si dos variantes de especialidad sirven intent similar, una es canónica, la otra apunta a ella. n8n auto-fillna basado en ratio G/F (el mayor gana canonical).">Highest G/F ratio wins canonical when intent overlaps.</p></div>
+    <div class="card"><h4><code>sitemap_include</code></h4><p data-en="<code>true</code> for high-priority pages (top G/F) submitted to Google Search Console sitemap. <code>false</code> for low-priority experiments — Google may still discover them via crawl, but they're not pushed." data-es="<code>true</code> para páginas high-priority (top G/F) enviadas al sitemap de Google Search Console. <code>false</code> para experimentos low-priority — Google puede descubrirlas via crawl, pero no se push."><code>true</code> only for top-priority. Low-priority experiments stay out of sitemap.</p></div>
+  </div>
+
+  <h3 data-en="Anti-Frankenstein · differentiation rules" data-es="Anti-Frankenstein · reglas de diferenciación">Anti-Frankenstein · differentiation rules</h3>
+  <p data-en="The biggest risk in programmatic SEO is creating pages that look identical except for the city/specialty name. Each landing must differentiate via at least 4 of these 7 dimensions:" data-es="El mayor riesgo en programmatic SEO es crear páginas que se ven idénticas excepto por el nombre de ciudad/especialidad. Cada landing debe diferenciarse en al menos 4 de estas 7 dimensiones:">Each landing differentiates on ≥ 4 of 7 dimensions.</p>
+  <ul>
+    <li data-en="<strong>Specific pain</strong> per specialty (vasectomy waiting time vs. prenatal control timing)" data-es="<strong>Dolor específico</strong> por especialidad (tiempo de espera en vasectomía vs. timing de control prenatal)"><strong>Specific pain</strong> per specialty</li>
+    <li data-en="<strong>Procedure-specific examples</strong> (rhinoplasty vs. acne treatment)" data-es="<strong>Ejemplos específicos de procedimientos</strong> (rinoplastia vs. tratamiento de acné)"><strong>Procedure-specific examples</strong></li>
+    <li data-en="<strong>Specialty-specific FAQs</strong> (3 unique Qs per specialty, not generic)" data-es="<strong>FAQs específicas a la especialidad</strong> (3 preguntas únicas por especialidad, no genéricas)"><strong>Specialty-specific FAQs</strong> (3 unique per page)</li>
+    <li data-en="<strong>Local data or context</strong> (CDMX market size, local benchmarks)" data-es="<strong>Data local o contexto</strong> (tamaño de mercado CDMX, benchmarks locales)"><strong>Local data / context</strong></li>
+    <li data-en="<strong>Specialty testimonials</strong> when available (real customer quotes per vertical)" data-es="<strong>Testimoniales por especialidad</strong> cuando estén disponibles (quotes reales de clientes por vertical)"><strong>Specialty testimonials</strong> when available</li>
+    <li data-en="<strong>CTAs adapted to intent</strong> (transactional vs research intent)" data-es="<strong>CTAs adaptados a la intención</strong> (transaccional vs research intent)"><strong>CTAs adapted to intent</strong></li>
+    <li data-en="<strong>Chat overlay literal</strong> showing a real-style WhatsApp message a patient of THAT specialty would send" data-es="<strong>Chat overlay literal</strong> mostrando un mensaje de WhatsApp real-style que un paciente de ESA especialidad enviaría"><strong>Chat overlay literal</strong> matching specialty patient language</li>
+  </ul>
 </section>
 
 <!-- ═══════════════════════════════════════════ SECTION 4 — CONVERSION & TRACKING ═══════════════════════════════════════════ -->
@@ -707,32 +809,100 @@ td code{font-size:11px}
   </h1>
   <p class="lead" data-en="The role owns SQL volume — not MQL. So qualification has to filter aggressively for ICP fit and buying intent BEFORE Sales touches the lead. The form is short (4 fields) to keep conversion high. Scoring happens in HubSpot via a workflow that uses Konko's existing ICP definition: $15k+/mo SMB or $50k+/mo mid-market." data-es="El rol owns volumen de SQL — no MQL. Entonces la calificación tiene que filtrar agresivamente por ICP fit e intención de compra ANTES que Sales toque el lead. El formulario es corto (4 campos) para mantener la conversión alta. Scoring sucede en HubSpot vía un workflow que usa la definición de ICP de Konko: $15k+/mes SMB o $50k+/mes mid-market.">The role owns SQL volume — not MQL. Qualification filters aggressively for ICP fit and buying intent.</p>
 
-  <h3 data-en="The form (4 fields, conversion-optimized)" data-es="El formulario (4 campos, optimizado para conversión)">The form (4 fields, conversion-optimized)</h3>
-  <div class="card">
-    <dl class="kv">
-      <dt data-en="1 · Name + Clinic name" data-es="1 · Nombre + Nombre de la clínica">1 · Name + Clinic name</dt>
-      <dd data-en="Free text, both required." data-es="Texto libre, ambos requeridos.">Free text, both required.</dd>
-      <dt data-en="2 · WhatsApp number" data-es="2 · Número de WhatsApp">2 · WhatsApp number</dt>
-      <dd data-en="With country code prefilled (🇲🇽 +52)." data-es="Con prefijo de país pre-rellenado (🇲🇽 +52).">With country code prefilled (🇲🇽 +52).</dd>
-      <dt data-en="3 · Monthly revenue range" data-es="3 · Rango de ingreso mensual">3 · Monthly revenue range</dt>
-      <dd data-en="Dropdown · &lt;$5k / $5–15k / $15–50k / $50k+ — this is the ICP gate." data-es="Dropdown · &lt;$5k / $5–15k / $15–50k / $50k+ — esta es la puerta del ICP.">Dropdown · &lt;$5k / $5–15k / $15–50k / $50k+ — this is the ICP gate.</dd>
-      <dt data-en="4 · Specialty" data-es="4 · Especialidad">4 · Specialty</dt>
-      <dd data-en="Dropdown of 20 specialties — auto-prefilled to the page's specialty (Urología on /urologia/, etc.) but editable." data-es="Dropdown de 20 especialidades — auto-prefill con la especialidad de la página (Urología en /urologia/, etc.) pero editable.">Dropdown of 20 specialties — auto-prefilled to the page's specialty.</dd>
-    </dl>
+  <h3 data-en="The form · 4 visible fields + 7 hidden (zero friction, max signal)" data-es="El formulario · 4 campos visibles + 7 ocultos (cero fricción, máxima señal)">The form · 4 visible fields + 7 hidden (zero friction, max signal)</h3>
+  <p data-en="Specialty doesn't need to be asked — the URL already tells us. We use that slot for <strong>Role in the clinic</strong>, which is the data we actually need to qualify decision-makers vs influencers. 7 hidden fields capture page context for cohort attribution." data-es="No hace falta preguntar la especialidad — la URL ya nos lo dice. Usamos ese slot para <strong>Role en la clínica</strong>, que es la data que realmente necesitamos para calificar decisores vs influencers. 7 campos ocultos capturan contexto de la página para cohort attribution.">Specialty is auto-captured from URL. The freed slot asks Role — the data needed to qualify decision-makers.</p>
+
+  <div class="grid-2">
+    <div class="card">
+      <h4 data-en="VISIBLE (4 fields)" data-es="VISIBLES (4 campos)">VISIBLE (4 fields)</h4>
+      <dl class="kv">
+        <dt data-en="1 · Name + Clinic name" data-es="1 · Nombre + Nombre clínica">1 · Name + Clinic name</dt>
+        <dd data-en="Free text, both required." data-es="Texto libre, ambos requeridos.">Free text, both required.</dd>
+        <dt data-en="2 · WhatsApp number" data-es="2 · Número WhatsApp">2 · WhatsApp number</dt>
+        <dd data-en="Country code prefilled (🇲🇽 +52)." data-es="Prefijo de país pre-rellenado (🇲🇽 +52).">Country code prefilled.</dd>
+        <dt data-en="3 · Role in the clinic" data-es="3 · Role en la clínica">3 · Role in the clinic</dt>
+        <dd data-en="Dropdown · Owner / Partner / Manager / Marketing / Other — <strong>this closes the &quot;decision-maker?&quot; gap</strong>." data-es="Dropdown · Owner / Partner / Manager / Marketing / Other — <strong>esto cierra el gap de &quot;¿decisor?&quot;</strong>.">Owner / Partner / Manager / Marketing / Other — closes the "decision-maker?" gap.</dd>
+        <dt data-en="4 · Monthly revenue range (USD)" data-es="4 · Ingreso mensual (USD)">4 · Monthly revenue range (USD)</dt>
+        <dd data-en="Dropdown · &lt;$5k / $5–15k / $15–50k / $50k+ — explicit USD because LATAM crosses MX peso, COP, CRC. The ICP gate." data-es="Dropdown · &lt;$5k / $5–15k / $15–50k / $50k+ — explícito USD porque LATAM cruza MXN, COP, CRC. El ICP gate.">Explicit USD because LATAM crosses MXN, COP, CRC. The ICP gate.</dd>
+      </dl>
+    </div>
+    <div class="card">
+      <h4 data-en="HIDDEN (auto-captured · 7 fields)" data-es="OCULTOS (auto-capturados · 7 campos)">HIDDEN (auto-captured · 7 fields)</h4>
+      <ul style="font-size:13px">
+        <li><code>specialty</code> — <span data-en="auto-filled from URL slug (e.g., /cdmx/urologia/ → Urología)" data-es="auto-lleno desde URL slug (ej., /cdmx/urologia/ → Urología)">auto-filled from URL slug</span></li>
+        <li><code>page_url</code> — <span data-en="exact landing URL that converted them" data-es="URL exacto de landing que convirtió">exact landing URL</span></li>
+        <li><code>slug</code> — <span data-en="for cohort grouping" data-es="para agrupar cohorts">for cohort grouping</span></li>
+        <li><code>utm_source</code> · <code>utm_medium</code> · <code>utm_campaign</code> — <span data-en="full attribution chain" data-es="cadena completa de atribución">full attribution chain</span></li>
+        <li><code>country</code> — <span data-en="inferred from page geo" data-es="inferido desde geo de la página">inferred from page geo</span></li>
+      </ul>
+    </div>
   </div>
 
-  <h3 data-en="HubSpot workflow — Lead → MQL → SQL" data-es="HubSpot workflow — Lead → MQL → SQL">HubSpot workflow — Lead → MQL → SQL</h3>
+  <h3 data-en="HubSpot workflow · Lead → MQL → SQL (3-condition gates, no disconnects)" data-es="HubSpot workflow · Lead → MQL → SQL (gates de 3 condiciones, sin disconnects)">HubSpot workflow · Lead → MQL → SQL (3-condition gates)</h3>
   <table>
     <thead><tr>
-      <th data-en="Stage" data-es="Etapa">Stage</th><th data-en="Trigger" data-es="Trigger">Trigger</th><th data-en="Auto-action" data-es="Auto-action">Auto-action</th><th>SLA</th>
+      <th data-en="Stage" data-es="Etapa">Stage</th><th data-en="Trigger (all conditions must match)" data-es="Trigger (todas las condiciones deben coincidir)">Trigger (all conditions must match)</th><th data-en="Auto-action" data-es="Auto-action">Auto-action</th><th>SLA</th>
     </tr></thead>
     <tbody>
-      <tr><td><span class="badge b-cyan">Lead</span></td><td data-en="Form submit" data-es="Form submit">Form submit</td><td data-en="Create contact + deal · auto-enrich · score 0" data-es="Crear contact + deal · auto-enriquecer · score 0">Create contact + deal · auto-enrich · score 0</td><td data-en="Instant" data-es="Instantáneo">Instant</td></tr>
-      <tr><td><span class="badge b-amber">MQL</span></td><td data-en="Revenue ≥ $15k AND specialty in 20 list" data-es="Revenue ≥ $15k AND especialidad en lista 20">Revenue ≥ $15k AND specialty in 20 list</td><td data-en="Auto-route to SDR queue · score 50 · WhatsApp #1 fires" data-es="Auto-route a queue de SDR · score 50 · WhatsApp #1 dispara">Auto-route to SDR queue · score 50 · WhatsApp #1 fires</td><td data-en="&lt; 5 min" data-es="&lt; 5 min">&lt; 5 min</td></tr>
-      <tr><td><span class="badge b-green">SQL</span></td><td data-en="SDR confirms ICP fit + buying intent in first call" data-es="SDR confirma ICP fit + intención de compra en primera call">SDR confirms ICP fit + buying intent in first call</td><td data-en="Move to AE · score 80 · book demo · CRM stage update" data-es="Mover a AE · score 80 · agendar demo · update stage en CRM">Move to AE · score 80 · book demo · CRM stage update</td><td data-en="&lt; 24 hr" data-es="&lt; 24 hr">&lt; 24 hr</td></tr>
-      <tr><td><span class="badge b-pink">Disqualify</span></td><td data-en="Revenue &lt; $15k OR not a clinic owner" data-es="Revenue &lt; $15k O no es dueño de clínica">Revenue &lt; $15k OR not a clinic owner</td><td data-en="Auto-tag &quot;below ICP&quot; · move to nurture sequence · don't burn SDR time" data-es="Auto-tag &quot;below ICP&quot; · mover a nurture sequence · no quemar tiempo del SDR">Auto-tag · move to nurture · don't burn SDR time</td><td data-en="Instant" data-es="Instantáneo">Instant</td></tr>
+      <tr><td><span class="badge b-cyan">Lead</span></td><td data-en="Form submit" data-es="Form submit">Form submit</td><td data-en="Create contact + deal · auto-enrich · run scoring engine (see below)" data-es="Crear contact + deal · auto-enriquecer · correr motor de scoring (ver debajo)">Create contact + deal · auto-enrich · run scoring engine</td><td data-en="Instant" data-es="Instantáneo">Instant</td></tr>
+      <tr><td><span class="badge b-amber">MQL</span></td><td data-en="<strong>(1)</strong> Revenue ≥ $15K USD <strong>(2)</strong> Specialty in ICP list <strong>(3) Role = Owner / Partner / Decision-maker</strong>" data-es="<strong>(1)</strong> Revenue ≥ $15K USD <strong>(2)</strong> Specialty en ICP list <strong>(3) Role = Owner / Partner / Decisor</strong>">(1) Revenue ≥ $15K USD AND (2) Specialty in ICP list AND (3) Role = Owner / Partner / Decision-maker</td><td data-en="Auto-route by tier (see Lead Scoring below) · WhatsApp fires by tier" data-es="Auto-route por tier (ver Lead Scoring debajo) · WhatsApp dispara por tier">Auto-route by tier (see Lead Scoring) · WhatsApp by tier</td><td data-en="&lt; 5 min (Hot) · 1 hr (Warm)" data-es="&lt; 5 min (Hot) · 1 hr (Warm)">&lt; 5 min (Hot) · 1 hr (Warm)</td></tr>
+      <tr><td><span class="badge b-green">SQL</span></td><td data-en="SDR confirms 5 SQL criteria in first call (see explicit criteria below)" data-es="SDR confirma los 5 criterios SQL en primera call (ver criterios explícitos debajo)">SDR confirms 5 SQL criteria in first call (see below)</td><td data-en="Move to AE · score 80 · book demo · CRM stage update" data-es="Mover a AE · score 80 · agendar demo · update stage en CRM">Move to AE · book demo · CRM stage update</td><td data-en="&lt; 24 hr" data-es="&lt; 24 hr">&lt; 24 hr</td></tr>
+      <tr><td><span class="badge b-pink">Disqualify</span></td><td data-en="Revenue &lt; $5K USD OR not clinic-related (validated against taxonomy)" data-es="Revenue &lt; $5K USD O no relacionado a clínica (validado vs taxonomía)">Revenue &lt; $5K USD OR not clinic-related</td><td data-en="Auto-tag · light nurture (email-only) · don't burn SDR time" data-es="Auto-tag · nurture ligero (solo email) · no quemar tiempo del SDR">Auto-tag · light nurture (email-only)</td><td data-en="Instant" data-es="Instantáneo">Instant</td></tr>
     </tbody>
   </table>
+
+  <h3 data-en="Lead Scoring System · 0–100 scale, not pass/fail" data-es="Sistema de Lead Scoring · escala 0–100, no pass/fail">Lead Scoring System · 0–100 scale, not pass/fail</h3>
+  <p data-en="Binary qualification (pass/fail) loses leads who don't perfectly fit ICP but have intent. A 0–100 score with tier-based routing keeps everyone in the funnel — but at the right intensity. SDR/AE time goes only to top tier." data-es="Calificación binaria (pass/fail) pierde leads que no calzan perfecto en ICP pero tienen intención. Un score 0–100 con routing por tier mantiene a todos en el funnel — pero con la intensidad correcta. Tiempo de SDR/AE solo va al tier superior.">Binary loses leads with intent. Score keeps everyone in funnel at the right intensity.</p>
+  <div class="grid-2">
+    <div class="card">
+      <h4 data-en="Scoring criteria" data-es="Criterios de scoring">Scoring criteria</h4>
+      <table>
+        <thead><tr><th data-en="Signal" data-es="Señal">Signal</th><th>Score</th></tr></thead>
+        <tbody>
+          <tr><td data-en="Revenue $15K–$50K USD" data-es="Revenue $15K–$50K USD">Revenue $15K–$50K USD</td><td class="num">+25</td></tr>
+          <tr><td data-en="Revenue $50K+ USD" data-es="Revenue $50K+ USD">Revenue $50K+ USD</td><td class="num">+40</td></tr>
+          <tr><td data-en="Specialty in ICP list (20 specialties)" data-es="Specialty en ICP list (20 especialidades)">Specialty in ICP list</td><td class="num">+20</td></tr>
+          <tr><td data-en="Role = Owner / Partner" data-es="Role = Owner / Partner">Role = Owner / Partner</td><td class="num">+25</td></tr>
+          <tr><td data-en="Role = Manager / Marketing lead" data-es="Role = Manager / Marketing lead">Role = Manager / Marketing lead</td><td class="num">+10</td></tr>
+          <tr><td data-en="Came from high-intent SEO page" data-es="Vino de página SEO de alta intención">Came from high-intent SEO page</td><td class="num">+15</td></tr>
+          <tr><td data-en="Engagement signals (CTA click + scroll 75%)" data-es="Señales de engagement (CTA click + scroll 75%)">Engagement signals (CTA + scroll 75%)</td><td class="num">+10</td></tr>
+          <tr><td data-en="Revenue &lt; $5K USD" data-es="Revenue &lt; $5K USD">Revenue &lt; $5K USD</td><td class="num" style="color:#fa5fe8">−30</td></tr>
+          <tr><td data-en="Not clinic-related" data-es="No relacionado a clínica">Not clinic-related</td><td class="num" style="color:#fa5fe8" data-en="Disqualify" data-es="Disqualify">Disqualify</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h4 data-en="Tier routing · what happens at each score" data-es="Routing por tier · qué pasa en cada score">Tier routing · what happens at each score</h4>
+      <table>
+        <thead><tr><th>Tier</th><th>Score</th><th data-en="Action" data-es="Acción">Action</th></tr></thead>
+        <tbody>
+          <tr><td><span class="badge b-green">Hot MQL</span></td><td><strong>70+</strong></td><td data-en="SDR immediate · WhatsApp #1 in &lt;5 min · Slack alert to #growth · SDR voice note day 3" data-es="SDR inmediato · WhatsApp #1 en &lt;5 min · Slack alert a #growth · voice note del SDR día 3">SDR immediate · WA #1 &lt;5 min · Slack alert · SDR voice note day 3</td></tr>
+          <tr><td><span class="badge b-amber">Warm MQL</span></td><td><strong>45–69</strong></td><td data-en="WhatsApp #1 + #3 only · email full sequence · NO SDR time invested" data-es="WhatsApp #1 + #3 solo · secuencia completa de email · SIN tiempo de SDR">WhatsApp #1 + #3 only · email full sequence · NO SDR time</td></tr>
+          <tr><td><span class="badge b-cyan">Nurture</span></td><td><strong>20–44</strong></td><td data-en="Email-only educational sequence · long-term newsletter at day 14" data-es="Secuencia solo email educativa · long-term newsletter al día 14">Email-only educational · long-term newsletter day 14</td></tr>
+          <tr><td><span class="badge b-pink">Disqualified</span></td><td><strong>&lt;20</strong></td><td data-en="Light nurture or exclude entirely · no live sales touch" data-es="Nurture ligero o excluir totalmente · sin live sales touch">Light nurture or exclude · no live sales touch</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="box amber">
+    <h4 data-en="Why Slack alerts only fire for Hot MQL" data-es="Por qué Slack alerts solo disparan para Hot MQL">Why Slack alerts only fire for Hot MQL</h4>
+    <p data-en="If every lead triggers Slack, the team treats Slack like a family WhatsApp group during the holidays — they ignore it. Slack alerts are a scarce attention resource. They fire only for Hot MQL (score 70+), where speed of response materially impacts conversion." data-es="Si cada lead dispara Slack, el equipo trata Slack como un grupo familiar de WhatsApp en navidad — lo ignora. Las alertas de Slack son un recurso de atención escaso. Disparan solo para Hot MQL (score 70+), donde la velocidad de respuesta impacta materialmente la conversión.">Slack attention is scarce. Alert only fires for Hot MQL (70+).</p>
+  </div>
+
+  <h3 data-en="SQL · the 5 criteria SDR must confirm in first call" data-es="SQL · los 5 criterios que el SDR debe confirmar en la primera call">SQL · the 5 criteria SDR must confirm in first call</h3>
+  <p data-en="SDR shouldn't qualify by &quot;feeling&quot;. SQL is reached only when the SDR explicitly checks 5 things in first call:" data-es="El SDR no debe calificar &quot;a sentimiento&quot;. SQL se alcanza solo cuando el SDR chequea explícitamente 5 cosas en primera call:">SDR shouldn't qualify "by feeling". 5 explicit checks.</p>
+  <ol style="font-size:14px;line-height:1.8">
+    <li data-en="<strong>Decision authority confirmed</strong> — Owner, partner, or budget-holder (form Role validated verbally)" data-es="<strong>Autoridad de decisión confirmada</strong> — Owner, partner o budget-holder (Role del form validado verbalmente)"><strong>Decision authority confirmed</strong> — Owner / partner / budget-holder</li>
+    <li data-en="<strong>Budget or pay capacity exists</strong> — &quot;Could you allocate $X/mo to this?&quot; (anchor priced)" data-es="<strong>Existe budget o capacidad de pago</strong> — &quot;¿Podrías asignar $X/mes a esto?&quot; (anclado a precio)"><strong>Budget / pay capacity exists</strong></li>
+    <li data-en="<strong>Active need</strong> — has the pain right now, not researching for &quot;next year&quot;" data-es="<strong>Necesidad activa</strong> — tiene el dolor ahora, no investigando para &quot;el año que viene&quot;"><strong>Active need</strong> — pain is current, not future</li>
+    <li data-en="<strong>30–90 day timeline</strong> to solve — verbal commitment to act in that window" data-es="<strong>Timeline 30–90 días</strong> para resolver — commitment verbal de actuar en esa ventana"><strong>30–90 day timeline</strong> to solve</li>
+    <li data-en="<strong>Accepts AE / strategy call</strong> — books the call in real-time during the SDR call (no &quot;I'll think about it&quot;)" data-es="<strong>Acepta call con AE / estrategia</strong> — agenda en tiempo real durante la call del SDR (no &quot;lo pienso&quot;)"><strong>Accepts AE / strategy call</strong> — books in real-time</li>
+  </ol>
+  <div class="box green">
+    <h4 data-en="Why 5 explicit criteria (not just &quot;ICP fit + intent&quot;)" data-es="Por qué 5 criterios explícitos (no solo &quot;ICP fit + intent&quot;)">Why 5 explicit criteria (not just "ICP fit + intent")</h4>
+    <p data-en="Vague criteria = inconsistent SQLs across SDRs. AE meetings get polluted with leads that &quot;felt right&quot; but weren't. Explicit criteria = consistent SQL definition, comparable conversion rates across SDRs, AE time protected." data-es="Criterios vagos = SQLs inconsistentes entre SDRs. Las reuniones de AE se contaminan con leads que &quot;se sentían right&quot; pero no lo estaban. Criterios explícitos = definición consistente de SQL, tasas de conversión comparables entre SDRs, tiempo de AE protegido.">Vague criteria = inconsistent SQLs. Explicit = comparable rates + AE time protected.</p>
+  </div>
 
   <div class="box green">
     <h4 data-en="Why qualifying BEFORE Sales talks matters" data-es="Por qué calificar ANTES que Sales hable importa">Why qualifying BEFORE Sales talks matters</h4>
